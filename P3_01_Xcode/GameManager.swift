@@ -26,11 +26,19 @@ class GameManager {
         gameManager.prepareTheWarriors(to: player1)
         gameManager.prepareTheWarriors(to: player2)
         
-        var warriorSelectedByP1 = player1.chooseAWarrior()
-        var targetSelected = player1.chooseTarget(enemyPlayer: player2)
-        print(targetSelected.name)
-        player1.action(from: warriorSelectedByP1, to: targetSelected)
+        var gameChecker: Bool = false
         
+        while gameChecker != true {
+            let warriorSelectedByP1 = player1.chooseAWarrior()
+            let targetSelectedByP1 = player1.chooseTarget(enemyPlayer: player2)
+            player1.action(from: warriorSelectedByP1, to: targetSelectedByP1, enemyPlayer: player2)
+            gameChecker = gameManager.checkTheHealthOfTheWarriors(player2)
+            
+            let warriorSelectedByP2 = player2.chooseAWarrior()
+            let targetSelectedByP2 = player2.chooseTarget(enemyPlayer: player1)
+            player2.action(from: warriorSelectedByP2, to: targetSelectedByP2, enemyPlayer: player1)
+            gameChecker = gameManager.checkTheHealthOfTheWarriors(player1)
+        }
         
     }
     
@@ -86,6 +94,29 @@ class GameManager {
             }
             
         }
+    }
+    
+    func checkTheHealthOfTheWarriors(_ fromTheArray: Player) -> Bool {
+        
+        var i = 0
+        for warrior in fromTheArray.warriors{
+            
+            if warrior.lifePoints <= 0 {
+                fromTheArray.warriors.remove(at: i)
+            }
+            i += 1
+        }
+        
+        if fromTheArray.warriors.count == 0 {
+            print("GAME OVER")
+            return gameManager.gameOver()
+        }
+        
+        return false
+    }
+    
+    func gameOver() -> Bool {
+        return true
     }
     
 }

@@ -60,12 +60,13 @@ class Player {
     }
     
     func chooseAWarrior() -> Warrior {
-        var numberOfWarrior = warriors.count - 2
-        print("== Which warrior do you want to choose to perform an action? ==")
+        print("                    @\(self.name)")
+        print("Which warrior do you want to choose to perform an action?")
         
+        var numberOfWarrior = 0
         for warrior in self.warriors {
-            print("Enter \(numberOfWarrior) to select \(warrior.name) class : \(type(of: warrior))")
             numberOfWarrior += 1
+            print("Enter \(numberOfWarrior) to select \(warrior.name) class : \(type(of: warrior))")
         }
         
         let choice = gameManager.getUserInputAsString()
@@ -128,7 +129,7 @@ class Player {
         
     }
     
-    func action(from warrior1: Warrior, to warrior2: Warrior) {
+    func action(from warrior1: Warrior, to warrior2: Warrior, enemyPlayer: Player) {
         print("Press NOW e to heal or f to hit instantly \(warrior2.name)")
         let healOrHit = gameManager.getUserInputAsString()
         
@@ -141,7 +142,11 @@ class Player {
         case "f":
             print("\(warrior2.name) has \(warrior2.lifePoints)")
             print("// Attack is coming //")
-            warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
+            if warrior1.attackPoints + warrior1.weapon.damage > warrior2.lifePoints {
+                warrior2.lifePoints = 0
+            } else {
+                warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
+            }
             print("\(warrior2.name) has \(warrior2.lifePoints)")
         default:
             print("\(warrior2.name) has \(warrior2.lifePoints)")
@@ -149,6 +154,7 @@ class Player {
             warrior2.lifePoints += warrior1.attackPoints + warrior1.weapon.damage
             print("\(warrior2.name) has \(warrior2.lifePoints)")
         }
+        
     }
     
     
