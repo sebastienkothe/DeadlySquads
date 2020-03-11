@@ -106,7 +106,7 @@ class Player {
             case "2":
                 return self.warriors[1]
             case "3":
-                return self.warriors[3]
+                return self.warriors[2]
             default:
                 return self.warriors[0]
             }

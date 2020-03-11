@@ -32,11 +32,13 @@ class GameManager {
             let warriorSelectedByP1 = player1.chooseAWarrior()
             let targetSelectedByP1 = player1.chooseTarget(enemyPlayer: player2)
             player1.action(from: warriorSelectedByP1, to: targetSelectedByP1, enemyPlayer: player2)
+            
             gameChecker = gameManager.checkTheHealthOfTheWarriors(player2)
             
             let warriorSelectedByP2 = player2.chooseAWarrior()
             let targetSelectedByP2 = player2.chooseTarget(enemyPlayer: player1)
             player2.action(from: warriorSelectedByP2, to: targetSelectedByP2, enemyPlayer: player1)
+            
             gameChecker = gameManager.checkTheHealthOfTheWarriors(player1)
         }
         
@@ -103,6 +105,7 @@ class GameManager {
             
             if warrior.lifePoints <= 0 {
                 fromTheArray.warriors.remove(at: i)
+                print("\(warrior.name) is dead !")
             }
             i += 1
         }
