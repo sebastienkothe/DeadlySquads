@@ -1,5 +1,5 @@
 //
-//  main.swift
+//  Bow.swift
 //  P3_01_Xcode
 //
 //  Created by Sébastien Kothé on 10/03/2020.
@@ -8,6 +8,10 @@
 
 import Foundation
 
-let gameManager = GameManager()
+class Bow : Weapon {
+    
+    init() {
+        super.init(damage: 15)
+    }
+}
 
-gameManager.startNewGame()

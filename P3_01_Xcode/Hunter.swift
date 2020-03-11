@@ -1,5 +1,5 @@
 //
-//  main.swift
+//  Hunter.swift
 //  P3_01_Xcode
 //
 //  Created by Sébastien Kothé on 10/03/2020.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-let gameManager = GameManager()
-
-gameManager.startNewGame()
+class Hunter : Warrior {
+    
+}
