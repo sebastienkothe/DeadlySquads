@@ -73,12 +73,12 @@ class Player {
     func chooseAWarrior() -> Warrior {
         print("➡️ \(self.name)")
         print("")
-        print("Choose your warrior to perform an action")
+        print("Choose your warrior to perform an action 📯")
         
         var numberOfWarrior = 0
         for warrior in self.warriors {
             numberOfWarrior += 1
-            print("\(numberOfWarrior). \(warrior.name) (\(type(of: warrior)))")
+            print("\(numberOfWarrior). ▶︎ \(warrior.name) (\(type(of: warrior)))")
         }
         print("")
         let choice = gameManager.getUserInputAsString()
@@ -95,7 +95,8 @@ class Player {
             warriorSelected = warriors[0]
         }
         print("")
-        print("You choosed \(warriorSelected.name) the \(type(of: warriorSelected))")
+        print("You choosed")
+        print("▶︎ \(warriorSelected.name) the \(type(of: warriorSelected))")
         return warriorSelected
     }
     
@@ -104,15 +105,15 @@ class Player {
         
         print("")
         print("Do you want target an ally or an enemy ? 🎯")
-        print("1. Ally")
-        print("2. Enemy")
+        print("1. ▶︎ Ally")
+        print("2. ▶︎ Enemy")
         print("")
         
         let attackOrHeal = gameManager.getUserInputAsString()
         
         if attackOrHeal == "1" {
             print("")
-            print("Which ally do you want to heal?")
+            print("Which ally do you want to heal? 💉")
             gameManager.ShowTheTeamMembers(of: self)
             let target = gameManager.getUserInputAsString()
             
@@ -128,7 +129,7 @@ class Player {
             }
         } else {
             print("")
-            print("Which enemy do you want to attack?")
+            print("Which enemy do you want to attack? 🪓")
             print("")
             gameManager.ShowTheTeamMembers(of: enemyPlayer)
             let target = gameManager.getUserInputAsString()
@@ -148,15 +149,20 @@ class Player {
     }
     
     func action(from warrior1: Warrior, to warrior2: Warrior, enemyPlayer: Player) {
-        print("Press NOW e to heal 💊 or f to hit 🪓 instantly \(warrior2.name)")
+        print("")
+        print("Press e to heal 💉 \(warrior2.name)")
+        print("Press f to hit 🪓 \(warrior2.name)")
+        print("")
         let healOrHit = gameManager.getUserInputAsString()
+        print("")
         
         switch healOrHit {
         case "e":
             print("\(warrior2.name) has \(warrior2.lifePoints) life points")
             print("💉 Heal is coming 💉")
             warrior2.lifePoints += warrior1.attackPoints + warrior1.weapon.damage
-            print("\(warrior2.name) has \(warrior2.lifePoints) life points")
+            print("\(warrior2.name) has now \(warrior2.lifePoints) life points")
+            print("")
         case "f":
             print("\(warrior2.name) has \(warrior2.lifePoints) life points")
             print("💥 Attack is coming 💥")
@@ -165,12 +171,14 @@ class Player {
             } else {
                 warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
             }
-            print("\(warrior2.name) has \(warrior2.lifePoints) life points")
+            print("\(warrior2.name) has now \(warrior2.lifePoints) life points")
+            print("")
         default:
             print("\(warrior2.name) has \(warrior2.lifePoints) life points")
             print("💉 Heal is coming 💉")
             warrior2.lifePoints += warrior1.attackPoints + warrior1.weapon.damage
             print("\(warrior2.name) has \(warrior2.lifePoints) life points")
+            print("")
         }
         
     }
