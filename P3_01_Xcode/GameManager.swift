@@ -35,6 +35,10 @@ class GameManager {
             
             gameChecker = gameManager.checkTheHealthOfTheWarriors(player2)
             
+            if gameChecker {
+                break
+            }
+            
             let warriorSelectedByP2 = player2.chooseAWarrior()
             let targetSelectedByP2 = player2.chooseTarget(enemyPlayer: player1)
             player2.action(from: warriorSelectedByP2, to: targetSelectedByP2, enemyPlayer: player1)
