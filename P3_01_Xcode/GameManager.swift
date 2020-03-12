@@ -27,21 +27,25 @@ class GameManager {
         gameManager.prepareTheWarriors(to: player2)
         
         var gameChecker: Bool = false
+        var counter = 0
         
         while gameChecker != true {
+            
             let warriorSelectedByP1 = player1.chooseAWarrior()
             let targetSelectedByP1 = player1.chooseTarget(enemyPlayer: player2)
             player1.action(from: warriorSelectedByP1, to: targetSelectedByP1, enemyPlayer: player2)
             
             gameChecker = gameManager.checkTheHealthOfTheWarriors(of: player2, enemyPlayer: player1)
-            
+                
             if gameChecker {
+                print("🏁 Number of laps : \(counter)")
                 break
             }
             
             gameChecker = gameManager.checkTheHealthOfTheWarriors(of: player1, enemyPlayer: player2)
             
             if gameChecker {
+                print("🏁 Number of laps : \(counter)")
                 break
             }
             
@@ -51,7 +55,10 @@ class GameManager {
             
             gameChecker = gameManager.checkTheHealthOfTheWarriors(of: player1, enemyPlayer: player2)
             
+            counter += 1
+            
             if gameChecker {
+                print("🏁 Number of laps : \(counter)")
                 break
             }
             
@@ -133,6 +140,13 @@ class GameManager {
             print("GAME OVER")
             print("🙈 \(fromTheArray.name) lost the game...")
             print("\(enemyPlayer.name) wins❗️")
+            
+            print("")
+            
+            print("Remaining warriors of \(enemyPlayer.name) :")
+            for warrior in enemyPlayer.warriors {
+                print("🏋️‍♂️ \(warrior.name) with \(warrior.lifePoints) life points.")
+            }
             return gameManager.gameOver()
         }
         
@@ -141,6 +155,10 @@ class GameManager {
     
     func gameOver() -> Bool {
         return true
+    }
+    
+    func countLaps(laps: Int) -> Int {
+        return laps
     }
     
 }
