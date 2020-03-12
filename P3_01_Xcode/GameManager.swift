@@ -39,11 +39,23 @@ class GameManager {
                 break
             }
             
+            gameChecker = gameManager.checkTheHealthOfTheWarriors(of: player1, enemyPlayer: player2)
+            
+            if gameChecker {
+                break
+            }
+            
             let warriorSelectedByP2 = player2.chooseAWarrior()
             let targetSelectedByP2 = player2.chooseTarget(enemyPlayer: player1)
             player2.action(from: warriorSelectedByP2, to: targetSelectedByP2, enemyPlayer: player1)
             
             gameChecker = gameManager.checkTheHealthOfTheWarriors(of: player1, enemyPlayer: player2)
+            
+            if gameChecker {
+                break
+            }
+            
+            gameChecker = gameManager.checkTheHealthOfTheWarriors(of: player2, enemyPlayer: player1)
         }
         
     }
@@ -110,14 +122,17 @@ class GameManager {
             
             if warrior.lifePoints <= 0 {
                 fromTheArray.warriors.remove(at: i)
-                print("Unbelievable 😱, \(warrior.name) is dead ! ⚰️")
+                print("😱 Unbelievable 😱")
+                print("\(warrior.name) is dead ! ⚰️")
+                print("")
             }
             i += 1
         }
         
         if fromTheArray.warriors.count == 0 {
-            print("GAME OVER❗️")
-            print("\(fromTheArray.name) lost the game 👾. \(enemyPlayer.name) wins❗️")
+            print("GAME OVER")
+            print("🙈 \(fromTheArray.name) lost the game...")
+            print("\(enemyPlayer.name) wins❗️")
             return gameManager.gameOver()
         }
         

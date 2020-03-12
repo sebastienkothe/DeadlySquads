@@ -26,7 +26,7 @@ class Player {
         while warriors.count < 3 {
             print("➡️ \(self.name)")
             print("")
-            print("Choose your warrior n°\(numberOfWarrior)")
+            print("Choose your warrior n°\(numberOfWarrior) :")
             print("1. 🟡 Rogue ")
             print("2. 🔵 Mage ")
             print("3. 🟢 Hunter ")
@@ -40,27 +40,27 @@ class Player {
             switch choice {
             case "1":
                 print("")
-                print("Choose the name of your Rogue ✍️")
+                print("✍️ Choose the name of your Rogue :")
                 warriors.append(Rogue(name: gameManager.getUserInputAsString()))
                 print("")
             case "2":
                 print("")
-                print("Choose the name of your Mage ✍️")
+                print("✍️ Choose the name of your Mage :")
                 warriors.append(Mage(name: gameManager.getUserInputAsString()))
                 print("")
             case "3":
                 print("")
-                print("Choose the name of your Hunter ✍️")
+                print("✍️ Choose the name of your Hunter :")
                 warriors.append(Hunter(name: gameManager.getUserInputAsString()))
                 print("")
             case "4":
                 print("")
-                print("Choose the name of your Priest ✍️")
+                print("✍️ Choose the name of your Priest :")
                 warriors.append(Priest(name: gameManager.getUserInputAsString()))
                 print("")
             default:
                 print("")
-                print("Choose the name of your Rogue ✍️")
+                print("✍️ Choose the name of your Rogue :")
                 warriors.append(Rogue(name: gameManager.getUserInputAsString()))
                 print("")
             }
@@ -73,12 +73,12 @@ class Player {
     func chooseAWarrior() -> Warrior {
         print("➡️ \(self.name)")
         print("")
-        print("Choose your warrior to perform an action 📯")
+        print("🗣 Choose your warrior to perform an action :")
         
         var numberOfWarrior = 0
         for warrior in self.warriors {
             numberOfWarrior += 1
-            print("\(numberOfWarrior). ▶︎ \(warrior.name) (\(type(of: warrior)))")
+            print("➤ \(numberOfWarrior) \(warrior.name) (\(type(of: warrior)))")
         }
         print("")
         let choice = gameManager.getUserInputAsString()
@@ -96,7 +96,7 @@ class Player {
         }
         print("")
         print("You choosed")
-        print("▶︎ \(warriorSelected.name) the \(type(of: warriorSelected))")
+        print("📍 \(warriorSelected.name) the \(type(of: warriorSelected))")
         return warriorSelected
     }
     
@@ -104,16 +104,16 @@ class Player {
         let arrayOfPlayers = gameManager.players
         
         print("")
-        print("Do you want target an ally or an enemy ? 🎯")
-        print("1. ▶︎ Ally")
-        print("2. ▶︎ Enemy")
+        print("🎯 Do you want target an ally or an enemy ?")
+        print("➤ 1 Ally")
+        print("➤ 2 Enemy")
         print("")
         
         let attackOrHeal = gameManager.getUserInputAsString()
         
         if attackOrHeal == "1" {
             print("")
-            print("Which ally do you want to heal? 💉")
+            print("👫 Which ally do you want to select ?")
             gameManager.ShowTheTeamMembers(of: self)
             let target = gameManager.getUserInputAsString()
             
@@ -129,7 +129,7 @@ class Player {
             }
         } else {
             print("")
-            print("Which enemy do you want to attack? 🪓")
+            print("🪓 Which enemy do you want to attack ?")
             print("")
             gameManager.ShowTheTeamMembers(of: enemyPlayer)
             let target = gameManager.getUserInputAsString()
@@ -150,34 +150,38 @@ class Player {
     
     func action(from warrior1: Warrior, to warrior2: Warrior, enemyPlayer: Player) {
         print("")
-        print("Press e to heal 💉 \(warrior2.name)")
-        print("Press f to hit 🪓 \(warrior2.name)")
+        print("💉 Press e to heal \(warrior2.name)")
+        print("🪓 Press f to hit \(warrior2.name)")
         print("")
         let healOrHit = gameManager.getUserInputAsString()
         print("")
         
         switch healOrHit {
         case "e":
-            print("\(warrior2.name) has \(warrior2.lifePoints) life points")
-            print("💉 Heal is coming 💉")
+            print("\(warrior2.name) has \(warrior2.lifePoints) life points.")
+            print("⏳ Heal is coming❗️")
             warrior2.lifePoints += warrior1.attackPoints + warrior1.weapon.damage
-            print("\(warrior2.name) has now \(warrior2.lifePoints) life points")
+            print("\(warrior2.name) has now \(warrior2.lifePoints) life points.")
             print("")
         case "f":
-            print("\(warrior2.name) has \(warrior2.lifePoints) life points")
-            print("💥 Attack is coming 💥")
+            print("\(warrior2.name) has \(warrior2.lifePoints) life points.")
+            print("⏳ Attack is coming❗️")
             if warrior1.attackPoints + warrior1.weapon.damage > warrior2.lifePoints {
                 warrior2.lifePoints = 0
             } else {
                 warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
             }
-            print("\(warrior2.name) has now \(warrior2.lifePoints) life points")
+            print("\(warrior2.name) has now \(warrior2.lifePoints) life points.")
             print("")
         default:
-            print("\(warrior2.name) has \(warrior2.lifePoints) life points")
-            print("💉 Heal is coming 💉")
-            warrior2.lifePoints += warrior1.attackPoints + warrior1.weapon.damage
-            print("\(warrior2.name) has \(warrior2.lifePoints) life points")
+            print("\(warrior2.name) has \(warrior2.lifePoints) life points.")
+            print("⏳ Attack is coming❗️")
+            if warrior1.attackPoints + warrior1.weapon.damage > warrior2.lifePoints {
+                warrior2.lifePoints = 0
+            } else {
+                warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
+            }
+            print("\(warrior2.name) has now \(warrior2.lifePoints) life points.")
             print("")
         }
         
