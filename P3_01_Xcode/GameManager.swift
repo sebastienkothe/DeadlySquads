@@ -33,7 +33,7 @@ class GameManager {
             let targetSelectedByP1 = player1.chooseTarget(enemyPlayer: player2)
             player1.action(from: warriorSelectedByP1, to: targetSelectedByP1, enemyPlayer: player2)
             
-            gameChecker = gameManager.checkTheHealthOfTheWarriors(player2)
+            gameChecker = gameManager.checkTheHealthOfTheWarriors(of: player2, enemyPlayer: player1)
             
             if gameChecker {
                 break
@@ -43,7 +43,7 @@ class GameManager {
             let targetSelectedByP2 = player2.chooseTarget(enemyPlayer: player1)
             player2.action(from: warriorSelectedByP2, to: targetSelectedByP2, enemyPlayer: player1)
             
-            gameChecker = gameManager.checkTheHealthOfTheWarriors(player1)
+            gameChecker = gameManager.checkTheHealthOfTheWarriors(of: player1, enemyPlayer: player2)
         }
         
     }
@@ -56,6 +56,7 @@ class GameManager {
             // print("He has \(warrior.lifePoints) life points, \(warrior.attackPoints) attack points and his weapon is a \(type(of: warrior.weapon))")
             
         }
+        print("")
     }
     
     
@@ -102,20 +103,21 @@ class GameManager {
         }
     }
     
-    func checkTheHealthOfTheWarriors(_ fromTheArray: Player) -> Bool {
+    func checkTheHealthOfTheWarriors(of fromTheArray: Player, enemyPlayer: Player) -> Bool {
         
         var i = 0
         for warrior in fromTheArray.warriors{
             
             if warrior.lifePoints <= 0 {
                 fromTheArray.warriors.remove(at: i)
-                print("\(warrior.name) is dead !")
+                print("Unbelievable 😱, \(warrior.name) is dead ! ⚰️")
             }
             i += 1
         }
         
         if fromTheArray.warriors.count == 0 {
-            print("GAME OVER")
+            print("GAME OVER❗️")
+            print("\(fromTheArray.name) lost the game 👾. \(enemyPlayer.name) wins❗️")
             return gameManager.gameOver()
         }
         
