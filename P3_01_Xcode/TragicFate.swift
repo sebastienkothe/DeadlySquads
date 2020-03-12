@@ -1,16 +1,17 @@
 //
-//  Axe.swift
+//  TragicFate.swift
 //  P3_01_Xcode
 //
-//  Created by Sébastien Kothé on 10/03/2020.
+//  Created by Sébastien Kothé on 12/03/2020.
 //  Copyright © 2020 Sébastien Kothé. All rights reserved.
 //
 
 import Foundation
 
-class Axe : Weapon {
+class TragicFate : Weapon {
     
-    static let name = "HeadsWillRoll"
+    static let name = "Tragic Fate"
+    
     init() {
         super.init(damage: 90)
     }

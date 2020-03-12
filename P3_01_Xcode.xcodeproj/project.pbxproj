@@ -21,6 +21,7 @@
 		3633E1EA2418E36400364548 /* Dagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1E92418E36400364548 /* Dagger.swift */; };
 		3633E1EC241914E100364548 /* Priest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1EB241914E000364548 /* Priest.swift */; };
 		3633E1EE241918A900364548 /* Libram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1ED241918A900364548 /* Libram.swift */; };
+		3633E1F0241A92BB00364548 /* TragicFate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1EF241A92BB00364548 /* TragicFate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +52,7 @@
 		3633E1E92418E36400364548 /* Dagger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dagger.swift; sourceTree = "<group>"; };
 		3633E1EB241914E000364548 /* Priest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priest.swift; sourceTree = "<group>"; };
 		3633E1ED241918A900364548 /* Libram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Libram.swift; sourceTree = "<group>"; };
+		3633E1EF241A92BB00364548 /* TragicFate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TragicFate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				3633E1DB2417A9D100364548 /* Weapon.swift */,
 				3633E1E32417EE3700364548 /* Bow.swift */,
 				3633E1E52417EE8200364548 /* Spear.swift */,
+				3633E1EF241A92BB00364548 /* TragicFate.swift */,
 				3633E1E92418E36400364548 /* Dagger.swift */,
 				3633E1E72417EEBC00364548 /* Axe.swift */,
 				3633E1ED241918A900364548 /* Libram.swift */,
@@ -164,6 +167,7 @@
 				3633E1E42417EE3700364548 /* Bow.swift in Sources */,
 				3633E1E02417EC6A00364548 /* Rogue.swift in Sources */,
 				3633E1DC2417A9D100364548 /* Weapon.swift in Sources */,
+				3633E1F0241A92BB00364548 /* TragicFate.swift in Sources */,
 				3633E1CF2417A05100364548 /* main.swift in Sources */,
 				3633E1D82417A7A200364548 /* Player.swift in Sources */,
 				3633E1DE2417EC4400364548 /* Mage.swift in Sources */,

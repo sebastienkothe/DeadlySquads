@@ -9,6 +9,7 @@
 import Foundation
 
 class Dagger : Weapon {
+    
     init() {
         super.init(damage: 10)
     }

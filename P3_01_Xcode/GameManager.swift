@@ -20,8 +20,8 @@ class GameManager {
         players.append(player2)
         player2.name = "Player 2"
         
-        var teamPlayer1 = player1.createWarriors()
-        var teamPlayer2 = player2.createWarriors()
+        _ = player1.createWarriors()
+        _ = player2.createWarriors()
         
         gameManager.prepareTheWarriors(to: player1)
         gameManager.prepareTheWarriors(to: player2)
@@ -32,11 +32,12 @@ class GameManager {
         while gameChecker != true {
             
             let warriorSelectedByP1 = player1.chooseAWarrior()
+            bringUpAChest(for: warriorSelectedByP1)
             let targetSelectedByP1 = player1.chooseTarget(enemyPlayer: player2)
             player1.action(from: warriorSelectedByP1, to: targetSelectedByP1, enemyPlayer: player2)
             
             gameChecker = gameManager.checkTheHealthOfTheWarriors(of: player2, enemyPlayer: player1)
-                
+            
             if gameChecker {
                 print("🏁 Number of laps : \(counter)")
                 break
@@ -50,6 +51,7 @@ class GameManager {
             }
             
             let warriorSelectedByP2 = player2.chooseAWarrior()
+            bringUpAChest(for: warriorSelectedByP2)
             let targetSelectedByP2 = player2.chooseTarget(enemyPlayer: player1)
             player2.action(from: warriorSelectedByP2, to: targetSelectedByP2, enemyPlayer: player1)
             
@@ -145,7 +147,11 @@ class GameManager {
             
             print("Remaining warriors of \(enemyPlayer.name) :")
             for warrior in enemyPlayer.warriors {
-                print("🏋️‍♂️ \(warrior.name) with \(warrior.lifePoints) life points.")
+                print("🏋️‍♂️ \(warrior.name)")
+                print("❤️ \(warrior.lifePoints)")
+                print("💪 \(warrior.attackPoints + warrior.weapon.damage)")
+                print("🗡 \(type(of: warrior.weapon))")
+                print("")
             }
             return gameManager.gameOver()
         }
@@ -159,6 +165,26 @@ class GameManager {
     
     func countLaps(laps: Int) -> Int {
         return laps
+    }
+    
+    func bringUpAChest(for warrior: Warrior) {
+        let number = Int.random(in: 0 ..< 5)
+        
+        if number == 2 {
+            print("")
+            print("🚨 A chest has just appeared ❗️")
+            print("")
+            print("\(warrior.name) took the weapon inside, its name is : \(TragicFate.name) 😱")
+            warrior.weapon = TragicFate()
+        }
+        
+        if number == 3 {
+            print("")
+            print("🚨 A chest has just appeared ❗️")
+            print("")
+            print("\(warrior.name) took the weapon inside, its name is : \(Axe.name) 😱")
+            warrior.weapon = Axe()
+        }
     }
     
 }
