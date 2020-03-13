@@ -56,44 +56,10 @@ class Player {
                 warriors.append(Priest(name: gameManager.getUserInputAsString()))
                 GameManager.printTheMessage(message: .lineBreak)
             default:
-                let randomWarrior = Int.random(in: 0..<4)
-                switch randomWarrior {
-                case 0:
-                    GameManager.printTheMessage(message: .lineBreak)
-                    
-                    GameManager.printTheMessage(message: .nameOfRogue)
-                    warriors.append(Rogue(name: gameManager.randomName()))
-                    
-                    GameManager.printTheMessage(message: .lineBreak)
-                case 1:
-                    GameManager.printTheMessage(message: .lineBreak)
-                    
-                    GameManager.printTheMessage(message: .nameOfMage)
-                    warriors.append(Mage(name: gameManager.randomName()))
-                    
-                    GameManager.printTheMessage(message: .lineBreak)
-                case 2:
-                    GameManager.printTheMessage(message: .lineBreak)
-                    
-                    GameManager.printTheMessage(message: .nameOfHunter)
-                    warriors.append(Hunter(name: gameManager.randomName()))
-                    
-                    GameManager.printTheMessage(message: .lineBreak)
-                case 3:
-                    GameManager.printTheMessage(message: .lineBreak)
-                    
-                    GameManager.printTheMessage(message: .nameOfPriest)
-                    warriors.append(Priest(name: gameManager.randomName()))
-                    
-                    GameManager.printTheMessage(message: .lineBreak)
-                default:
-                    GameManager.printTheMessage(message: .lineBreak)
-                    
-                    GameManager.printTheMessage(message: .nameOfRogue)
-                    warriors.append(Rogue(name: gameManager.randomName()))
-                    
-                    GameManager.printTheMessage(message: .lineBreak)
-                }
+                GameManager.printTheMessage(message: .lineBreak)
+                GameManager.printTheMessage(message: .nameOfRogue)
+                warriors.append(Rogue(name: gameManager.getUserInputAsString()))
+                GameManager.printTheMessage(message: .lineBreak)
             }
             numberOfWarrior += 1
         }
