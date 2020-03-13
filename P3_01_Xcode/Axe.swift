@@ -10,7 +10,8 @@ import Foundation
 
 class Axe : Weapon {
     
-    static let name = "HeadsWillRoll"
+    let name = "HeadsWillRoll"
+    
     init() {
         super.init(damage: 90)
     }

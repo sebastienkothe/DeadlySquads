@@ -10,6 +10,8 @@ import Foundation
 
 class Dagger : Weapon {
     
+    let name = "Dagger"
+    
     init() {
         super.init(damage: 10)
     }
