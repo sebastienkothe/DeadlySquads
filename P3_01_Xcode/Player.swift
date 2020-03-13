@@ -58,7 +58,7 @@ class Player {
             default:
                 GameManager.printTheMessage(message: .lineBreak)
                 GameManager.printTheMessage(message: .nameOfRogue)
-                warriors.append(Rogue(name: gameManager.getUserInputAsString()))
+                warriors.append(Rogue(name: gameManager.randomName()))
                 GameManager.printTheMessage(message: .lineBreak)
             }
             numberOfWarrior += 1
