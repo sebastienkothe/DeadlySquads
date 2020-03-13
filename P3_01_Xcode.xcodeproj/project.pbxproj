@@ -22,6 +22,7 @@
 		3633E1EC241914E100364548 /* Priest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1EB241914E000364548 /* Priest.swift */; };
 		3633E1EE241918A900364548 /* Libram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1ED241918A900364548 /* Libram.swift */; };
 		3633E1F0241A92BB00364548 /* TragicFate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1EF241A92BB00364548 /* TragicFate.swift */; };
+		3633E1F2241BBFC100364548 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1F1241BBFC100364548 /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +54,7 @@
 		3633E1EB241914E000364548 /* Priest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priest.swift; sourceTree = "<group>"; };
 		3633E1ED241918A900364548 /* Libram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Libram.swift; sourceTree = "<group>"; };
 		3633E1EF241A92BB00364548 /* TragicFate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TragicFate.swift; sourceTree = "<group>"; };
+		3633E1F1241BBFC100364548 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				3633E1E92418E36400364548 /* Dagger.swift */,
 				3633E1E72417EEBC00364548 /* Axe.swift */,
 				3633E1ED241918A900364548 /* Libram.swift */,
+				3633E1F1241BBFC100364548 /* Message.swift */,
 			);
 			path = P3_01_Xcode;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				3633E1E62417EE8200364548 /* Spear.swift in Sources */,
 				3633E1DA2417A90800364548 /* Warrior.swift in Sources */,
 				3633E1EA2418E36400364548 /* Dagger.swift in Sources */,
+				3633E1F2241BBFC100364548 /* Message.swift in Sources */,
 				3633E1D62417A3BC00364548 /* GameManager.swift in Sources */,
 				3633E1E82417EEBC00364548 /* Axe.swift in Sources */,
 			);

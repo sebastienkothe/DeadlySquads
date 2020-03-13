@@ -8,19 +8,20 @@
 
 import Foundation
 
+
 class GameManager {
     var players: [Player] = [] // The array who contains players
     
     public func startNewGame() {
         let player1 = Player() // Creation of the object "player1" from Player()
         players.append(player1) // Object "player1" add to the array
-        player1.name = "Player 1" // Initialization of name
+        player1.name = "Player 1" // Initialization of player name
         
-        let player2 = Player()
-        players.append(player2)
-        player2.name = "Player 2"
+        let player2 = Player() // Creation of the object "player2" from Player()
+        players.append(player2) // Object "player2" add to the array
+        player2.name = "Player 2" // Initialization of player name
         
-        _ = player1.createWarriors()
+        _ = player1.createWarriors() // 
         _ = player2.createWarriors()
         
         gameManager.prepareTheWarriors(to: player1)
@@ -56,8 +57,11 @@ class GameManager {
             
             if gameChecker {
                 print("🏁 Number of laps : \(counter)")
+                
                 break
             }
+            
+            
             
         }
         
@@ -71,7 +75,7 @@ class GameManager {
             // print("He has \(warrior.lifePoints) life points, \(warrior.attackPoints) attack points and his weapon is a \(type(of: warrior.weapon))")
             
         }
-        print("")
+        GameManager.printTheMessage(message: .lineBreak)
     }
     
     
@@ -126,9 +130,9 @@ class GameManager {
             
             if warrior.lifePoints <= 0 {
                 player1.warriors.remove(at: x)
-                print("😱 Unbelievable 😱")
+                GameManager.printTheMessage(message: .death)
                 print("\(warrior.name.uppercased()) is dead ! ⚰️")
-                print("")
+                GameManager.printTheMessage(message: .lineBreak)
             }
             x += 1
         }
@@ -138,19 +142,19 @@ class GameManager {
             
             if warrior.lifePoints <= 0 {
                 player2.warriors.remove(at: y)
-                print("😱 Unbelievable 😱")
+                GameManager.printTheMessage(message: .death)
                 print("\(warrior.name.uppercased()) is dead ! ⚰️")
-                print("")
+                GameManager.printTheMessage(message: .lineBreak)
             }
             y += 1
         }
         
         if player1.warriors.count == 0 {
-            print("GAME OVER")
+            GameManager.printTheMessage(message: .gameOver)
             print("🙈 \(player1.name.uppercased()) lost the game...")
             print("\(player2.name.uppercased()) wins❗️")
             
-            print("")
+            GameManager.printTheMessage(message: .lineBreak)
             
             print("Remaining warriors of \(player2.name.uppercased()) :")
             for warrior in player2.warriors {
@@ -158,17 +162,17 @@ class GameManager {
                 print("❤️ \(warrior.lifePoints)")
                 print("💪 \(warrior.attackPoints + warrior.weapon.damage)")
                 print("🗡 \(type(of: warrior.weapon))")
-                print("")
+                GameManager.printTheMessage(message: .lineBreak)
             }
             return gameManager.gameOver()
         }
         
         if player2.warriors.count == 0 {
-            print("GAME OVER")
+            GameManager.printTheMessage(message: .gameOver)
             print("🙈 \(player2.name.uppercased()) lost the game...")
             print("\(player1.name.uppercased()) wins❗️")
             
-            print("")
+            GameManager.printTheMessage(message: .lineBreak)
             
             print("Remaining warriors of \(player1.name.uppercased()) :")
             for warrior in player1.warriors {
@@ -176,7 +180,7 @@ class GameManager {
                 print("❤️ \(warrior.lifePoints)")
                 print("💪 \(warrior.attackPoints + warrior.weapon.damage)")
                 print("🗡 \(type(of: warrior.weapon))")
-                print("")
+                GameManager.printTheMessage(message: .lineBreak)
             }
             return gameManager.gameOver()
         }
@@ -196,17 +200,17 @@ class GameManager {
         let number = Int.random(in: 0..<5)
         
         if number == 2 {
-            print("")
-            print("🚨 A chest has just appeared ❗️")
-            print("")
+            GameManager.printTheMessage(message: .lineBreak)
+            GameManager.printTheMessage(message: .chest)
+            GameManager.printTheMessage(message: .lineBreak)
             print("\(warrior.name.uppercased()) took the weapon inside, its name is : \(TragicFate().name) 😱")
             warrior.weapon = TragicFate()
         }
         
         if number == 3 {
-            print("")
-            print("🚨 A chest has just appeared ❗️")
-            print("")
+            GameManager.printTheMessage(message: .lineBreak)
+            GameManager.printTheMessage(message: .chest)
+            GameManager.printTheMessage(message: .lineBreak)
             print("\(warrior.name.uppercased()) took the weapon inside, its name is : \(Axe().name) 😱")
             warrior.weapon = Axe()
         }
@@ -231,25 +235,25 @@ class GameManager {
             let randomNumber = Int.random(in: 1..<3)
             
             if randomNumber == 1 {
-                print("🧟‍♂️ A zombie kill \(player1.warriors[randomWarriorP1].name.uppercased())❗️")
-                print("")
+                print("🧟‍♂️ A wandering zombie killed \(player1.warriors[randomWarriorP1].name.uppercased())❗️")
+                GameManager.printTheMessage(message: .lineBreak)
                 player1.warriors.remove(at: randomWarriorP1)
             }
             
             if randomNumber == 2 {
-                print("🧟‍♂️ A zombie kill \(player2.warriors[randomWarriorP2].name.uppercased())❗️")
-                print("")
+                print("🧟‍♂️ A wandering zombie killed \(player2.warriors[randomWarriorP2].name.uppercased())❗️")
+                GameManager.printTheMessage(message: .lineBreak)
                 player2.warriors.remove(at: randomWarriorP2)
             }
             
             if player1.warriors.count == 0 || player2.warriors.count == 0 {
                 
                 if player1.warriors.count == 0 {
-                    print("GAME OVER")
+                    GameManager.printTheMessage(message: .gameOver)
                     print("🙈 \(player1.name.uppercased()) lost the game...")
                     print("\(player2.name.uppercased()) wins❗️")
                     
-                    print("")
+                    GameManager.printTheMessage(message: .lineBreak)
                     
                     print("Remaining warriors of \(player2.name.uppercased()) :")
                     for warrior in player2.warriors {
@@ -257,16 +261,16 @@ class GameManager {
                         print("❤️ \(warrior.lifePoints)")
                         print("💪 \(warrior.attackPoints + warrior.weapon.damage)")
                         print("🗡 \(type(of: warrior.weapon))")
-                        print("")
+                        GameManager.printTheMessage(message: .lineBreak)
                     }
                 }
                 
                 if player2.warriors.count == 0 {
-                    print("GAME OVER")
+                    GameManager.printTheMessage(message: .gameOver)
                     print("🙈 \(player2.name.uppercased()) lost the game...")
                     print("\(player1.name.uppercased()) wins❗️")
                     
-                    print("")
+                    GameManager.printTheMessage(message: .lineBreak)
                     
                     print("Remaining warriors of \(player1.name.uppercased()) :")
                     for warrior in player1.warriors {
@@ -274,7 +278,7 @@ class GameManager {
                         print("❤️ \(warrior.lifePoints)")
                         print("💪 \(warrior.attackPoints + warrior.weapon.damage)")
                         print("🗡 \(type(of: warrior.weapon))")
-                        print("")
+                        GameManager.printTheMessage(message: .lineBreak)
                     }
                 }
                 return true
@@ -282,5 +286,51 @@ class GameManager {
             
             return false
         }
+        
     }
+    
+    static func printTheMessage(message: Message) {
+        switch message {
+        case .allySelection:
+            print("👫 Which ally do you want to select ?")
+        case .attack:
+            print("⏳ Attack is coming❗️")
+        case .chest:
+            print("🚨 A chest has just appeared ❗️")
+        case .chooseAWarrior:
+            print("🗣 Choose your warrior :")
+        case .chooseTarget:
+            print("🎯 Do you want target an ally or an enemy ?")
+            print("1. Ally")
+            print("2. Enemy")
+        case .death:
+            print("😱 Unbelievable 😱")
+        case .enemySelection:
+            print("🪓 Which enemy do you want to attack ?")
+        case .gameOver:
+            print("👾 GAME OVER 👾")
+        case .heal:
+            print("⏳ Heal is coming❗️")
+        case .lineBreak:
+            print("")
+        case .listOfWarriorsAvailable:
+            print("1. 🟡 Rogue ")
+            print("2. 🔵 Mage ")
+            print("3. 🟢 Hunter ")
+            print("4. ⚪️ Priest ")
+            
+        case .nameOfHunter:
+            print("✍️ Choose the name of your Hunter :")
+        case .nameOfMage:
+            print("✍️ Choose the name of your Mage :")
+        case .nameOfPriest:
+            print("✍️ Choose the name of your Priest :")
+        case .nameOfRogue:
+            print("✍️ Choose the name of your Rogue :")
+            
+        case .warriorSelected:
+            print("You choosed")
+        }
+    }
+    
 }
