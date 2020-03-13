@@ -14,7 +14,7 @@ class GameManager {
     
     public func startNewGame() {
         let player1 = Player() // Creation of the object "player1" from Player()
-        players.append(player1) // Object "player1" add to the array
+        players.append(player1) // player1 add to [Player]
         player1.name = "Player 1" // Initialization of player name
         
         let player2 = Player() // Creation of the object "player2" from Player()
