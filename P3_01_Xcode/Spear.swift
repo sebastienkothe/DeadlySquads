@@ -1,5 +1,5 @@
 //
-//  main.swift
+//  Spear.swift
 //  P3_01_Xcode
 //
 //  Created by Sébastien Kothé on 10/03/2020.
@@ -8,7 +8,11 @@
 
 import Foundation
 
-let gameManager = GameManager()
-
-gameManager.startNewGame()
-
+class Spear : Weapon {
+    
+    let name = "Spear"
+    
+    init() {
+        super.init(damage: 7)
+    }
+}
