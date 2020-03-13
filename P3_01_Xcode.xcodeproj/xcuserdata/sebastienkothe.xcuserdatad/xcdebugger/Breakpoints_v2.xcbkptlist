@@ -14,8 +14,8 @@
             filePath = "P3_01_Xcode/GameManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
             landmarkName = "randomlyKillAWarrior(_:and:)"
             landmarkType = "7">
          </BreakpointContent>

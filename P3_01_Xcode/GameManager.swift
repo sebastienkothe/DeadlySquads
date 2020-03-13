@@ -53,7 +53,6 @@ class GameManager {
             counter += 1
             
             gameChecker = randomlyKillAWarrior(player1, and: player2)
-            gameChecker = gameManager.checkTheHealthOfTheWarriors(of: player1, and: player2)
             
             if gameChecker {
                 print("🏁 Number of laps : \(counter)")
@@ -244,8 +243,42 @@ class GameManager {
             }
             
             if player1.warriors.count == 0 || player2.warriors.count == 0 {
+                
+                if player1.warriors.count == 0 {
+                    print("GAME OVER")
+                    print("🙈 \(player1.name.uppercased()) lost the game...")
+                    print("\(player2.name.uppercased()) wins❗️")
+                    
+                    print("")
+                    
+                    print("Remaining warriors of \(player2.name.uppercased()) :")
+                    for warrior in player2.warriors {
+                        print("🏋️‍♂️ \(warrior.name.uppercased())")
+                        print("❤️ \(warrior.lifePoints)")
+                        print("💪 \(warrior.attackPoints + warrior.weapon.damage)")
+                        print("🗡 \(type(of: warrior.weapon))")
+                        print("")
+                    }
+                }
+                
+                if player2.warriors.count == 0 {
+                    print("GAME OVER")
+                    print("🙈 \(player2.name.uppercased()) lost the game...")
+                    print("\(player1.name.uppercased()) wins❗️")
+                    
+                    print("")
+                    
+                    print("Remaining warriors of \(player1.name.uppercased()) :")
+                    for warrior in player1.warriors {
+                        print("🏋️‍♂️ \(warrior.name.uppercased())")
+                        print("❤️ \(warrior.lifePoints)")
+                        print("💪 \(warrior.attackPoints + warrior.weapon.damage)")
+                        print("🗡 \(type(of: warrior.weapon))")
+                        print("")
+                    }
+                }
                 return true
-            }
+            } // End of main condition
             
             return false
         }
