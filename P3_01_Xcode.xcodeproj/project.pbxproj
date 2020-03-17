@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3623DC6D241E87E400030178 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623DC6C241E87E400030178 /* Class.swift */; };
+		3623DC6F241E890A00030178 /* WarriorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623DC6E241E890A00030178 /* WarriorType.swift */; };
+		3623DC71241FA1F100030178 /* WarriorFaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623DC70241FA1F100030178 /* WarriorFaction.swift */; };
 		3633E1CF2417A05100364548 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1CE2417A05100364548 /* main.swift */; };
 		3633E1D62417A3BC00364548 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1D52417A3BC00364548 /* GameManager.swift */; };
 		3633E1D82417A7A200364548 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1D72417A7A200364548 /* Player.swift */; };
@@ -38,6 +41,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3623DC6C241E87E400030178 /* Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
+		3623DC6E241E890A00030178 /* WarriorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarriorType.swift; sourceTree = "<group>"; };
+		3623DC70241FA1F100030178 /* WarriorFaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarriorFaction.swift; sourceTree = "<group>"; };
 		3633E1CB2417A05000364548 /* P3_01_Xcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = P3_01_Xcode; sourceTree = BUILT_PRODUCTS_DIR; };
 		3633E1CE2417A05100364548 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3633E1D52417A3BC00364548 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
@@ -88,14 +94,14 @@
 			isa = PBXGroup;
 			children = (
 				3633E1CE2417A05100364548 /* main.swift */,
-				3633E1DF2417EC6A00364548 /* Rogue.swift */,
-				3633E1DD2417EC4400364548 /* Mage.swift */,
-				3633E1EB241914E000364548 /* Priest.swift */,
-				3633E1E12417EC8700364548 /* Hunter.swift */,
-				3633E1D92417A90800364548 /* Warrior.swift */,
 				3633E1D52417A3BC00364548 /* GameManager.swift */,
 				3633E1D72417A7A200364548 /* Player.swift */,
+				3633E1D92417A90800364548 /* Warrior.swift */,
 				3633E1DB2417A9D100364548 /* Weapon.swift */,
+				3633E1DF2417EC6A00364548 /* Rogue.swift */,
+				3633E1DD2417EC4400364548 /* Mage.swift */,
+				3633E1E12417EC8700364548 /* Hunter.swift */,
+				3633E1EB241914E000364548 /* Priest.swift */,
 				3633E1E32417EE3700364548 /* Bow.swift */,
 				3633E1E52417EE8200364548 /* Spear.swift */,
 				3633E1EF241A92BB00364548 /* TragicFate.swift */,
@@ -103,6 +109,9 @@
 				3633E1E72417EEBC00364548 /* Axe.swift */,
 				3633E1ED241918A900364548 /* Libram.swift */,
 				3633E1F1241BBFC100364548 /* Message.swift */,
+				3623DC6C241E87E400030178 /* Class.swift */,
+				3623DC6E241E890A00030178 /* WarriorType.swift */,
+				3623DC70241FA1F100030178 /* WarriorFaction.swift */,
 			);
 			path = P3_01_Xcode;
 			sourceTree = "<group>";
@@ -168,6 +177,7 @@
 				3633E1EE241918A900364548 /* Libram.swift in Sources */,
 				3633E1EC241914E100364548 /* Priest.swift in Sources */,
 				3633E1E42417EE3700364548 /* Bow.swift in Sources */,
+				3623DC71241FA1F100030178 /* WarriorFaction.swift in Sources */,
 				3633E1E02417EC6A00364548 /* Rogue.swift in Sources */,
 				3633E1DC2417A9D100364548 /* Weapon.swift in Sources */,
 				3633E1F0241A92BB00364548 /* TragicFate.swift in Sources */,
@@ -175,11 +185,13 @@
 				3633E1D82417A7A200364548 /* Player.swift in Sources */,
 				3633E1DE2417EC4400364548 /* Mage.swift in Sources */,
 				3633E1E22417EC8700364548 /* Hunter.swift in Sources */,
+				3623DC6F241E890A00030178 /* WarriorType.swift in Sources */,
 				3633E1E62417EE8200364548 /* Spear.swift in Sources */,
 				3633E1DA2417A90800364548 /* Warrior.swift in Sources */,
 				3633E1EA2418E36400364548 /* Dagger.swift in Sources */,
 				3633E1F2241BBFC100364548 /* Message.swift in Sources */,
 				3633E1D62417A3BC00364548 /* GameManager.swift in Sources */,
+				3623DC6D241E87E400030178 /* Class.swift in Sources */,
 				3633E1E82417EEBC00364548 /* Axe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "85F9F0A0-B8E4-422B-AB91-311190555067"
+            uuid = "70BEE545-E974-4440-B64B-7CAE0746D86C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "P3_01_Xcode/GameManager.swift"
+            filePath = "P3_01_Xcode/Player.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "randomlyKillAWarrior(_:and:)"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "chooseAWarrior()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
