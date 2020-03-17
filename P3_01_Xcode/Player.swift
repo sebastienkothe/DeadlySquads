@@ -262,4 +262,5 @@ class Player {
             warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
         }
     }
+
 }

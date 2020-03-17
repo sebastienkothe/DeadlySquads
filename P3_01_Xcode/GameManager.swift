@@ -11,19 +11,12 @@ import Foundation
 
 class GameManager {
     var players: [Player] = []
+    var warriorsNames = [String]()
     
     let numberOfPlayersRequired = 2
     let numberOfWarriorsRequired = 3
     
-    var warriorsNames = [String]()
-    
-    func getUserInputAsString() -> String? {
-        guard let strData = readLine() else {
-            return nil
-        }
-        return strData
-    }
-    
+    // Method to get an input as a int
     func getUserInputAsInt() -> Int? {
         
         guard let strData = readLine() else {
@@ -37,6 +30,7 @@ class GameManager {
         return intData
     }
     
+    // Method to create players
     func createPlayer() {
         while players.count < numberOfPlayersRequired {
             let player = Player()
@@ -45,6 +39,7 @@ class GameManager {
         }
     }
     
+    // Method to bring up a chest
     func bringUpAChest(for warrior: Warrior) {
         let number = Int.random(in: 0..<1)
         
@@ -54,6 +49,7 @@ class GameManager {
         }
     }
     
+    // Method to create random names
     func randomName() -> String {
         let length = 6
         let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -63,6 +59,7 @@ class GameManager {
         return randomString
     }
     
+    // Method to check if a team is dead
     func endGameChecker() -> Bool {
         for player in players {
             if player.warriors.count == 0 {
@@ -72,6 +69,15 @@ class GameManager {
         return false
     }
     
+    // Method to show the list of remaining warriors at the end of game
+    func endGameList(player: Player) {
+        print("Remaining warriors :")
+        for (index, warrior) in player.warriors.enumerated() {
+            print("\(index + 1). 👤 \(warrior.name.uppercased()) ❤️ \(warrior.lifePoints) 💪 \(warrior.attackPoints)")
+        }
+    }
+    
+    // Method to remove the warriors dead from the warriors array
     func removeTheDead(){
         for player in players {
             var indexOfWarrior = 0
@@ -88,6 +94,7 @@ class GameManager {
         
     }
     
+    // Method for managing the different parts of the game
     public func startNewGame() {
         createPlayer()
         var counter = 0
@@ -118,6 +125,8 @@ class GameManager {
             removeTheDead()
             if endGameChecker() {
                 print("\(player1.name) wins❗️")
+                endGameList(player: player1)
+                print("🏁 Number of laps : \(counter)")
                 break
             }
             
@@ -138,6 +147,7 @@ class GameManager {
             removeTheDead()
             if endGameChecker() {
                 print("\(player2.name) wins❗️")
+                endGameList(player: player2)
                 print("🏁 Number of laps : \(counter)")
                 break
             }
