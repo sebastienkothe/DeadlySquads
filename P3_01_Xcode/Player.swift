@@ -12,175 +12,254 @@ class Player {
     var warriors: [Warrior] = []
     var name = ""
     
-    enum Class {
-        case rogue
-        case mage
-        case hunter
-        case priest
+    private func printWarriorsAvailable() {
+        for (index, warriorType) in WarriorType.allCases.enumerated() {
+            print("\(index + 1) \(warriorType)")
+        }
     }
     
-    func createWarriors() -> Optional<[Warrior]> {
-        //1. Rogue - 2. Mage - 3. Hunter
-        var numberOfWarrior = warriors.count + 1
+    private func printCreateSingleWarriorInstruction() {
+        printPlayerName()
+        print("Choose your warrior n°\(warriors.count + 1) :")
+    }
+    
+    func checkName(inputName: String) -> Bool {
+        for name in gameManager.warriorsNames {
+            guard inputName != name else {
+                print("⛔️ Name already taken")
+                return true
+            }
+            
+        }
+        return false
+    }
+    
+    func createSingleWarrior() -> Warrior? {
+        printCreateSingleWarriorInstruction()
+        printWarriorsAvailable()
         
-        while warriors.count < 3 {
-            print("➡️ \(self.name.uppercased())")
-            GameManager.printTheMessage(message: .lineBreak)
-            print("Choose your warrior n°\(numberOfWarrior) :")
-            GameManager.printTheMessage(message: .listOfWarriorsAvailable)
-            GameManager.printTheMessage(message: .lineBreak)
-            
-            guard let choice = readLine() else {
-                return nil
-            }
-            
-            switch choice {
-            case "1":
-                GameManager.printTheMessage(message: .lineBreak)
-                GameManager.printTheMessage(message: .nameOfRogue)
-                warriors.append(Rogue(name: gameManager.getUserInputAsString()))
-                GameManager.printTheMessage(message: .lineBreak)
-            case "2":
-                GameManager.printTheMessage(message: .lineBreak)
-                GameManager.printTheMessage(message: .nameOfMage)
-                warriors.append(Mage(name: gameManager.getUserInputAsString()))
-                GameManager.printTheMessage(message: .lineBreak)
-            case "3":
-                GameManager.printTheMessage(message: .lineBreak)
-                GameManager.printTheMessage(message: .nameOfHunter)
-                warriors.append(Hunter(name: gameManager.getUserInputAsString()))
-                GameManager.printTheMessage(message: .lineBreak)
-            case "4":
-                GameManager.printTheMessage(message: .lineBreak)
-                GameManager.printTheMessage(message: .nameOfPriest)
-                warriors.append(Priest(name: gameManager.getUserInputAsString()))
-                GameManager.printTheMessage(message: .lineBreak)
-            default:
-                GameManager.printTheMessage(message: .lineBreak)
-                GameManager.printTheMessage(message: .nameOfRogue)
-                warriors.append(Rogue(name: gameManager.randomName()))
-                GameManager.printTheMessage(message: .lineBreak)
-            }
-            numberOfWarrior += 1
+        guard let choiceString = readLine() else {
+            print("En of file reached too early")
+            return nil
         }
         
-        return warriors
+        guard let choiceInt = Int(choiceString) else {
+            print("⛔️ Enter a number")
+            return nil
+        }
+        
+        guard 1...WarriorType.allCases.count ~= choiceInt else {
+            print("⛔️ Your number must be between 1 and \(WarriorType.allCases.count)")
+            return nil
+        }
+        
+        // let inputName = gameManager.randomName()
+        let selectionOk: Bool = false
+        
+        while selectionOk == false {
+            print("Choose his name :")
+            guard let inputName = readLine() else {
+                print("En of file reached too early")
+                continue
+            }
+            
+            guard inputName.count <= 6 else {
+                print("⛔️ Name must contain a maximum of six characters")
+                continue
+            }
+            
+            guard inputName.count > 0 else {
+                print("⛔️ Name must contain at least one character")
+                continue
+            }
+            
+            let nameVerified = checkName(inputName: inputName)
+            if nameVerified {
+                continue
+            }
+            
+            gameManager.warriorsNames.append(inputName)
+            
+            switch WarriorType.allCases[choiceInt - 1] {
+            case .Rogue: return Rogue(name: inputName)
+            case .Mage: return Mage(name: inputName)
+            case .Hunter: return Hunter(name: inputName)
+            case .Priest: return Priest(name: inputName)
+            }
+        }
+    }
+    
+    func createWarriors(numberOfWarriors: Int) {
+        while warriors.count < numberOfWarriors {
+            if let warriorCreated = createSingleWarrior() {
+                warriors.append(warriorCreated)
+            }
+        }
+    }
+    
+    func prepareTheWarriors() {
+        for warrior in warriors {
+            if warrior is Rogue {
+                warrior.lifePoints = 70
+                warrior.attackPoints = 30
+                warrior.weapon = Dagger()
+                
+            } else if warrior is Mage {
+                warrior.lifePoints = 60
+                warrior.attackPoints = 35
+                warrior.weapon = Spear()
+            } else if warrior is Hunter {
+                warrior.lifePoints = 80
+                warrior.attackPoints = 25
+                warrior.weapon = Bow()
+            } else {
+                warrior.lifePoints = 54
+                warrior.attackPoints = 32
+                warrior.weapon = Libram()
+            }
+            
+        }
+    }
+    
+    func printListOfWarriors() {
+        for (index, warrior) in warriors.enumerated() {
+            print("\(index + 1). 👤 \(warrior.name.uppercased()) ❤️ \(warrior.lifePoints) 💪 \(warrior.attackPoints)")
+        }
+    }
+    
+    func printPlayerName() {
+        print("➡️ \(self.name.uppercased())")
     }
     
     func chooseAWarrior() -> Warrior {
-        print("➡️ \(self.name.uppercased())")
-        GameManager.printTheMessage(message: .lineBreak)
-        GameManager.printTheMessage(message: .chooseAWarrior)
+        let selectionOk: Bool = false
         
-        var numberOfWarrior = 0
-        for warrior in self.warriors {
-            numberOfWarrior += 1
-            print("\(numberOfWarrior). \(warrior.name.uppercased()) (\(type(of: warrior)))")
-        }
-        GameManager.printTheMessage(message: .lineBreak)
-        let choice = gameManager.getUserInputAsString()
-        let warriorSelected: Warrior
-        
-        switch choice {
-        case "1":
-            warriorSelected = warriors[0]
-        case "2":
-            warriorSelected = warriors[1]
-        case "3":
-            warriorSelected = warriors[2]
-        default:
-            warriorSelected = warriors[0]
-        }
-        GameManager.printTheMessage(message: .lineBreak)
-        GameManager.printTheMessage(message: .warriorSelected)
-        print("📍 \(warriorSelected.name.uppercased()) the \(type(of: warriorSelected))")
-        return warriorSelected
-    }
-    
-    func chooseTarget(enemyPlayer: Player) -> Warrior {
-        _ = gameManager.players
-        
-        GameManager.printTheMessage(message: .lineBreak)
-        GameManager.printTheMessage(message: .chooseTarget)
-        GameManager.printTheMessage(message: .lineBreak)
-        
-        let attackOrHeal = gameManager.getUserInputAsString()
-        
-        if attackOrHeal == "1" {
-            GameManager.printTheMessage(message: .lineBreak)
-            GameManager.printTheMessage(message: .allySelection)
-            gameManager.ShowTheTeamMembers(of: self)
-            let target = gameManager.getUserInputAsString()
+        while selectionOk == false {
+            printPlayerName()
+            print("Choose a warrior :")
+            printListOfWarriors()
             
-            switch target {
-            case "1":
+            guard let choice = gameManager.getUserInputAsInt() else {
+                print("⛔️ Enter a number")
+                continue
+            }
+            
+            guard 1...warriors.count ~= choice else {
+                print("⛔️ Enter a number between 1 and \(warriors.count)")
+                continue
+            }
+            
+            switch choice {
+            case 1:
                 return self.warriors[0]
-            case "2":
+            case 2:
                 return self.warriors[1]
-            case "3":
+            case 3:
                 return self.warriors[2]
             default:
-                return self.warriors[0]
+                continue
             }
-        } else {
-            GameManager.printTheMessage(message: .lineBreak)
-            GameManager.printTheMessage(message: .enemySelection)
-            GameManager.printTheMessage(message: .lineBreak)
-            gameManager.ShowTheTeamMembers(of: enemyPlayer)
-            let target = gameManager.getUserInputAsString()
             
-            switch target {
-            case "1":
+        }
+        
+    }
+    
+    func chooseFaction() -> WarriorFaction {
+        let selectionOk: Bool = false
+        
+        while selectionOk == false {
+            print("Target :\n1. ally\n2. enemy")
+            guard let response = gameManager.getUserInputAsInt() else {
+                print("⛔️ Enter a number")
+                continue
+            }
+            guard 1...2 ~= response else {
+                print("⛔️ Enter a number between 1 and 2")
+                continue
+            }
+            switch response {
+            case 1:
+                return .ally
+            case 2:
+                return .enemy
+            default:
+                continue
+            }
+        }
+        
+    }
+    
+    func targetAnEnemy(enemyPlayer: Player) -> Warrior {
+        let selectionOk: Bool = false
+        
+        while selectionOk == false {
+            print("Which enemy ?")
+            enemyPlayer.printListOfWarriors()
+            
+            guard let enemySelected = gameManager.getUserInputAsInt() else {
+                print("⛔️ Enter a number")
+                continue
+            }
+            
+            guard 1...enemyPlayer.warriors.count ~= enemySelected else {
+                print("⛔️ Enter a number between 1 and \(enemyPlayer.warriors.count)")
+                continue
+            }
+            
+            switch enemySelected {
+            case 1:
                 return enemyPlayer.warriors[0]
-            case "2":
+            case 2:
                 return enemyPlayer.warriors[1]
-            case "3":
+            case 3:
                 return enemyPlayer.warriors[2]
             default:
-                return enemyPlayer.warriors[0]
+                continue
             }
         }
-        
     }
     
-    func action(from warrior1: Warrior, to warrior2: Warrior, enemyPlayer: Player) {
-        GameManager.printTheMessage(message: .lineBreak)
-        print("💉 Press e to heal \(warrior2.name.uppercased())")
-        print("🪓 Press f to hit \(warrior2.name.uppercased())")
-        GameManager.printTheMessage(message: .lineBreak)
-        let healOrHit = gameManager.getUserInputAsString()
-        GameManager.printTheMessage(message: .lineBreak)
+    func targetAnAlly() -> Warrior {
+        let selectionOk: Bool = false
         
-        switch healOrHit {
-        case "e":
-            print("\(warrior2.name.uppercased()) has \(warrior2.lifePoints) life points.")
-            GameManager.printTheMessage(message: .heal)
-            warrior2.lifePoints += warrior1.attackPoints + warrior1.weapon.damage
-            print("\(warrior2.name.uppercased()) has now \(warrior2.lifePoints) life points.")
-            GameManager.printTheMessage(message: .lineBreak)
-        case "f":
-            print("\(warrior2.name.uppercased()) has \(warrior2.lifePoints) life points.")
-            GameManager.printTheMessage(message: .attack)
-            if warrior1.attackPoints + warrior1.weapon.damage > warrior2.lifePoints {
-                warrior2.lifePoints = 0
-            } else {
-                warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
+        while selectionOk == false {
+            print("Which ally ?")
+            self.printListOfWarriors()
+            
+            guard let allySelected = gameManager.getUserInputAsInt() else {
+                print("⛔️ Enter a number")
+                continue
             }
-            print("\(warrior2.name.uppercased()) has now \(warrior2.lifePoints) life points.")
-            GameManager.printTheMessage(message: .lineBreak)
-        default:
-            print("\(warrior2.name.uppercased()) has \(warrior2.lifePoints) life points.")
-            GameManager.printTheMessage(message: .attack)
-            if warrior1.attackPoints + warrior1.weapon.damage > warrior2.lifePoints {
-                warrior2.lifePoints = 0
-            } else {
-                warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
+            
+            guard 1...warriors.count ~= allySelected else {
+                print("⛔️ Enter a number between 1 and \(warriors.count)")
+                continue
             }
-            print("\(warrior2.name.uppercased()) has now \(warrior2.lifePoints) life points.")
-            GameManager.printTheMessage(message: .lineBreak)
+            
+            switch allySelected {
+            case 1:
+                return self.warriors[0]
+            case 2:
+                return self.warriors[1]
+            case 3:
+                return self.warriors[2]
+            default:
+                continue
+            }
         }
-        
     }
     
+    func heal(from warrior1: Warrior, to warrior2: Warrior) {
+        print("\(warrior1.name) heals \(warrior2.name)❗️")
+        warrior2.lifePoints += warrior1.attackPoints + warrior1.weapon.damage
+    }
     
+    func attack(from warrior1: Warrior, to warrior2: Warrior) {
+        print("\(warrior1.name) attacks \(warrior2.name)❗️")
+        if warrior1.attackPoints + warrior1.weapon.damage > warrior2.lifePoints {
+            warrior2.lifePoints = 0
+        } else {
+            warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
+        }
+    }
 }
