@@ -12,17 +12,20 @@ class Player {
     var warriors: [Warrior] = []
     var name = ""
     
+    // Method to print players' warriors
     private func printWarriorsAvailable() {
         for (index, warriorType) in WarriorType.allCases.enumerated() {
             print("\(index + 1) \(warriorType)")
         }
     }
     
+    // Method to print the instruction to create a warrior
     private func printCreateSingleWarriorInstruction() {
         printPlayerName()
         print("Choose your warrior n°\(warriors.count + 1) :")
     }
     
+    // Method to check if the name of the warrior is not already taken
     func checkName(inputName: String) -> Bool {
         for name in gameManager.warriorsNames {
             guard inputName != name else {
@@ -34,6 +37,7 @@ class Player {
         return false
     }
     
+    // Method to create a single warrior
     func createSingleWarrior() -> Warrior? {
         printCreateSingleWarriorInstruction()
         printWarriorsAvailable()
@@ -53,7 +57,8 @@ class Player {
             return nil
         }
         
-        // let inputName = gameManager.randomName()
+        // Remove the "//" to call randomName()
+        // HERE -> let inputName = gameManager.randomName()
         let selectionOk: Bool = false
         
         while selectionOk == false {
@@ -89,6 +94,7 @@ class Player {
         }
     }
     
+    // Method to create Warriors
     func createWarriors(numberOfWarriors: Int) {
         while warriors.count < numberOfWarriors {
             if let warriorCreated = createSingleWarrior() {
@@ -97,6 +103,7 @@ class Player {
         }
     }
     
+    // Method to initialize skill points
     func prepareTheWarriors() {
         for warrior in warriors {
             if warrior is Rogue {
@@ -121,12 +128,14 @@ class Player {
         }
     }
     
+    // Method to print the warriors list
     func printListOfWarriors() {
         for (index, warrior) in warriors.enumerated() {
             print("\(index + 1). 👤 \(warrior.name.uppercased()) ❤️ \(warrior.lifePoints) 💪 \(warrior.attackPoints)")
         }
     }
     
+    // Method to print the players' names
     func printPlayerName() {
         print("➡️ \(self.name.uppercased())")
     }
@@ -164,6 +173,7 @@ class Player {
         
     }
     
+    // Method to choose the faction
     func chooseFaction() -> WarriorFaction {
         let selectionOk: Bool = false
         
@@ -189,6 +199,7 @@ class Player {
         
     }
     
+    // Method to target an enemy
     func targetAnEnemy(enemyPlayer: Player) -> Warrior {
         let selectionOk: Bool = false
         
@@ -219,6 +230,7 @@ class Player {
         }
     }
     
+    // Method to target an ally
     func targetAnAlly() -> Warrior {
         let selectionOk: Bool = false
         
@@ -249,11 +261,13 @@ class Player {
         }
     }
     
+    // Method to heal an ally
     func heal(from warrior1: Warrior, to warrior2: Warrior) {
         print("\(warrior1.name) heals \(warrior2.name)❗️")
         warrior2.lifePoints += warrior1.attackPoints + warrior1.weapon.damage
     }
     
+    // Method to attack an enemy
     func attack(from warrior1: Warrior, to warrior2: Warrior) {
         print("\(warrior1.name) attacks \(warrior2.name)❗️")
         if warrior1.attackPoints + warrior1.weapon.damage > warrior2.lifePoints {
