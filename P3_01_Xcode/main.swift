@@ -8,6 +8,6 @@
 
 import Foundation
 
-let gameManager = GameManager()
-gameManager.startNewGame()
+let gameManager = GameManager() // Declaration of the object gameManager
+gameManager.startNewGame() // Call of the function startNewGame()
 

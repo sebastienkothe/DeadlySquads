@@ -8,21 +8,7 @@
 
 import Foundation
 
-enum Message {
-    case gameOver
-    case death
-    case chest
-    case listOfWarriorsAvailable
-    case lineBreak
-    case nameOfRogue
-    case nameOfMage
-    case nameOfHunter
-    case nameOfPriest
-    case chooseAWarrior
-    case warriorSelected
-    case chooseTarget
-    case allySelection
-    case enemySelection
-    case heal
-    case attack
+enum Message : String {
+    case enterANumber = "⛔️ Enter a number"
+    case error = "⛔️ Error ! Please, try again"
 }

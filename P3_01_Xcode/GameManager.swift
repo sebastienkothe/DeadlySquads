@@ -21,8 +21,8 @@ class GameManager {
         createPlayer()
         var counter = 0
         
-        let player1 = players[0]
-        let player2 = players[1]
+        let player1 = players[0] // Declaration of the object player1
+        let player2 = players[1] // Declaration of the object player2
         
         for player in players {
             player.createWarriors(numberOfWarriors: numberOfWarriorsRequired)
@@ -48,7 +48,7 @@ class GameManager {
             if endGameChecker() {
                 print("\(player1.name) wins❗️")
                 endGameList(player: player1)
-                print("🏁 Number of laps : \(counter)")
+                printTheNumberOfTurns(counter: counter)
                 break
             }
             
@@ -70,7 +70,7 @@ class GameManager {
             if endGameChecker() {
                 print("\(player2.name) wins❗️")
                 endGameList(player: player2)
-                print("🏁 Number of laps : \(counter)")
+                printTheNumberOfTurns(counter: counter)
                 break
             }
         }
@@ -102,10 +102,10 @@ class GameManager {
     
     // Method to bring up a chest
     func bringUpAChest(for warrior: Warrior) {
-        let number = Int.random(in: 0..<1)
+        let number = Int.random(in: 0..<11)
         
-        if number == 0 {
-            print("\(warrior.name.uppercased()) took the weapon inside, its name is : \(TragicFate().name) 😱")
+        if number == 1 {
+            print("🚨 A chest appears\n👤 \(warrior.name.uppercased()) gets a new weapon")
             warrior.weapon = TragicFate()
         }
     }
@@ -120,7 +120,7 @@ class GameManager {
         return randomString
     }
     
-    // Method to check if a team is dead
+    // Method to check if the team's members is dead
     func endGameChecker() -> Bool {
         for player in players {
             if player.warriors.count == 0 {
@@ -152,6 +152,21 @@ class GameManager {
             }
         }
         
+    }
+    
+    // Method to print the number of turns
+    func printTheNumberOfTurns(counter: Int) {
+        print("🏁 Number of turns : \(counter)")
+    }
+    
+    // Method to print the messages often used
+    func printErrorsMessages(message: Message) {
+        switch message {
+        case .enterANumber:
+            print(message.rawValue)
+        case .error:
+            print(message.rawValue)
+        }
     }
     
 }

@@ -37,26 +37,34 @@ class Player {
         return false
     }
     
-    // Method to create a single warrior
-    func createSingleWarrior() -> Warrior? {
+    // Method to select the warrior's type
+    func selectWarriorType() -> Int {
+        let selectionOk: Bool = false
         printCreateSingleWarriorInstruction()
         printWarriorsAvailable()
         
-        guard let choiceString = readLine() else {
-            print("En of file reached too early")
-            return nil
+        while selectionOk == false {
+            guard let choiceString = readLine() else {
+                gameManager.printErrorsMessages(message: .error)
+                continue
+            }
+            
+            guard let choiceInt = Int(choiceString) else {
+                gameManager.printErrorsMessages(message: .enterANumber)
+                continue
+            }
+            
+            guard 1...WarriorType.allCases.count ~= choiceInt else {
+                print("⛔️ Your number must be between 1 and \(WarriorType.allCases.count)")
+                continue
+            }
+            return choiceInt
         }
-        
-        guard let choiceInt = Int(choiceString) else {
-            print("⛔️ Enter a number")
-            return nil
-        }
-        
-        guard 1...WarriorType.allCases.count ~= choiceInt else {
-            print("⛔️ Your number must be between 1 and \(WarriorType.allCases.count)")
-            return nil
-        }
-        
+    }
+    
+    // Method to create a single warrior
+    func createSingleWarrior() -> Warrior? {
+        let choiceInt = selectWarriorType()
         // Remove the "//" to call randomName()
         // HERE -> let inputName = gameManager.randomName()
         let selectionOk: Bool = false
@@ -64,7 +72,7 @@ class Player {
         while selectionOk == false {
             print("Choose his name :")
             guard let inputName = readLine() else {
-                print("En of file reached too early")
+                gameManager.printErrorsMessages(message: .error)
                 continue
             }
             
@@ -131,7 +139,7 @@ class Player {
     // Method to print the warriors list
     func printListOfWarriors() {
         for (index, warrior) in warriors.enumerated() {
-            print("\(index + 1). 👤 \(warrior.name.uppercased()) ❤️ \(warrior.lifePoints) 💪 \(warrior.attackPoints)")
+            print("\(index + 1). 👤 \(warrior.name.uppercased()) ❤️ \(warrior.lifePoints) 💪 \(warrior.attackPoints) 🗡 \(type(of: warrior.weapon))")
         }
     }
     
@@ -140,6 +148,7 @@ class Player {
         print("➡️ \(self.name.uppercased())")
     }
     
+    // Method to select a warrior
     func chooseAWarrior() -> Warrior {
         let selectionOk: Bool = false
         
@@ -149,7 +158,7 @@ class Player {
             printListOfWarriors()
             
             guard let choice = gameManager.getUserInputAsInt() else {
-                print("⛔️ Enter a number")
+                gameManager.printErrorsMessages(message: .enterANumber)
                 continue
             }
             
@@ -180,7 +189,7 @@ class Player {
         while selectionOk == false {
             print("Target :\n1. ally\n2. enemy")
             guard let response = gameManager.getUserInputAsInt() else {
-                print("⛔️ Enter a number")
+                gameManager.printErrorsMessages(message: .enterANumber)
                 continue
             }
             guard 1...2 ~= response else {
@@ -208,7 +217,7 @@ class Player {
             enemyPlayer.printListOfWarriors()
             
             guard let enemySelected = gameManager.getUserInputAsInt() else {
-                print("⛔️ Enter a number")
+                gameManager.printErrorsMessages(message: .enterANumber)
                 continue
             }
             
@@ -239,7 +248,7 @@ class Player {
             self.printListOfWarriors()
             
             guard let allySelected = gameManager.getUserInputAsInt() else {
-                print("⛔️ Enter a number")
+                gameManager.printErrorsMessages(message: .enterANumber)
                 continue
             }
             
@@ -276,5 +285,5 @@ class Player {
             warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
         }
     }
-
+    
 }
