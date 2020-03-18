@@ -16,6 +16,67 @@ class GameManager {
     let numberOfPlayersRequired = 2
     let numberOfWarriorsRequired = 3
     
+    // Method for managing the different parts of the game
+    public func startNewGame() {
+        createPlayer()
+        var counter = 0
+        
+        let player1 = players[0]
+        let player2 = players[1]
+        
+        for player in players {
+            player.createWarriors(numberOfWarriors: numberOfWarriorsRequired)
+            player.prepareTheWarriors()
+        }
+        
+        while endGameChecker() != true {
+            
+            let warriorSelected = player1.chooseAWarrior()
+            bringUpAChest(for: warriorSelected) // You can remove this line by adding a comment
+            let factionTargeted = player1.chooseFaction()
+            
+            switch factionTargeted {
+            case .ally:
+                let allyTargeted = player1.targetAnAlly()
+                player1.heal(from: warriorSelected, to: allyTargeted)
+            case .enemy:
+                let enemytargeted = player1.targetAnEnemy(enemyPlayer: player2)
+                player1.attack(from: warriorSelected, to: enemytargeted)
+            }
+            
+            removeTheDead()
+            if endGameChecker() {
+                print("\(player1.name) wins❗️")
+                endGameList(player: player1)
+                print("🏁 Number of laps : \(counter)")
+                break
+            }
+            
+            let warriorSelectedByP2 = player2.chooseAWarrior()
+            bringUpAChest(for: warriorSelectedByP2) // You can remove this line by adding a comment
+            let factionTargetedByP2 = player2.chooseFaction()
+            
+            switch factionTargetedByP2 {
+            case .ally:
+                let allyTargeted = player2.targetAnAlly()
+                player1.heal(from: warriorSelectedByP2, to: allyTargeted)
+            case .enemy:
+                
+                let enemytargeted = player2.targetAnEnemy(enemyPlayer: player1)
+                player2.attack(from: warriorSelectedByP2, to: enemytargeted)
+            }
+            counter += 1
+            removeTheDead()
+            if endGameChecker() {
+                print("\(player2.name) wins❗️")
+                endGameList(player: player2)
+                print("🏁 Number of laps : \(counter)")
+                break
+            }
+        }
+        
+    }
+    
     // Method to get an input as a int
     func getUserInputAsInt() -> Int? {
         
@@ -91,67 +152,6 @@ class GameManager {
             }
         }
         
-        
     }
     
-    // Method for managing the different parts of the game
-    public func startNewGame() {
-        createPlayer()
-        var counter = 0
-        
-        let player1 = players[0]
-        let player2 = players[1]
-        
-        for player in players {
-            player.createWarriors(numberOfWarriors: numberOfWarriorsRequired)
-            player.prepareTheWarriors()
-        }
-        
-        while endGameChecker() != true {
-            
-            let warriorSelected = player1.chooseAWarrior()
-            //bringUpAChest(for: warriorSelected)
-            let factionTargeted = player1.chooseFaction()
-            
-            switch factionTargeted {
-            case .ally:
-                let allyTargeted = player1.targetAnAlly()
-                player1.heal(from: warriorSelected, to: allyTargeted)
-            case .enemy:
-                let enemytargeted = player1.targetAnEnemy(enemyPlayer: player2)
-                player1.attack(from: warriorSelected, to: enemytargeted)
-            }
-            
-            removeTheDead()
-            if endGameChecker() {
-                print("\(player1.name) wins❗️")
-                endGameList(player: player1)
-                print("🏁 Number of laps : \(counter)")
-                break
-            }
-            
-            let warriorSelectedByP2 = player2.chooseAWarrior()
-            bringUpAChest(for: warriorSelectedByP2)
-            let factionTargetedByP2 = player2.chooseFaction()
-            
-            switch factionTargetedByP2 {
-            case .ally:
-                let allyTargeted = player2.targetAnAlly()
-                player1.heal(from: warriorSelectedByP2, to: allyTargeted)
-            case .enemy:
-                
-                let enemytargeted = player2.targetAnEnemy(enemyPlayer: player1)
-                player2.attack(from: warriorSelectedByP2, to: enemytargeted)
-            }
-            counter += 1
-            removeTheDead()
-            if endGameChecker() {
-                print("\(player2.name) wins❗️")
-                endGameList(player: player2)
-                print("🏁 Number of laps : \(counter)")
-                break
-            }
-        }
-        
-    }
 }
