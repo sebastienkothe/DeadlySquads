@@ -8,110 +8,94 @@
 
 import Foundation
 
-
 class GameManager {
-    var players: [Player] = []
-    var warriorsNames = [String]()
     
-    let numberOfPlayersRequired = 2
-    let numberOfWarriorsRequired = 3
+    // MARK: - Static
+    // MARK: Static - Properties
+    
+    private static let numberOfPlayersRequired = 2
+    private static let numberOfWarriorsRequired = 3
+    private static var endGame = false // True if the player's warriors are dead
+    private static var counter = 0 // It stores the number of turns
+    
+    // MARK: - Public
+    // MARK: Public - Methods
     
     // Method for managing the different parts of the game
     public func startNewGame() {
-        createPlayer()
-        var counter = 0
         
-        let player1 = players[0] // Declaration of the object player1
-        let player2 = players[1] // Declaration of the object player2
+        createPlayers()
         
-        for player in players {
-            player.createWarriors(numberOfWarriors: numberOfWarriorsRequired)
-            player.prepareTheWarriors()
-        }
+        startTeamCreationPhase()
         
-        while endGameChecker() != true {
-            
-            let warriorSelected = player1.chooseAWarrior()
-            bringUpAChest(for: warriorSelected) // You can remove this line by adding a comment
-            let factionTargeted = player1.chooseFaction()
-            
-            switch factionTargeted {
-            case .ally:
-                let allyTargeted = player1.targetAnAlly()
-                player1.heal(from: warriorSelected, to: allyTargeted)
-            case .enemy:
-                let enemytargeted = player1.targetAnEnemy(enemyPlayer: player2)
-                player1.attack(from: warriorSelected, to: enemytargeted)
-            }
-            
-            removeTheDead()
-            if endGameChecker() {
-                print("\(player1.name) wins❗️")
-                endGameList(player: player1)
-                printTheNumberOfTurns(counter: counter)
-                break
-            }
-            
-            let warriorSelectedByP2 = player2.chooseAWarrior()
-            bringUpAChest(for: warriorSelectedByP2) // You can remove this line by adding a comment
-            let factionTargetedByP2 = player2.chooseFaction()
-            
-            switch factionTargetedByP2 {
-            case .ally:
-                let allyTargeted = player2.targetAnAlly()
-                player1.heal(from: warriorSelectedByP2, to: allyTargeted)
-            case .enemy:
-                
-                let enemytargeted = player2.targetAnEnemy(enemyPlayer: player1)
-                player2.attack(from: warriorSelectedByP2, to: enemytargeted)
-            }
-            counter += 1
-            removeTheDead()
-            if endGameChecker() {
-                print("\(player2.name) wins❗️")
-                endGameList(player: player2)
-                printTheNumberOfTurns(counter: counter)
-                break
-            }
-        }
+        handleFightPhase()
         
+        handleEndGame()
     }
     
-    // Method to get an input as a int
-    func getUserInputAsInt() -> Int? {
+    // MARK: - Private
+    // MARK: Private - Properties
+    
+    private var warriorNames: [String] {
+        var names: [String] = []
         
-        guard let strData = readLine() else {
-            return nil
+        for player in players {
+            for warrior in player.warriors {
+                names.append(warrior.name)
+            }
         }
         
-        guard let intData = Int(strData) else {
-            return nil
+        return names
+    }
+    
+    private var players: [Player] = []
+    private var warriorsNames: [String] = []
+    
+    // MARK: Private - Methods
+    
+    // Methods to create warriors and initialize their characteristics
+    private func startTeamCreationPhase() {
+        for player in players {
+            player.createWarriors(numberOfWarriors: GameManager.numberOfWarriorsRequired, warriorNames: warriorNames)
+            prepareTheWarriors()
+        }
+    }
+    
+    // Method to find the enemy player of the current player
+    private func getOpponentPlayer(from playingPlayer: Player) -> Player? {
+        for player in players {
+            if playingPlayer.id != player.id {
+                return player
+            }
         }
         
-        return intData
+        return nil
     }
     
     // Method to create players
-    func createPlayer() {
-        while players.count < numberOfPlayersRequired {
-            let player = Player()
-            players.append(player)
-            player.name = "Player \(players.count)"
+    private func createPlayers() {
+        while players.count < GameManager.numberOfPlayersRequired {
+            createSinglePlayer(id: players.count + 1)
         }
     }
     
+    // Method to create a single player
+    private func createSinglePlayer(id: Int) {
+        let player = Player(id: id)
+        players.append(player)
+    }
+    
     // Method to bring up a chest
-    func bringUpAChest(for warrior: Warrior) {
-        let number = Int.random(in: 0..<11)
-        
-        if number == 1 {
+    private func bringUpAChest(for warrior: Warrior) {
+        let randomNumber = Int.random(in: 0..<11)
+        if randomNumber == 1 {
             print("🚨 A chest appears\n👤 \(warrior.name.uppercased()) gets a new weapon")
             warrior.weapon = TragicFate()
         }
     }
     
     // Method to create random names
-    func randomName() -> String {
+    private func randomName() -> String {
         let length = 6
         let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let randomCharacters = (0..<length).map{_ in characters.randomElement()!}
@@ -121,7 +105,7 @@ class GameManager {
     }
     
     // Method to check if the team's members is dead
-    func endGameChecker() -> Bool {
+    private func endGameChecker() -> Bool {
         for player in players {
             if player.warriors.count == 0 {
                 return true
@@ -131,15 +115,15 @@ class GameManager {
     }
     
     // Method to show the list of remaining warriors at the end of game
-    func endGameList(player: Player) {
+    private func endGameList(player: Player) {
         print("Remaining warriors :")
-        for (index, warrior) in player.warriors.enumerated() {
-            print("\(index + 1). 👤 \(warrior.name.uppercased()) ❤️ \(warrior.lifePoints) 💪 \(warrior.attackPoints)")
+        for warrior in player.warriors {
+            print("👤 \(warrior.name.uppercased()) ❤️ \(warrior.lifePoints) 💪 \(warrior.attackPoints)")
         }
     }
     
     // Method to remove the warriors dead from the warriors array
-    func removeTheDead(){
+    private func removeTheDead() {
         for player in players {
             var indexOfWarrior = 0
             for warrior in player.warriors {
@@ -151,22 +135,85 @@ class GameManager {
                 indexOfWarrior += 1
             }
         }
-        
     }
     
     // Method to print the number of turns
-    func printTheNumberOfTurns(counter: Int) {
+    private func printTheNumberOfTurns(counter: Int) {
         print("🏁 Number of turns : \(counter)")
     }
     
-    // Method to print the messages often used
-    func printErrorsMessages(message: Message) {
-        switch message {
-        case .enterANumber:
-            print(message.rawValue)
-        case .error:
-            print(message.rawValue)
+    // Method to initialize skill points
+    private func prepareTheWarriors() {
+        for player in players {
+            for warrior in player.warriors{
+                if warrior is Rogue {
+                    warrior.lifePoints = 70
+                    warrior.attackPoints = 30
+                    warrior.weapon = Dagger()
+                    
+                } else if warrior is Mage {
+                    warrior.lifePoints = 60
+                    warrior.attackPoints = 35
+                    warrior.weapon = Spear()
+                } else if warrior is Hunter {
+                    warrior.lifePoints = 80
+                    warrior.attackPoints = 25
+                    warrior.weapon = Bow()
+                } else {
+                    warrior.lifePoints = 54
+                    warrior.attackPoints = 32
+                    warrior.weapon = Libram()
+                }
+                
+            }
         }
+    }
+    
+    // Method to handle the fight phase
+    func handleFightPhase() {
+        while GameManager.endGame != true {
+            for player in players where GameManager.endGame != true {
+                let warriorSelected = player.chooseAWarrior()
+                bringUpAChest(for: warriorSelected)
+                let factionTargeted = player.chooseFaction()
+                actionFrom(player: player, factionTargeted: factionTargeted, warriorSelected: warriorSelected)
+                removeTheDead()
+                
+                GameManager.endGame = endGameChecker()
+            }
+            GameManager.counter += 1
+        }
+        
+    }
+    
+    // Method to handle the end game
+    func handleEndGame() {
+        for player in players {
+            guard let opponentPlayerUnpack = getOpponentPlayer(from: player) else {
+                return
+            }
+            
+            if player.warriors.count == 0 {
+                print("\(opponentPlayerUnpack.name) wins❗️")
+                endGameList(player: opponentPlayerUnpack)
+            }
+            
+        }
+        printTheNumberOfTurns(counter: GameManager.counter)
+    }
+    
+    // Method to handle the two types actions possible
+    func actionFrom(player: Player, factionTargeted: WarriorFaction, warriorSelected: Warrior) {
+        switch factionTargeted {
+        case .ally:
+            let allyTargeted = player.targetAnAlly()
+            player.heal(from: warriorSelected, to: allyTargeted)
+        case .enemy:
+            guard let opponentPlayer = getOpponentPlayer(from: player) else { return }
+            let enemytargeted = player.targetAnEnemy(enemyPlayer: opponentPlayer)
+            player.attack(from: warriorSelected, to: enemytargeted)
+        }
+        
     }
     
 }
