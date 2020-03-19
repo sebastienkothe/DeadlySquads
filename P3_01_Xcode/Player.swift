@@ -9,143 +9,30 @@
 import Foundation
 
 class Player {
+    
+    init(id: Int) {
+        self.id = id
+    }
+    
+    // MARK: - Internal
+    // MARK: Internal - Properties
+    
+    let id: Int
+    
     var warriors: [Warrior] = []
-    var name = ""
-    
-    // Method to print players' warriors
-    private func printWarriorsAvailable() {
-        for (index, warriorType) in WarriorType.allCases.enumerated() {
-            print("\(index + 1) \(warriorType)")
-        }
+    var name: String {
+        return "Player \(id)"
     }
     
-    // Method to print the instruction to create a warrior
-    private func printCreateSingleWarriorInstruction() {
-        printPlayerName()
-        print("Choose your warrior n°\(warriors.count + 1) :")
-    }
-    
-    // Method to check if the name of the warrior is not already taken
-    func checkName(inputName: String) -> Bool {
-        for name in gameManager.warriorsNames {
-            guard inputName != name else {
-                print("⛔️ Name already taken")
-                return true
-            }
-            
-        }
-        return false
-    }
-    
-    // Method to select the warrior's type
-    func selectWarriorType() -> Int {
-        let selectionOk: Bool = false
-        printCreateSingleWarriorInstruction()
-        printWarriorsAvailable()
-        
-        while selectionOk == false {
-            guard let choiceString = readLine() else {
-                gameManager.printErrorsMessages(message: .error)
-                continue
-            }
-            
-            guard let choiceInt = Int(choiceString) else {
-                gameManager.printErrorsMessages(message: .enterANumber)
-                continue
-            }
-            
-            guard 1...WarriorType.allCases.count ~= choiceInt else {
-                print("⛔️ Your number must be between 1 and \(WarriorType.allCases.count)")
-                continue
-            }
-            return choiceInt
-        }
-    }
-    
-    // Method to create a single warrior
-    func createSingleWarrior() -> Warrior? {
-        let choiceInt = selectWarriorType()
-        // Remove the "//" to call randomName()
-        // HERE -> let inputName = gameManager.randomName()
-        let selectionOk: Bool = false
-        
-        while selectionOk == false {
-            print("Choose his name :")
-            guard let inputName = readLine() else {
-                gameManager.printErrorsMessages(message: .error)
-                continue
-            }
-            
-            guard inputName.count <= 6 else {
-                print("⛔️ Name must contain a maximum of six characters")
-                continue
-            }
-            
-            guard inputName.count > 0 else {
-                print("⛔️ Name must contain at least one character")
-                continue
-            }
-            
-            let nameVerified = checkName(inputName: inputName)
-            if nameVerified {
-                continue
-            }
-            
-            gameManager.warriorsNames.append(inputName)
-            
-            switch WarriorType.allCases[choiceInt - 1] {
-            case .Rogue: return Rogue(name: inputName)
-            case .Mage: return Mage(name: inputName)
-            case .Hunter: return Hunter(name: inputName)
-            case .Priest: return Priest(name: inputName)
-            }
-        }
-    }
+    // MARK: Internals - Methods
     
     // Method to create Warriors
-    func createWarriors(numberOfWarriors: Int) {
+    func createWarriors(numberOfWarriors: Int, warriorNames: [String]) {
         while warriors.count < numberOfWarriors {
-            if let warriorCreated = createSingleWarrior() {
+            if let warriorCreated = createSingleWarrior(warriorNames: warriorNames) {
                 warriors.append(warriorCreated)
             }
         }
-    }
-    
-    // Method to initialize skill points
-    func prepareTheWarriors() {
-        for warrior in warriors {
-            if warrior is Rogue {
-                warrior.lifePoints = 70
-                warrior.attackPoints = 30
-                warrior.weapon = Dagger()
-                
-            } else if warrior is Mage {
-                warrior.lifePoints = 60
-                warrior.attackPoints = 35
-                warrior.weapon = Spear()
-            } else if warrior is Hunter {
-                warrior.lifePoints = 80
-                warrior.attackPoints = 25
-                warrior.weapon = Bow()
-            } else {
-                warrior.lifePoints = 54
-                warrior.attackPoints = 32
-                warrior.weapon = Libram()
-            }
-            
-        }
-    }
-    
-    // Method to print the warriors list
-    func printListOfWarriors() {
-        for (index, warrior) in warriors.enumerated() {
-            print("\(index + 1). 👤 \(warrior.name.uppercased()) ❤️ \(warrior.lifePoints) 💪 \(warrior.attackPoints) 🗡 \(type(of: warrior.weapon))")
-        }
-    }
-    
-    // Method to print the players' names
-    func printPlayerName() {
-        print("➡️ \(self.name.uppercased())")
     }
     
     // Method to select a warrior
@@ -157,8 +44,8 @@ class Player {
             print("Choose a warrior :")
             printListOfWarriors()
             
-            guard let choice = gameManager.getUserInputAsInt() else {
-                gameManager.printErrorsMessages(message: .enterANumber)
+            guard let choice = getUserInputAsInt() else {
+                printErrorsMessages(message: .enterANumber)
                 continue
             }
             
@@ -188,8 +75,8 @@ class Player {
         
         while selectionOk == false {
             print("Target :\n1. ally\n2. enemy")
-            guard let response = gameManager.getUserInputAsInt() else {
-                gameManager.printErrorsMessages(message: .enterANumber)
+            guard let response = getUserInputAsInt() else {
+                printErrorsMessages(message: .enterANumber)
                 continue
             }
             guard 1...2 ~= response else {
@@ -216,8 +103,8 @@ class Player {
             print("Which enemy ?")
             enemyPlayer.printListOfWarriors()
             
-            guard let enemySelected = gameManager.getUserInputAsInt() else {
-                gameManager.printErrorsMessages(message: .enterANumber)
+            guard let enemySelected = getUserInputAsInt() else {
+                printErrorsMessages(message: .enterANumber)
                 continue
             }
             
@@ -247,8 +134,8 @@ class Player {
             print("Which ally ?")
             self.printListOfWarriors()
             
-            guard let allySelected = gameManager.getUserInputAsInt() else {
-                gameManager.printErrorsMessages(message: .enterANumber)
+            guard let allySelected = getUserInputAsInt() else {
+                printErrorsMessages(message: .enterANumber)
                 continue
             }
             
@@ -284,6 +171,136 @@ class Player {
         } else {
             warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
         }
+    }
+    
+    // MARK: - Private
+    // MARK: Private - Methods
+    
+    
+    // Method to print players' warriors
+    private func printWarriorsAvailable() {
+        for (index, warriorType) in WarriorType.allCases.enumerated() {
+            print("\(index + 1) \(warriorType)")
+        }
+    }
+    
+    // Method to print the instruction to create a warrior
+    private func printCreateSingleWarriorInstruction() {
+        printPlayerName()
+        print("Choose your warrior n°\(warriors.count + 1) :")
+    }
+    
+    // Method to check if the name of the warrior is not already taken
+    private func checkName(inputName: String, warriorNames: [String]) -> Bool {
+        for name in warriorNames {
+            guard inputName != name else {
+                print("⛔️ Name already taken")
+                return true
+            }
+            
+        }
+        return false
+    }
+    
+    // Method to select the warrior's type
+    private func selectWarriorType() -> Int {
+        let selectionOk: Bool = false
+        printCreateSingleWarriorInstruction()
+        printWarriorsAvailable()
+        
+        while selectionOk == false {
+            guard let choiceString = readLine() else {
+                printErrorsMessages(message: .error)
+                continue
+            }
+            
+            guard let choiceInt = Int(choiceString) else {
+                printErrorsMessages(message: .enterANumber)
+                continue
+            }
+            
+            guard 1...WarriorType.allCases.count ~= choiceInt else {
+                print("⛔️ Your number must be between 1 and \(WarriorType.allCases.count)")
+                continue
+            }
+            return choiceInt
+        }
+    }
+    
+    // Method to create a single warrior
+    private func createSingleWarrior(warriorNames: [String]) -> Warrior? {
+        let choiceInt = selectWarriorType()
+        // Remove the "//" to call randomName()
+        // HERE -> let inputName = gameManager.randomName()
+        let selectionOk: Bool = false
+        
+        while selectionOk == false {
+            print("Choose his name :")
+            guard let inputName = readLine() else {
+                printErrorsMessages(message: .error)
+                continue
+            }
+            
+            guard inputName.count <= 6 else {
+                print("⛔️ Name must contain a maximum of six characters")
+                continue
+            }
+            
+            guard inputName.count > 0 else {
+                print("⛔️ Name must contain at least one character")
+                continue
+            }
+            
+            let nameVerified = checkName(inputName: inputName, warriorNames: warriorNames)
+            if nameVerified {
+                continue
+            }
+            
+            
+            switch WarriorType.allCases[choiceInt - 1] {
+            case .Rogue: return Rogue(name: inputName)
+            case .Mage: return Mage(name: inputName)
+            case .Hunter: return Hunter(name: inputName)
+            case .Priest: return Priest(name: inputName)
+            }
+        }
+    }
+    
+    // Method to print the warriors list
+    private func printListOfWarriors() {
+        for (index, warrior) in warriors.enumerated() {
+            print("\(index + 1). 👤 \(warrior.name.uppercased()) ❤️ \(warrior.lifePoints) 💪 \(warrior.attackPoints) 🗡 \(type(of: warrior.weapon))")
+        }
+    }
+    
+    // Method to print the players' names
+    private func printPlayerName() {
+        print("➡️ \(self.name.uppercased())")
+    }
+    
+
+    // Method to print the messages often used
+    private func printErrorsMessages(message: Message) {
+        switch message {
+        case .enterANumber:
+            print(message.rawValue)
+        case .error:
+            print(message.rawValue)
+        }
+    }
+    
+    // Method to get an input as a int
+    private func getUserInputAsInt() -> Int? {
+        
+        guard let strData = readLine() else {
+            return nil
+        }
+        
+        guard let intData = Int(strData) else {
+            return nil
+        }
+        
+        return intData
     }
     
 }
