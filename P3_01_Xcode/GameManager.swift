@@ -170,7 +170,7 @@ class GameManager {
     }
     
     // Method to handle the fight phase
-    func handleFightPhase() {
+    private func handleFightPhase() {
         while GameManager.endGame != true {
             for player in players where GameManager.endGame != true {
                 let warriorSelected = player.chooseAWarrior()
@@ -187,7 +187,7 @@ class GameManager {
     }
     
     // Method to handle the end game
-    func handleEndGame() {
+    private func handleEndGame() {
         for player in players {
             guard let opponentPlayerUnpack = getOpponentPlayer(from: player) else {
                 return
@@ -203,7 +203,7 @@ class GameManager {
     }
     
     // Method to handle the two types actions possible
-    func actionFrom(player: Player, factionTargeted: WarriorFaction, warriorSelected: Warrior) {
+    private func actionFrom(player: Player, factionTargeted: WarriorFaction, warriorSelected: Warrior) {
         switch factionTargeted {
         case .ally:
             let allyTargeted = player.targetAnAlly()
