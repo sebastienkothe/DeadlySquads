@@ -18,6 +18,11 @@ class GameManager {
     private static var endGame = false // True if the player's warriors are dead
     private static var counter = 0 // It stores the number of turns
     
+    private static let numberToUnlockTheChest = 0
+    private static let intervalForTheChest = 0...3
+    
+    private static let intervalForTheWeapons = 1...2
+    
     // MARK: - Public
     // MARK: Public - Methods
     
@@ -85,12 +90,51 @@ class GameManager {
         players.append(player)
     }
     
+    private func generateRandomNumberForTheChest() -> Int {
+        let randomNumber = Int.random(in: GameManager.intervalForTheChest)
+        return randomNumber
+    }
+    
     // Method to bring up a chest
     private func bringUpAChest(for warrior: Warrior) {
-        let randomNumber = Int.random(in: 0..<11)
-        if randomNumber == 1 {
+        
+        let randomNumber = generateRandomNumberForTheChest()
+        if randomNumber == GameManager.numberToUnlockTheChest {
+            guard let randomWeapon = selectTheWeapon() else {
+                return
+            }
+            warrior.weapon = randomWeapon
             print("🚨 A chest appears\n👤 \(warrior.name.uppercased()) gets a new weapon")
-            warrior.weapon = TragicFate()
+        }
+    }
+    
+    private func generateRandomNumberForWeapons() -> Int {
+        let randomNumber = Int.random(in: GameManager.intervalForTheWeapons)
+        return randomNumber
+    }
+    
+    private func selectTheWeaponType() -> WeaponType? {
+        let randomNumber = generateRandomNumberForWeapons()
+        switch randomNumber {
+        case 1:
+            return WeaponType.axe
+        case 2:
+            return WeaponType.tragicFate
+        default:
+            return nil
+        }
+    }
+    
+    private func selectTheWeapon() -> Weapon? {
+        let weaponType = selectTheWeaponType()
+        
+        switch weaponType {
+        case .axe:
+            return Axe()
+        case .tragicFate:
+            return TragicFate()
+        default:
+            return nil
         }
     }
     
