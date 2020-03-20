@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3623DC6D241E87E400030178 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623DC6C241E87E400030178 /* Class.swift */; };
 		3623DC6F241E890A00030178 /* WarriorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623DC6E241E890A00030178 /* WarriorType.swift */; };
 		3623DC71241FA1F100030178 /* WarriorFaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623DC70241FA1F100030178 /* WarriorFaction.swift */; };
 		3633E1CF2417A05100364548 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1CE2417A05100364548 /* main.swift */; };
@@ -41,7 +40,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3623DC6C241E87E400030178 /* Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
 		3623DC6E241E890A00030178 /* WarriorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarriorType.swift; sourceTree = "<group>"; };
 		3623DC70241FA1F100030178 /* WarriorFaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarriorFaction.swift; sourceTree = "<group>"; };
 		3633E1CB2417A05000364548 /* P3_01_Xcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = P3_01_Xcode; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,7 +107,6 @@
 				3633E1E72417EEBC00364548 /* Axe.swift */,
 				3633E1ED241918A900364548 /* Libram.swift */,
 				3633E1F1241BBFC100364548 /* Message.swift */,
-				3623DC6C241E87E400030178 /* Class.swift */,
 				3623DC6E241E890A00030178 /* WarriorType.swift */,
 				3623DC70241FA1F100030178 /* WarriorFaction.swift */,
 			);
@@ -191,7 +188,6 @@
 				3633E1EA2418E36400364548 /* Dagger.swift in Sources */,
 				3633E1F2241BBFC100364548 /* Message.swift in Sources */,
 				3633E1D62417A3BC00364548 /* GameManager.swift in Sources */,
-				3623DC6D241E87E400030178 /* Class.swift in Sources */,
 				3633E1E82417EEBC00364548 /* Axe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,6 +17,4 @@ class Warrior {
     init(name: String) {
         self.name = name
     }
-    
-    
 }
