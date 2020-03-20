@@ -12,7 +12,7 @@ class Axe : Weapon {
     
     private let name = "HeadsWillRoll"
     
-    private init() {
+    init() {
         super.init(damage: 90)
     }
 }
