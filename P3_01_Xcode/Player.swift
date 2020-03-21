@@ -14,12 +14,15 @@ class Player {
         self.id = id
     }
     
-    // MARK: - Internal
-    // MARK: Internal - Properties
+    // MARK: - Private static properties
+    
+    static private var warriorsNames: [String] = []
+    
+    // MARK: - Internal properties
     
     let id: Int
-    
     var warriors: [Warrior] = []
+    
     var name: String {
         return "Player \(id)"
     }
@@ -27,9 +30,9 @@ class Player {
     // MARK: Internals - Methods
     
     // Method to create Warriors
-    func createWarriors(numberOfWarriors: Int, warriorNames: [String]) {
+    func createWarriors(numberOfWarriors: Int) {
         while warriors.count < numberOfWarriors {
-            if let warriorCreated = createSingleWarrior(warriorNames: warriorNames) {
+            if let warriorCreated = createSingleWarrior() {
                 warriors.append(warriorCreated)
             }
         }
@@ -74,7 +77,8 @@ class Player {
         let selectionOk: Bool = false
         
         while selectionOk == false {
-            print("Target :\n1. ally\n2. enemy")
+            print("Target :\n1. Ally\n2. Enemy")
+            
             guard let response = getUserInputAsInt() else {
                 printErrorsMessages(message: .enterANumber)
                 continue
@@ -83,6 +87,7 @@ class Player {
                 print("⛔️ Enter a number between 1 and 2")
                 continue
             }
+            
             switch response {
             case 1:
                 return .ally
@@ -173,9 +178,7 @@ class Player {
         }
     }
     
-    // MARK: - Private
-    // MARK: Private - Methods
-    
+    // MARK: - Private methods
     
     // Method to print players' warriors
     private func printWarriorsAvailable() {
@@ -188,18 +191,6 @@ class Player {
     private func printCreateSingleWarriorInstruction() {
         printPlayerName()
         print("Choose your warrior n°\(warriors.count + 1) :")
-    }
-    
-    // Method to check if the name of the warrior is not already taken
-    private func checkName(inputName: String, warriorNames: [String]) -> Bool {
-        for name in warriorNames {
-            guard inputName != name else {
-                print("⛔️ Name already taken")
-                return true
-            }
-            
-        }
-        return false
     }
     
     // Method to select the warrior's type
@@ -227,15 +218,14 @@ class Player {
         }
     }
     
-    // Method to create a single warrior
-    private func createSingleWarrior(warriorNames: [String]) -> Warrior? {
+    // Method to create a single warrior with his name
+    private func createSingleWarrior() -> Warrior? {
         let choiceInt = selectWarriorType()
-        // Remove the "//" to call randomName()
-        // HERE -> let inputName = gameManager.randomName()
         let selectionOk: Bool = false
         
         while selectionOk == false {
             print("Choose his name :")
+            
             guard let inputName = readLine() else {
                 printErrorsMessages(message: .error)
                 continue
@@ -251,11 +241,13 @@ class Player {
                 continue
             }
             
-            let nameVerified = checkName(inputName: inputName, warriorNames: warriorNames)
+            let nameVerified = checkName(inputName: inputName)
+            
             if nameVerified {
                 continue
             }
             
+            addWarriorName(inputName: inputName)
             
             switch WarriorType.allCases[choiceInt - 1] {
             case .Rogue: return Rogue(name: inputName)
@@ -264,6 +256,22 @@ class Player {
             case .Priest: return Priest(name: inputName)
             }
         }
+    }
+    
+    // Method to check if the name of the warrior is not already taken
+    private func checkName(inputName: String) -> Bool {
+        for warriorName in Player.warriorsNames {
+                guard inputName != warriorName else {
+                    print("⛔️ Name already taken")
+                    return true
+                }
+            }
+        return false
+    }
+    
+    // Method to add a name to [warriorsNames]
+    private func addWarriorName(inputName: String) {
+        Player.warriorsNames.append(inputName)
     }
     
     // Method to print the warriors list
@@ -278,7 +286,7 @@ class Player {
         print("➡️ \(self.name.uppercased())")
     }
     
-
+    
     // Method to print the messages often used
     private func printErrorsMessages(message: Message) {
         switch message {

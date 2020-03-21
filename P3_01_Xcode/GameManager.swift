@@ -10,21 +10,23 @@ import Foundation
 
 class GameManager {
     
-    // MARK: - Static
-    // MARK: Static - Properties
+    // MARK: - Private static properties
     
     private static let numberOfPlayersRequired = 2
     private static let numberOfWarriorsRequired = 3
-    private static var endGame = false // True if the player's warriors are dead
-    private static var counter = 0 // It stores the number of turns
+    // True if the player's warriors are dead
+    private static var endGame = false
+    // Stores the number of turns
+    private static var counter = 0
     
+    // Number required to unlock the chest
     private static let numberToUnlockTheChest = 0
+    // Interval used to unlock the chest
     private static let intervalForTheChest = 0...3
-    
+    // Interval used to choose the bonus weapon. We can change this value if we add more weapons
     private static let intervalForTheWeapons = 1...2
-    
-    // MARK: - Public
-    // MARK: Public - Methods
+
+    // MARK: - Public methods
     
     // Method for managing the different parts of the game
     public func startNewGame() {
@@ -38,31 +40,16 @@ class GameManager {
         handleEndGame()
     }
     
-    // MARK: - Private
-    // MARK: Private - Properties
-    
-    private var warriorNames: [String] {
-        var names: [String] = []
-        
-        for player in players {
-            for warrior in player.warriors {
-                names.append(warrior.name)
-            }
-        }
-        
-        return names
-    }
-    
+    // MARK: - Private properties
     private var players: [Player] = []
-    private var warriorsNames: [String] = []
     
-    // MARK: Private - Methods
+    // MARK: - Private methods
     
-    // Methods to create warriors and initialize their characteristics
+    // Method to create warriors and initialize their characteristics
     private func startTeamCreationPhase() {
         for player in players {
-            player.createWarriors(numberOfWarriors: GameManager.numberOfWarriorsRequired, warriorNames: warriorNames)
-            prepareTheWarriors()
+            player.createWarriors(numberOfWarriors: GameManager.numberOfWarriorsRequired)
+            initializeWarriors()
         }
     }
     
@@ -90,15 +77,16 @@ class GameManager {
         players.append(player)
     }
     
-    private func generateRandomNumberForTheChest() -> Int {
-        let randomNumber = Int.random(in: GameManager.intervalForTheChest)
+    // Method to generate a random number
+    private func generateRandomNumber(range: ClosedRange<Int>) -> Int {
+        let randomNumber = Int.random(in: range)
         return randomNumber
     }
     
     // Method to bring up a chest
     private func bringUpAChest(for warrior: Warrior) {
         
-        let randomNumber = generateRandomNumberForTheChest()
+        let randomNumber = generateRandomNumber(range: GameManager.intervalForTheChest)
         if randomNumber == GameManager.numberToUnlockTheChest {
             guard let randomWeapon = selectTheWeapon() else {
                 return
@@ -108,13 +96,9 @@ class GameManager {
         }
     }
     
-    private func generateRandomNumberForWeapons() -> Int {
-        let randomNumber = Int.random(in: GameManager.intervalForTheWeapons)
-        return randomNumber
-    }
-    
+    // Method to select the weapon type
     private func selectTheWeaponType() -> WeaponType? {
-        let randomNumber = generateRandomNumberForWeapons()
+        let randomNumber = generateRandomNumber(range: GameManager.intervalForTheWeapons)
         switch randomNumber {
         case 1:
             return WeaponType.axe
@@ -125,6 +109,7 @@ class GameManager {
         }
     }
     
+    // Method to select the weapon
     private func selectTheWeapon() -> Weapon? {
         let weaponType = selectTheWeaponType()
         
@@ -186,30 +171,37 @@ class GameManager {
         print("🏁 Number of turns : \(counter)")
     }
     
-    // Method to initialize skill points
-    private func prepareTheWarriors() {
+    // Method to find and return each warriors - ℹ️ Method overload
+    private func initializeWarriors() {
         for player in players {
             for warrior in player.warriors{
-                if warrior is Rogue {
-                    warrior.lifePoints = 70
-                    warrior.attackPoints = 30
-                    warrior.weapon = Dagger()
-                    
-                } else if warrior is Mage {
-                    warrior.lifePoints = 60
-                    warrior.attackPoints = 35
-                    warrior.weapon = Spear()
-                } else if warrior is Hunter {
-                    warrior.lifePoints = 80
-                    warrior.attackPoints = 25
-                    warrior.weapon = Bow()
-                } else {
-                    warrior.lifePoints = 54
-                    warrior.attackPoints = 32
-                    warrior.weapon = Libram()
-                }
-                
+                initializeWarriors(warrior : warrior)
             }
+        }
+    }
+    
+    // Method to initialize skill points - ℹ️ Method overload
+    private func initializeWarriors(warrior : Warrior) {
+        
+        switch warrior {
+        case is Rogue:
+            warrior.lifePoints = 70
+            warrior.attackPoints = 30
+            warrior.weapon = Dagger()
+        case is Mage:
+            warrior.lifePoints = 60
+            warrior.attackPoints = 35
+            warrior.weapon = Spear()
+        case is Hunter:
+            warrior.lifePoints = 80
+            warrior.attackPoints = 25
+            warrior.weapon = Bow()
+        case is Priest:
+            warrior.lifePoints = 54
+            warrior.attackPoints = 32
+            warrior.weapon = Libram()
+        default:
+            return
         }
     }
     
@@ -233,13 +225,13 @@ class GameManager {
     // Method to handle the end game
     private func handleEndGame() {
         for player in players {
-            guard let opponentPlayerUnpack = getOpponentPlayer(from: player) else {
+            guard let opponentPlayerUnpacked = getOpponentPlayer(from: player) else {
                 return
             }
             
             if player.warriors.count == 0 {
-                print("\(opponentPlayerUnpack.name) wins❗️")
-                endGameList(player: opponentPlayerUnpack)
+                print("\(opponentPlayerUnpacked.name) wins❗️")
+                endGameList(player: opponentPlayerUnpacked)
             }
             
         }
