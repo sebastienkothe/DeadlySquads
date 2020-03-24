@@ -9,9 +9,7 @@
 import Foundation
 
 class Axe : Weapon {
-    
-    private let name = "HeadsWillRoll"
-    
+
     init() {
         super.init(damage: 90)
     }

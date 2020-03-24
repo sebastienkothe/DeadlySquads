@@ -11,20 +11,38 @@ import Foundation
 class GameManager {
     
     // MARK: - Private static properties
-    
-    private static let numberOfPlayersRequired = 2
-    private static let numberOfWarriorsRequired = 3
-    // True if the player's warriors are dead
-    private static var endGame = false
-    // Stores the number of turns
-    private static var counter = 0
-    
+
     // Number required to unlock the chest
     private static let numberToUnlockTheChest = 0
+    
     // Interval used to unlock the chest
     private static let intervalForTheChest = 0...3
+    
     // Interval used to choose the bonus weapon. We can change this value if we add more weapons
     private static let intervalForTheWeapons = 1...2
+    
+    // MARK: - Private properties
+    
+    private var players: [Player] = []
+    
+    // Stores the number of turns
+    private var counter = 0
+    
+    private let numberOfPlayersRequired = 2
+    private let numberOfWarriorsRequired = 3
+    
+    // True if the player's warriors are dead
+    private var isGameOver: Bool {
+        var numberOfPlayerAlive = 0
+        
+        for player in players where player.isAlive {
+            numberOfPlayerAlive += 1
+        }
+        
+        let isGameOver = numberOfPlayerAlive == 1
+        
+        return isGameOver
+    }
 
     // MARK: - Public methods
     
@@ -39,16 +57,16 @@ class GameManager {
         
         handleEndGame()
     }
-    
-    // MARK: - Private properties
-    private var players: [Player] = []
-    
+
     // MARK: - Private methods
     
     // Method to create warriors and initialize their characteristics
     private func startTeamCreationPhase() {
         for player in players {
-            player.createWarriors(numberOfWarriors: GameManager.numberOfWarriorsRequired)
+            guard let opponentPlayer = getOpponentPlayer(from: player) else {
+                return
+            }
+            player.createWarriors(numberOfWarriors: numberOfWarriorsRequired, opponentPlayer: opponentPlayer)
             initializeWarriors()
         }
     }
@@ -64,9 +82,10 @@ class GameManager {
         return nil
     }
     
+    
     // Method to create players
     private func createPlayers() {
-        while players.count < GameManager.numberOfPlayersRequired {
+        while players.count < numberOfPlayersRequired {
             createSinglePlayer(id: players.count + 1)
         }
     }
@@ -92,7 +111,7 @@ class GameManager {
                 return
             }
             warrior.weapon = randomWeapon
-            print("🚨 A chest appears\n👤 \(warrior.name.uppercased()) gets a new weapon")
+            print("\n🚨 A chest appears\n👤 \(warrior.name.uppercased()) gets a new weapon 😱")
         }
     }
     
@@ -133,55 +152,32 @@ class GameManager {
         return randomString
     }
     
-    // Method to check if the team's members is dead
-    private func endGameChecker() -> Bool {
-        for player in players {
-            if player.warriors.count == 0 {
-                return true
-            }
-        }
-        return false
-    }
-    
     // Method to show the list of remaining warriors at the end of game
-    private func endGameList(player: Player) {
+    private func endGameList() {
         print("Remaining warriors :")
-        for warrior in player.warriors {
-            print("👤 \(warrior.name.uppercased()) ❤️ \(warrior.lifePoints) 💪 \(warrior.attackPoints)")
-        }
-    }
-    
-    // Method to remove the warriors dead from the warriors array
-    private func removeTheDead() {
+        
         for player in players {
-            var indexOfWarrior = 0
-            for warrior in player.warriors {
-                
-                if warrior.lifePoints <= 0 {
-                    player.warriors.remove(at: indexOfWarrior)
-                    print("\(warrior.name.uppercased()) is dead ! ⚰️")
-                }
-                indexOfWarrior += 1
-            }
+            player.printPlayerName()
+            player.printListOfWarriors()
         }
     }
     
     // Method to print the number of turns
     private func printTheNumberOfTurns(counter: Int) {
-        print("🏁 Number of turns : \(counter)")
+        print("\n🏁 Number of turns : \(counter)")
     }
     
     // Method to find and return each warriors - ℹ️ Method overload
     private func initializeWarriors() {
         for player in players {
             for warrior in player.warriors{
-                initializeWarriors(warrior : warrior)
+                initializeWarriors(warrior: warrior)
             }
         }
     }
     
     // Method to initialize skill points - ℹ️ Method overload
-    private func initializeWarriors(warrior : Warrior) {
+    private func initializeWarriors(warrior: Warrior) {
         
         switch warrior {
         case is Rogue:
@@ -207,35 +203,36 @@ class GameManager {
     
     // Method to handle the fight phase
     private func handleFightPhase() {
-        while GameManager.endGame != true {
-            for player in players where GameManager.endGame != true {
+        while !isGameOver {
+            counter += 1
+            for player in players where !isGameOver {
                 let warriorSelected = player.chooseAWarrior()
                 bringUpAChest(for: warriorSelected)
                 let factionTargeted = player.chooseFaction()
                 actionFrom(player: player, factionTargeted: factionTargeted, warriorSelected: warriorSelected)
-                removeTheDead()
-                
-                GameManager.endGame = endGameChecker()
             }
-            GameManager.counter += 1
+            
         }
         
     }
     
     // Method to handle the end game
     private func handleEndGame() {
+        
         for player in players {
+            
             guard let opponentPlayerUnpacked = getOpponentPlayer(from: player) else {
                 return
             }
             
-            if player.warriors.count == 0 {
-                print("\(opponentPlayerUnpacked.name) wins❗️")
-                endGameList(player: opponentPlayerUnpacked)
+            if !player.isAlive {
+                print("\n🏆 \(opponentPlayerUnpacked.name) wins❗️\n")
+                endGameList()
             }
             
         }
-        printTheNumberOfTurns(counter: GameManager.counter)
+        
+        printTheNumberOfTurns(counter: counter)
     }
     
     // Method to handle the two types actions possible

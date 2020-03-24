@@ -9,9 +9,7 @@
 import Foundation
 
 class Spear : Weapon {
-    
-    private let name = "Spear"
-    
+
     init() {
         super.init(damage: 7)
     }

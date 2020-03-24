@@ -9,9 +9,7 @@
 import Foundation
 
 class TragicFate : Weapon {
-    
-    private let name = "TragicFate"
-    
+
     init() {
         super.init(damage: 90)
     }
