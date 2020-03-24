@@ -11,11 +11,26 @@ import Foundation
 class GameManager {
     
     // MARK: - Private static properties
+
+    // Number required to unlock the chest
+    private static let numberToUnlockTheChest = 0
+    
+    // Interval used to unlock the chest
+    private static let intervalForTheChest = 0...3
+    
+    // Interval used to choose the bonus weapon. We can change this value if we add more weapons
+    private static let intervalForTheWeapons = 1...2
+    
+    // MARK: - Private properties
+    
+    private var players: [Player] = []
+    
+    // Stores the number of turns
+    private var counter = 0
     
     private let numberOfPlayersRequired = 2
     private let numberOfWarriorsRequired = 3
     
-
     // True if the player's warriors are dead
     private var isGameOver: Bool {
         var numberOfPlayerAlive = 0
@@ -28,17 +43,6 @@ class GameManager {
         
         return isGameOver
     }
-    
- 
-    // Stores the number of turns
-    private var counter = 0
-    
-    // Number required to unlock the chest
-    private static let numberToUnlockTheChest = 0
-    // Interval used to unlock the chest
-    private static let intervalForTheChest = 0...3
-    // Interval used to choose the bonus weapon. We can change this value if we add more weapons
-    private static let intervalForTheWeapons = 1...2
 
     // MARK: - Public methods
     
@@ -53,10 +57,7 @@ class GameManager {
         
         handleEndGame()
     }
-    
-    // MARK: - Private properties
-    private var players: [Player] = []
-    
+
     // MARK: - Private methods
     
     // Method to create warriors and initialize their characteristics

@@ -9,9 +9,7 @@
 import Foundation
 
 class Libram : Weapon {
-    
-    let name = "Libram"
-    
+
     init() {
         super.init(damage: 6)
     }

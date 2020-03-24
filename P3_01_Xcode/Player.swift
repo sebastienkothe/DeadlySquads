@@ -15,15 +15,24 @@ class Player {
     }
     
     // MARK: - Internal properties
-
+    
     var isAlive: Bool {
         for warrior in warriors where warrior.isAlive  {
             return true
         }
         return false
     }
-
-    var warriorsNames: [String] {
+    
+    var name: String {
+        return "Player \(id)"
+    }
+    
+    let id: Int
+    var warriors: [Warrior] = []
+    
+    // MARK: - Private properties
+    
+    private var warriorsNames: [String] {
         var names: [String] = []
         
         for warrior in warriors {
@@ -33,7 +42,7 @@ class Player {
         return names
     }
     
-    var cantHealHisWarriors: Bool {
+    private var cantHealHisWarriors: Bool {
         var numberOfWarriors = 0
         for warrior in warriors where warrior.hasMaxHP || !warrior.isAlive {
             numberOfWarriors += 1
@@ -46,59 +55,13 @@ class Player {
         }
     }
     
-    var name: String {
-        return "Player \(id)"
-    }
-    
-    let id: Int
-    var warriors: [Warrior] = []
-
-    
-    // MARK: Internals - Methods
+    // MARK: Internals methods
     
     // Method to create Warriors
     func createWarriors(numberOfWarriors: Int, opponentPlayer: Player) {
         while warriors.count < numberOfWarriors {
             let warriorCreated = createSingleWarrior(opponentPlayer: opponentPlayer, warriorsNames: warriorsNames)
-                warriors.append(warriorCreated)
-        }
-    }
-    
-    // Method to create a single warrior with his name
-    private func createSingleWarrior(opponentPlayer: Player, warriorsNames: [String]) -> Warrior {
-        let choiceInt = selectWarriorType()
-        let selectionOk: Bool = false
-        
-        while !selectionOk {
-            print("\nChoose his name :")
-            
-            guard let inputName = readLine() else {
-                printErrorsMessages(message: .error)
-                continue
-            }
-            
-            guard inputName.count <= 6 else {
-                print("⛔️ Name must contain a maximum of six characters")
-                continue
-            }
-            
-            guard inputName.count > 0 else {
-                print("⛔️ Name must contain at least one character")
-                continue
-            }
-            
-            let nameVerified = checkName(inputName: inputName, warriorNames: warriorsNames, opponentPlayer: opponentPlayer)
-            
-            if nameVerified {
-                continue
-            }
-            
-            switch WarriorType.allCases[choiceInt - 1] {
-            case .Rogue: return Rogue(name: inputName)
-            case .Mage: return Mage(name: inputName)
-            case .Hunter: return Hunter(name: inputName)
-            case .Priest: return Priest(name: inputName)
-            }
+            warriors.append(warriorCreated)
         }
     }
     
@@ -126,7 +89,7 @@ class Player {
             
             switch choice {
             case 1:
-               warriorSelected = self.warriors[0]
+                warriorSelected = self.warriors[0]
             case 2:
                 warriorSelected = self.warriors[1]
             case 3:
@@ -203,11 +166,11 @@ class Player {
             
             switch enemySelected {
             case 1:
-             warriorSelected = enemyPlayer.warriors[0]
+                warriorSelected = enemyPlayer.warriors[0]
             case 2:
-            warriorSelected = enemyPlayer.warriors[1]
+                warriorSelected = enemyPlayer.warriors[1]
             case 3:
-            warriorSelected = enemyPlayer.warriors[2]
+                warriorSelected = enemyPlayer.warriors[2]
             default:
                 continue
             }
@@ -233,7 +196,7 @@ class Player {
                 printErrorsMessages(message: .enterANumber)
                 continue
             }
-                    
+            
             guard 1...warriors.count ~= allySelected else {
                 print("⛔️ Enter a number between 1 and \(warriors.count)")
                 continue
@@ -253,7 +216,7 @@ class Player {
             }
             
             guard !warriorSelected.hasMaxHP else {
-                print("You cannot Heal this ally because his health points is over the limit authorized❗️\n")
+                print("\nYou cannot Heal this ally because his health points is over the limit authorized❗️\n")
                 continue
             }
             
@@ -268,12 +231,12 @@ class Player {
     
     // Method to heal an ally
     func heal(from warrior1: Warrior, to warrior2: Warrior) {
-            print("\n⛑ \(warrior1.name.uppercased()) heals \(warrior2.name.uppercased())❗️")
-            warrior2.lifePoints += warrior1.attackPoints + warrior1.weapon.damage
+        print("\n⛑ \(warrior1.name.uppercased()) heals \(warrior2.name.uppercased())❗️")
+        warrior2.lifePoints += warrior1.attackPoints + warrior1.weapon.damage
         if warrior1.attackPoints + warrior1.weapon.damage + warrior2.lifePoints >= warrior2.maxHP {
             warrior2.lifePoints = warrior2.maxHP
         }
-    
+        
     }
     
     // Method to attack an enemy
@@ -287,7 +250,57 @@ class Player {
         }
     }
     
-    // MARK: - Private methods
+    // Method to print the warriors list
+    func printListOfWarriors() {
+        for (index, warrior) in warriors.enumerated() {
+            print("\(index + 1). 👤 \(warrior.name.uppercased()) ⎜ \(showTheHealth(warrior: warrior)) ⎜ 💪 \(warrior.attackPoints) ⎜ 🗡 \(type(of: warrior.weapon))")
+        }
+    }
+    
+    // Method to print the players' names
+    func printPlayerName() {
+        print("\n➡️ \(self.name.uppercased())")
+    }
+    
+    // MARK: Private methods
+    
+    // Method to create a single warrior with his name
+    private func createSingleWarrior(opponentPlayer: Player, warriorsNames: [String]) -> Warrior {
+        let choiceInt = selectWarriorType()
+        let selectionOk: Bool = false
+        
+        while !selectionOk {
+            print("\nChoose his name :")
+            
+            guard let inputName = readLine() else {
+                printErrorsMessages(message: .error)
+                continue
+            }
+            
+            guard inputName.count <= 6 else {
+                print("⛔️ Name must contain a maximum of six characters")
+                continue
+            }
+            
+            guard inputName.count > 0 else {
+                print("⛔️ Name must contain at least one character")
+                continue
+            }
+            
+            let nameVerified = checkName(inputName: inputName, warriorNames: warriorsNames, opponentPlayer: opponentPlayer)
+            
+            if nameVerified {
+                continue
+            }
+            
+            switch WarriorType.allCases[choiceInt - 1] {
+            case .Rogue: return Rogue(name: inputName)
+            case .Mage: return Mage(name: inputName)
+            case .Hunter: return Hunter(name: inputName)
+            case .Priest: return Priest(name: inputName)
+            }
+        }
+    }
     
     // Method to print players' warriors
     private func printWarriorsAvailable() {
@@ -326,7 +339,7 @@ class Player {
             return choiceInt
         }
     }
-
+    
     // Method to check if the name of the warrior is not already taken
     private func checkName(inputName: String, warriorNames: [String], opponentPlayer: Player) -> Bool {
         
@@ -343,34 +356,19 @@ class Player {
         return false
     }
     
-    private func checkIfNameIsAlreadyUsed(by player: Player) {
-        
-    }
-    
-    // Method to print the warriors list
-    func printListOfWarriors() {
-        for (index, warrior) in warriors.enumerated() {
-            print("\(index + 1). 👤 \(warrior.name.uppercased()) \(showTheHealth(warrior: warrior)) 💪 \(warrior.attackPoints) 🗡 \(type(of: warrior.weapon))")
-        }
-    }
-    
-    func showTheHealth(warrior: Warrior) -> String {
+    // Method to show the health points
+    private func showTheHealth(warrior: Warrior) -> String {
         
         if warrior.lifePoints > 0 && warrior.lifePoints <= 33 {
-            return warrior.hasLowLife
+            return "❤️"
         } else if warrior.lifePoints > 33 && warrior.lifePoints <= 67 {
-            return warrior.hasMediumLife
+            return "❤️❤️"
         } else if warrior.lifePoints > 67 {
-            return warrior.hasHighLife
+            return "❤️❤️❤️"
         } else {
-            return warrior.has0HP
+            return "💔"
         }
     }
-    // Method to print the players' names
-    func printPlayerName() {
-        print("\n➡️ \(self.name.uppercased())")
-    }
-    
     
     // Method to print the messages often used
     private func printErrorsMessages(message: Message) {

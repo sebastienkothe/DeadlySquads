@@ -23,22 +23,6 @@ class Warrior {
         lifePoints >= maxHP
     }
     
-    var has0HP: String {
-        return "💔"
-    }
-    
-    var hasLowLife: String {
-        return "❤️"
-    }
-    
-    var hasMediumLife: String {
-        return "❤️❤️"
-    }
-    
-    var hasHighLife: String {
-        return "❤️❤️❤️"
-    }
-    
     init(name: String) {
         self.name = name
     }
