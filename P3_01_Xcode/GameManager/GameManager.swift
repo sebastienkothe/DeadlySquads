@@ -23,13 +23,13 @@ class GameManager {
     
     // MARK: - Private properties
     
-    private var players: [Player] = []
-    
     // Stores the number of turns
     private var counter = 0
     
-    private let numberOfPlayersRequired = 2
     private let numberOfWarriorsRequired = 3
+    
+    private let numberOfPlayersRequired = 2
+    private var players: [Player] = []
     
     // True if the player's warriors are dead
     private var isGameOver: Bool {
@@ -60,12 +60,27 @@ class GameManager {
 
     // MARK: - Private methods
     
+    // Method to create players
+    private func createPlayers() {
+        while players.count < numberOfPlayersRequired {
+            createSinglePlayer(id: players.count + 1)
+        }
+    }
+    
+    // Method to create a single player
+    private func createSinglePlayer(id: Int) {
+        let player = Player(id: id)
+        players.append(player)
+    }
+    
     // Method to create warriors and initialize their characteristics
     private func startTeamCreationPhase() {
         for player in players {
+            
             guard let opponentPlayer = getOpponentPlayer(from: player) else {
                 return
             }
+            
             player.createWarriors(numberOfWarriors: numberOfWarriorsRequired, opponentPlayer: opponentPlayer)
             initializeWarriors()
         }
@@ -81,21 +96,7 @@ class GameManager {
         
         return nil
     }
-    
-    
-    // Method to create players
-    private func createPlayers() {
-        while players.count < numberOfPlayersRequired {
-            createSinglePlayer(id: players.count + 1)
-        }
-    }
-    
-    // Method to create a single player
-    private func createSinglePlayer(id: Int) {
-        let player = Player(id: id)
-        players.append(player)
-    }
-    
+
     // Method to generate a random number
     private func generateRandomNumber(range: ClosedRange<Int>) -> Int {
         let randomNumber = Int.random(in: range)
@@ -107,9 +108,11 @@ class GameManager {
         
         let randomNumber = generateRandomNumber(range: GameManager.intervalForTheChest)
         if randomNumber == GameManager.numberToUnlockTheChest {
+            
             guard let randomWeapon = selectTheWeapon() else {
                 return
             }
+            
             warrior.weapon = randomWeapon
             print("\n🚨 A chest appears\n👤 \(warrior.name.uppercased()) gets a new weapon 😱")
         }

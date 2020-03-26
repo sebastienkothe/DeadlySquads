@@ -74,6 +74,84 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		360BFF97242B5356009FF448 /* Weapon */ = {
+			isa = PBXGroup;
+			children = (
+				3633E1DB2417A9D100364548 /* Weapon.swift */,
+				360BFF9B242B8E73009FF448 /* Subclasses */,
+			);
+			path = Weapon;
+			sourceTree = "<group>";
+		};
+		360BFF98242B53B3009FF448 /* Warrior */ = {
+			isa = PBXGroup;
+			children = (
+				3633E1D92417A90800364548 /* Warrior.swift */,
+				360BFF9A242B8E21009FF448 /* Subclasses */,
+			);
+			path = Warrior;
+			sourceTree = "<group>";
+		};
+		360BFF9A242B8E21009FF448 /* Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				3633E1DF2417EC6A00364548 /* Rogue.swift */,
+				3633E1DD2417EC4400364548 /* Mage.swift */,
+				3633E1E12417EC8700364548 /* Hunter.swift */,
+				3633E1EB241914E000364548 /* Priest.swift */,
+			);
+			path = Subclasses;
+			sourceTree = "<group>";
+		};
+		360BFF9B242B8E73009FF448 /* Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				3633E1E92418E36400364548 /* Dagger.swift */,
+				3633E1E32417EE3700364548 /* Bow.swift */,
+				3633E1ED241918A900364548 /* Libram.swift */,
+				3633E1EF241A92BB00364548 /* TragicFate.swift */,
+				3633E1E52417EE8200364548 /* Spear.swift */,
+				3633E1E72417EEBC00364548 /* Axe.swift */,
+			);
+			path = Subclasses;
+			sourceTree = "<group>";
+		};
+		360BFF9C242B8EBF009FF448 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				3633E1D72417A7A200364548 /* Player.swift */,
+				360BFF9D242B8EEE009FF448 /* Enumerations */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		360BFF9D242B8EEE009FF448 /* Enumerations */ = {
+			isa = PBXGroup;
+			children = (
+				3623DC6E241E890A00030178 /* WarriorType.swift */,
+				3633E1F1241BBFC100364548 /* Message.swift */,
+			);
+			path = Enumerations;
+			sourceTree = "<group>";
+		};
+		360BFF9E242B8F73009FF448 /* Enumerations */ = {
+			isa = PBXGroup;
+			children = (
+				3623DC70241FA1F100030178 /* WarriorFaction.swift */,
+				3623DC722424B57800030178 /* WeaponType.swift */,
+			);
+			path = Enumerations;
+			sourceTree = "<group>";
+		};
+		360BFF9F242B9155009FF448 /* GameManager */ = {
+			isa = PBXGroup;
+			children = (
+				3633E1D52417A3BC00364548 /* GameManager.swift */,
+				360BFF9E242B8F73009FF448 /* Enumerations */,
+			);
+			path = GameManager;
+			sourceTree = "<group>";
+		};
 		3633E1C22417A05000364548 = {
 			isa = PBXGroup;
 			children = (
@@ -94,24 +172,10 @@
 			isa = PBXGroup;
 			children = (
 				3633E1CE2417A05100364548 /* main.swift */,
-				3633E1D52417A3BC00364548 /* GameManager.swift */,
-				3633E1D72417A7A200364548 /* Player.swift */,
-				3633E1D92417A90800364548 /* Warrior.swift */,
-				3633E1DB2417A9D100364548 /* Weapon.swift */,
-				3633E1DF2417EC6A00364548 /* Rogue.swift */,
-				3633E1DD2417EC4400364548 /* Mage.swift */,
-				3633E1E12417EC8700364548 /* Hunter.swift */,
-				3633E1EB241914E000364548 /* Priest.swift */,
-				3633E1E32417EE3700364548 /* Bow.swift */,
-				3633E1E52417EE8200364548 /* Spear.swift */,
-				3633E1EF241A92BB00364548 /* TragicFate.swift */,
-				3633E1E92418E36400364548 /* Dagger.swift */,
-				3633E1E72417EEBC00364548 /* Axe.swift */,
-				3633E1ED241918A900364548 /* Libram.swift */,
-				3633E1F1241BBFC100364548 /* Message.swift */,
-				3623DC6E241E890A00030178 /* WarriorType.swift */,
-				3623DC70241FA1F100030178 /* WarriorFaction.swift */,
-				3623DC722424B57800030178 /* WeaponType.swift */,
+				360BFF9F242B9155009FF448 /* GameManager */,
+				360BFF9C242B8EBF009FF448 /* Player */,
+				360BFF97242B5356009FF448 /* Weapon */,
+				360BFF98242B53B3009FF448 /* Warrior */,
 			);
 			path = P3_01_Xcode;
 			sourceTree = "<group>";

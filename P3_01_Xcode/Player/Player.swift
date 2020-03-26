@@ -267,9 +267,9 @@ class Player {
     // Method to create a single warrior with his name
     private func createSingleWarrior(opponentPlayer: Player, warriorsNames: [String]) -> Warrior {
         let choiceInt = selectWarriorType()
-        let selectionOk: Bool = false
+        let selectionIsCorrect: Bool = false
         
-        while !selectionOk {
+        while !selectionIsCorrect {
             print("\nChoose his name :")
             
             guard let inputName = readLine() else {
@@ -317,11 +317,12 @@ class Player {
     
     // Method to select the warrior's type
     private func selectWarriorType() -> Int {
-        let selectionOk: Bool = false
+        let selectionIsCorrect: Bool = false
         printCreateSingleWarriorInstruction()
         printWarriorsAvailable()
         
-        while selectionOk == false {
+        while !selectionIsCorrect {
+            
             guard let choiceString = readLine() else {
                 printErrorsMessages(message: .error)
                 continue
@@ -336,6 +337,7 @@ class Player {
                 print("⛔️ Your number must be between 1 and \(WarriorType.allCases.count)")
                 continue
             }
+            
             return choiceInt
         }
     }
@@ -346,6 +348,7 @@ class Player {
         let allWarriorsNames = warriorNames + opponentPlayer.warriorsNames
         
         for warriorName in allWarriorsNames {
+            
             guard inputName != warriorName else {
                 print("⛔️ Name already taken")
                 return true
