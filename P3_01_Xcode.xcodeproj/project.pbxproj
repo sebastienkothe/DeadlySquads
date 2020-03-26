@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3623DC6F241E890A00030178 /* WarriorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623DC6E241E890A00030178 /* WarriorType.swift */; };
 		3623DC71241FA1F100030178 /* WarriorFaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623DC70241FA1F100030178 /* WarriorFaction.swift */; };
-		3623DC732424B57800030178 /* WeaponType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623DC722424B57800030178 /* WeaponType.swift */; };
 		3633E1CF2417A05100364548 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1CE2417A05100364548 /* main.swift */; };
 		3633E1D62417A3BC00364548 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1D52417A3BC00364548 /* GameManager.swift */; };
 		3633E1D82417A7A200364548 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1D72417A7A200364548 /* Player.swift */; };
@@ -25,7 +24,8 @@
 		3633E1EC241914E100364548 /* Priest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1EB241914E000364548 /* Priest.swift */; };
 		3633E1EE241918A900364548 /* Libram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1ED241918A900364548 /* Libram.swift */; };
 		3633E1F0241A92BB00364548 /* TragicFate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1EF241A92BB00364548 /* TragicFate.swift */; };
-		3633E1F2241BBFC100364548 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3633E1F1241BBFC100364548 /* Message.swift */; };
+		36707FC0242CA02F00323009 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36707FBF242CA02F00323009 /* Message.swift */; };
+		36707FC2242CA05700323009 /* WeaponType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36707FC1242CA05600323009 /* WeaponType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,7 +43,6 @@
 /* Begin PBXFileReference section */
 		3623DC6E241E890A00030178 /* WarriorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarriorType.swift; sourceTree = "<group>"; };
 		3623DC70241FA1F100030178 /* WarriorFaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarriorFaction.swift; sourceTree = "<group>"; };
-		3623DC722424B57800030178 /* WeaponType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponType.swift; sourceTree = "<group>"; };
 		3633E1CB2417A05000364548 /* P3_01_Xcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = P3_01_Xcode; sourceTree = BUILT_PRODUCTS_DIR; };
 		3633E1CE2417A05100364548 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3633E1D52417A3BC00364548 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
@@ -60,7 +59,8 @@
 		3633E1EB241914E000364548 /* Priest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priest.swift; sourceTree = "<group>"; };
 		3633E1ED241918A900364548 /* Libram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Libram.swift; sourceTree = "<group>"; };
 		3633E1EF241A92BB00364548 /* TragicFate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TragicFate.swift; sourceTree = "<group>"; };
-		3633E1F1241BBFC100364548 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		36707FBF242CA02F00323009 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = P3_01_Xcode/Enumeration/Message.swift; sourceTree = SOURCE_ROOT; };
+		36707FC1242CA05600323009 /* WeaponType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeaponType.swift; path = P3_01_Xcode/Weapon/Enumerations/WeaponType.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +79,7 @@
 			children = (
 				3633E1DB2417A9D100364548 /* Weapon.swift */,
 				360BFF9B242B8E73009FF448 /* Subclasses */,
+				360BFF9E242B8F73009FF448 /* Enumerations */,
 			);
 			path = Weapon;
 			sourceTree = "<group>";
@@ -88,6 +89,7 @@
 			children = (
 				3633E1D92417A90800364548 /* Warrior.swift */,
 				360BFF9A242B8E21009FF448 /* Subclasses */,
+				3680CA17242C9525008C16BD /* Enumerations */,
 			);
 			path = Warrior;
 			sourceTree = "<group>";
@@ -120,34 +122,23 @@
 			isa = PBXGroup;
 			children = (
 				3633E1D72417A7A200364548 /* Player.swift */,
-				360BFF9D242B8EEE009FF448 /* Enumerations */,
 			);
 			path = Player;
-			sourceTree = "<group>";
-		};
-		360BFF9D242B8EEE009FF448 /* Enumerations */ = {
-			isa = PBXGroup;
-			children = (
-				3623DC6E241E890A00030178 /* WarriorType.swift */,
-				3633E1F1241BBFC100364548 /* Message.swift */,
-			);
-			path = Enumerations;
 			sourceTree = "<group>";
 		};
 		360BFF9E242B8F73009FF448 /* Enumerations */ = {
 			isa = PBXGroup;
 			children = (
-				3623DC70241FA1F100030178 /* WarriorFaction.swift */,
-				3623DC722424B57800030178 /* WeaponType.swift */,
+				36707FC1242CA05600323009 /* WeaponType.swift */,
 			);
-			path = Enumerations;
+			name = Enumerations;
+			path = ../Enumerations;
 			sourceTree = "<group>";
 		};
 		360BFF9F242B9155009FF448 /* GameManager */ = {
 			isa = PBXGroup;
 			children = (
 				3633E1D52417A3BC00364548 /* GameManager.swift */,
-				360BFF9E242B8F73009FF448 /* Enumerations */,
 			);
 			path = GameManager;
 			sourceTree = "<group>";
@@ -156,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				3633E1CD2417A05000364548 /* P3_01_Xcode */,
+				36AE06E6242C96E400CCC468 /* Enumeration */,
 				3633E1CC2417A05000364548 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -174,10 +166,27 @@
 				3633E1CE2417A05100364548 /* main.swift */,
 				360BFF9F242B9155009FF448 /* GameManager */,
 				360BFF9C242B8EBF009FF448 /* Player */,
-				360BFF97242B5356009FF448 /* Weapon */,
 				360BFF98242B53B3009FF448 /* Warrior */,
+				360BFF97242B5356009FF448 /* Weapon */,
 			);
 			path = P3_01_Xcode;
+			sourceTree = "<group>";
+		};
+		3680CA17242C9525008C16BD /* Enumerations */ = {
+			isa = PBXGroup;
+			children = (
+				3623DC6E241E890A00030178 /* WarriorType.swift */,
+				3623DC70241FA1F100030178 /* WarriorFaction.swift */,
+			);
+			path = Enumerations;
+			sourceTree = "<group>";
+		};
+		36AE06E6242C96E400CCC468 /* Enumeration */ = {
+			isa = PBXGroup;
+			children = (
+				36707FBF242CA02F00323009 /* Message.swift */,
+			);
+			path = Enumeration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,7 +216,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Sébastien Kothé";
 				TargetAttributes = {
 					3633E1CA2417A05000364548 = {
@@ -241,6 +250,8 @@
 				3633E1EE241918A900364548 /* Libram.swift in Sources */,
 				3633E1EC241914E100364548 /* Priest.swift in Sources */,
 				3633E1E42417EE3700364548 /* Bow.swift in Sources */,
+				36707FC2242CA05700323009 /* WeaponType.swift in Sources */,
+				36707FC0242CA02F00323009 /* Message.swift in Sources */,
 				3623DC71241FA1F100030178 /* WarriorFaction.swift in Sources */,
 				3633E1E02417EC6A00364548 /* Rogue.swift in Sources */,
 				3633E1DC2417A9D100364548 /* Weapon.swift in Sources */,
@@ -251,10 +262,8 @@
 				3633E1E22417EC8700364548 /* Hunter.swift in Sources */,
 				3623DC6F241E890A00030178 /* WarriorType.swift in Sources */,
 				3633E1E62417EE8200364548 /* Spear.swift in Sources */,
-				3623DC732424B57800030178 /* WeaponType.swift in Sources */,
 				3633E1DA2417A90800364548 /* Warrior.swift in Sources */,
 				3633E1EA2418E36400364548 /* Dagger.swift in Sources */,
-				3633E1F2241BBFC100364548 /* Message.swift in Sources */,
 				3633E1D62417A3BC00364548 /* GameManager.swift in Sources */,
 				3633E1E82417EEBC00364548 /* Axe.swift in Sources */,
 			);
@@ -379,6 +388,7 @@
 		3633E1D32417A05100364548 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3CQSNJZ5Q2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -390,6 +400,7 @@
 		3633E1D42417A05100364548 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3CQSNJZ5Q2;
 				ENABLE_HARDENED_RUNTIME = YES;

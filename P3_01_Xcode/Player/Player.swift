@@ -15,6 +15,13 @@ class Player {
     }
     
     // MARK: - Internal properties
+    let id: Int
+    
+    var name: String {
+        return "Player \(id)"
+    }
+    
+    var warriors: [Warrior] = []
     
     var isAlive: Bool {
         for warrior in warriors where warrior.isAlive  {
@@ -22,13 +29,6 @@ class Player {
         }
         return false
     }
-    
-    var name: String {
-        return "Player \(id)"
-    }
-    
-    let id: Int
-    var warriors: [Warrior] = []
     
     // MARK: - Private properties
     
@@ -63,6 +63,11 @@ class Player {
             let warriorCreated = createSingleWarrior(opponentPlayer: opponentPlayer, warriorsNames: warriorsNames)
             warriors.append(warriorCreated)
         }
+    }
+    
+    // Method to print the players' names
+    func printPlayerName() {
+        print("\n➡️ \(self.name.uppercased())")
     }
     
     // Method to select a warrior
@@ -109,6 +114,13 @@ class Player {
         
     }
     
+    // Method to print the warriors list
+    func printListOfWarriors() {
+        for (index, warrior) in warriors.enumerated() {
+            print("\(index + 1). 👤 \(warrior.name.uppercased()) ⎜ \(showTheHealth(warrior: warrior)) ⎜ 💪 \(warrior.attackPoints) ⎜ 🗡 \(type(of: warrior.weapon))")
+        }
+    }
+    
     // Method to choose the faction
     func chooseFaction() -> WarriorFaction {
         if self.cantHealHisWarriors {
@@ -142,46 +154,6 @@ class Player {
             }
         }
         
-    }
-    
-    // Method to target an enemy
-    func targetAnEnemy(enemyPlayer: Player) -> Warrior {
-        let selectionOk: Bool = false
-        
-        while selectionOk == false {
-            print("\nWhich enemy ?")
-            enemyPlayer.printListOfWarriors()
-            
-            guard let enemySelected = getUserInputAsInt() else {
-                printErrorsMessages(message: .enterANumber)
-                continue
-            }
-            
-            guard 1...enemyPlayer.warriors.count ~= enemySelected else {
-                print("⛔️ Enter a number between 1 and \(enemyPlayer.warriors.count)\n")
-                continue
-            }
-            
-            let warriorSelected: Warrior
-            
-            switch enemySelected {
-            case 1:
-                warriorSelected = enemyPlayer.warriors[0]
-            case 2:
-                warriorSelected = enemyPlayer.warriors[1]
-            case 3:
-                warriorSelected = enemyPlayer.warriors[2]
-            default:
-                continue
-            }
-            
-            guard warriorSelected.isAlive else {
-                print("\n⏹ You can't attack a dead warrior 😵")
-                continue
-            }
-            
-            return warriorSelected
-        }
     }
     
     // Method to target an ally
@@ -239,6 +211,46 @@ class Player {
         
     }
     
+    // Method to target an enemy
+    func targetAnEnemy(enemyPlayer: Player) -> Warrior {
+        let selectionOk: Bool = false
+        
+        while selectionOk == false {
+            print("\nWhich enemy ?")
+            enemyPlayer.printListOfWarriors()
+            
+            guard let enemySelected = getUserInputAsInt() else {
+                printErrorsMessages(message: .enterANumber)
+                continue
+            }
+            
+            guard 1...enemyPlayer.warriors.count ~= enemySelected else {
+                print("⛔️ Enter a number between 1 and \(enemyPlayer.warriors.count)\n")
+                continue
+            }
+            
+            let warriorSelected: Warrior
+            
+            switch enemySelected {
+            case 1:
+                warriorSelected = enemyPlayer.warriors[0]
+            case 2:
+                warriorSelected = enemyPlayer.warriors[1]
+            case 3:
+                warriorSelected = enemyPlayer.warriors[2]
+            default:
+                continue
+            }
+            
+            guard warriorSelected.isAlive else {
+                print("\n⏹ You can't attack a dead warrior 😵")
+                continue
+            }
+            
+            return warriorSelected
+        }
+    }
+    
     // Method to attack an enemy
     func attack(from warrior1: Warrior, to warrior2: Warrior) {
         print("\n💥 \(warrior1.name.uppercased()) attacks \(warrior2.name.uppercased())❗️")
@@ -248,18 +260,6 @@ class Player {
         } else {
             warrior2.lifePoints -= warrior1.attackPoints + warrior1.weapon.damage
         }
-    }
-    
-    // Method to print the warriors list
-    func printListOfWarriors() {
-        for (index, warrior) in warriors.enumerated() {
-            print("\(index + 1). 👤 \(warrior.name.uppercased()) ⎜ \(showTheHealth(warrior: warrior)) ⎜ 💪 \(warrior.attackPoints) ⎜ 🗡 \(type(of: warrior.weapon))")
-        }
-    }
-    
-    // Method to print the players' names
-    func printPlayerName() {
-        print("\n➡️ \(self.name.uppercased())")
     }
     
     // MARK: Private methods
@@ -302,19 +302,6 @@ class Player {
         }
     }
     
-    // Method to print players' warriors
-    private func printWarriorsAvailable() {
-        for (index, warriorType) in WarriorType.allCases.enumerated() {
-            print("\(index + 1) \(warriorType)")
-        }
-    }
-    
-    // Method to print the instruction to create a warrior
-    private func printCreateSingleWarriorInstruction() {
-        printPlayerName()
-        print("Choose your warrior n°\(warriors.count + 1) :")
-    }
-    
     // Method to select the warrior's type
     private func selectWarriorType() -> Int {
         let selectionIsCorrect: Bool = false
@@ -339,6 +326,29 @@ class Player {
             }
             
             return choiceInt
+        }
+    }
+    
+    // Method to print the instruction to create a warrior
+    private func printCreateSingleWarriorInstruction() {
+        printPlayerName()
+        print("Choose your warrior n°\(warriors.count + 1) :")
+    }
+    
+    // Method to print players' warriors
+    private func printWarriorsAvailable() {
+        for (index, warriorType) in WarriorType.allCases.enumerated() {
+            print("\(index + 1) \(warriorType)")
+        }
+    }
+    
+    // Method to print the messages often used
+    private func printErrorsMessages(message: Message) {
+        switch message {
+        case .enterANumber:
+            print(message.rawValue)
+        case .error:
+            print(message.rawValue)
         }
     }
     
@@ -370,16 +380,6 @@ class Player {
             return "❤️❤️❤️"
         } else {
             return "💔"
-        }
-    }
-    
-    // Method to print the messages often used
-    private func printErrorsMessages(message: Message) {
-        switch message {
-        case .enterANumber:
-            print(message.rawValue)
-        case .error:
-            print(message.rawValue)
         }
     }
     
