@@ -42,19 +42,11 @@ class Player {
         return names
     }
     
-    private var cantHealHisWarriors: Bool {
-        
-        var numberOfWarriors = 0
-        
-        for warrior in warriors where warrior.hasMaxHP || !warrior.isAlive {
-            numberOfWarriors += 1
-        }
-        
-        if numberOfWarriors == 3 {
+    private var canHealHisWarriors: Bool {
+        for warrior in warriors where !warrior.hasMaxHP && warrior.isAlive {
             return true
-        } else {
-            return false
         }
+        return false
     }
     
     // MARK: Internals methods
@@ -126,8 +118,8 @@ class Player {
     // Method to choose the faction
     func chooseFaction() -> WarriorFaction {
         
-        if self.cantHealHisWarriors {
-            print("\nYou can't heal your allies❗️\nYou must attack an opponent 😈\n")
+        if !self.canHealHisWarriors {
+            print("\nYou can't heal your allies❗️\nYou must attack an opponent 😈")
             return .enemy
         }
         
