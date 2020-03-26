@@ -43,7 +43,9 @@ class Player {
     }
     
     private var cantHealHisWarriors: Bool {
+        
         var numberOfWarriors = 0
+        
         for warrior in warriors where warrior.hasMaxHP || !warrior.isAlive {
             numberOfWarriors += 1
         }
@@ -73,9 +75,9 @@ class Player {
     // Method to select a warrior
     func chooseAWarrior() -> Warrior {
         
-        let selectionOk: Bool = false
+        let selectionIsCorrect: Bool = false
         
-        while selectionOk == false {
+        while !selectionIsCorrect {
             printPlayerName()
             print("Choose a warrior :")
             printListOfWarriors()
@@ -123,15 +125,16 @@ class Player {
     
     // Method to choose the faction
     func chooseFaction() -> WarriorFaction {
+        
         if self.cantHealHisWarriors {
             print("\nYou can't heal your allies❗️\nYou must attack an opponent 😈\n")
             return .enemy
         }
         
-        let selectionOk: Bool = false
+        let selectionIsCorrect: Bool = false
         
         
-        while selectionOk == false {
+        while !selectionIsCorrect {
             print("\nTarget :\n1. Ally\n2. Enemy")
             
             guard let response = getUserInputAsInt() else {
@@ -158,9 +161,9 @@ class Player {
     
     // Method to target an ally
     func targetAnAlly() -> Warrior {
-        let selectionOk: Bool = false
+        let selectionIsCorrect: Bool = false
         
-        while selectionOk == false {
+        while !selectionIsCorrect {
             print("\nWho to heal ?")
             self.printListOfWarriors()
             
@@ -213,9 +216,9 @@ class Player {
     
     // Method to target an enemy
     func targetAnEnemy(enemyPlayer: Player) -> Warrior {
-        let selectionOk: Bool = false
+        let selectionIsCorrect: Bool = false
         
-        while selectionOk == false {
+        while !selectionIsCorrect {
             print("\nWhich enemy ?")
             enemyPlayer.printListOfWarriors()
             
