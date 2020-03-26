@@ -149,6 +149,7 @@ class GameManager {
     private func bringUpAChest(for warrior: Warrior) {
         
         let randomNumber = generateRandomNumber(range: GameManager.intervalForTheChest)
+        
         if randomNumber == GameManager.numberToUnlockTheChest {
             
             guard let randomWeapon = selectTheWeapon() else {
