@@ -11,12 +11,12 @@ import Foundation
 class GameManager {
     
     // MARK: - Private static properties
-
-    // Number required to unlock the chest
-    private static let numberToUnlockTheChest = 0
     
     // Interval used to unlock the chest
     private static let intervalForTheChest = 0...3
+    
+    // Number required to unlock the chest
+    private static let numberToUnlockTheChest = 0
     
     // Interval used to choose the bonus weapon. We can change this value if we add more weapons
     private static let intervalForTheWeapons = 1...2
@@ -24,10 +24,6 @@ class GameManager {
     // MARK: - Private properties
     
     private var players: [Player] = []
-    
-    // Stores the number of turns
-    private var counter = 0
-    
     private let numberOfPlayersRequired = 2
     private let numberOfWarriorsRequired = 3
     
@@ -43,7 +39,10 @@ class GameManager {
         
         return isGameOver
     }
-
+    
+    // Stores the number of turns
+    private var counter = 0
+    
     // MARK: - Public methods
     
     // Method for managing the different parts of the game
@@ -57,31 +56,8 @@ class GameManager {
         
         handleEndGame()
     }
-
+    
     // MARK: - Private methods
-    
-    // Method to create warriors and initialize their characteristics
-    private func startTeamCreationPhase() {
-        for player in players {
-            guard let opponentPlayer = getOpponentPlayer(from: player) else {
-                return
-            }
-            player.createWarriors(numberOfWarriors: numberOfWarriorsRequired, opponentPlayer: opponentPlayer)
-            initializeWarriors()
-        }
-    }
-    
-    // Method to find the enemy player of the current player
-    private func getOpponentPlayer(from playingPlayer: Player) -> Player? {
-        for player in players {
-            if playingPlayer.id != player.id {
-                return player
-            }
-        }
-        
-        return nil
-    }
-    
     
     // Method to create players
     private func createPlayers() {
@@ -96,75 +72,28 @@ class GameManager {
         players.append(player)
     }
     
-    // Method to generate a random number
-    private func generateRandomNumber(range: ClosedRange<Int>) -> Int {
-        let randomNumber = Int.random(in: range)
-        return randomNumber
-    }
-    
-    // Method to bring up a chest
-    private func bringUpAChest(for warrior: Warrior) {
-        
-        let randomNumber = generateRandomNumber(range: GameManager.intervalForTheChest)
-        if randomNumber == GameManager.numberToUnlockTheChest {
-            guard let randomWeapon = selectTheWeapon() else {
+    // Method to create warriors and initialize their characteristics
+    private func startTeamCreationPhase() {
+        for player in players {
+            
+            guard let opponentPlayer = getOpponentPlayer(from: player) else {
                 return
             }
-            warrior.weapon = randomWeapon
-            print("\n🚨 A chest appears\n👤 \(warrior.name.uppercased()) gets a new weapon 😱")
+            
+            player.createWarriors(numberOfWarriors: numberOfWarriorsRequired, opponentPlayer: opponentPlayer)
+            initializeWarriors()
         }
     }
     
-    // Method to select the weapon type
-    private func selectTheWeaponType() -> WeaponType? {
-        let randomNumber = generateRandomNumber(range: GameManager.intervalForTheWeapons)
-        switch randomNumber {
-        case 1:
-            return WeaponType.axe
-        case 2:
-            return WeaponType.tragicFate
-        default:
-            return nil
-        }
-    }
-    
-    // Method to select the weapon
-    private func selectTheWeapon() -> Weapon? {
-        let weaponType = selectTheWeaponType()
-        
-        switch weaponType {
-        case .axe:
-            return Axe()
-        case .tragicFate:
-            return TragicFate()
-        default:
-            return nil
-        }
-    }
-    
-    // Method to create random names
-    private func randomName() -> String {
-        let length = 6
-        let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        let randomCharacters = (0..<length).map{_ in characters.randomElement()!}
-        let randomString = String(randomCharacters)
-        
-        return randomString
-    }
-    
-    // Method to show the list of remaining warriors at the end of game
-    private func endGameList() {
-        print("Remaining warriors :")
-        
+    // Method to find the enemy player of the current player
+    private func getOpponentPlayer(from playingPlayer: Player) -> Player? {
         for player in players {
-            player.printPlayerName()
-            player.printListOfWarriors()
+            if playingPlayer.id != player.id {
+                return player
+            }
         }
-    }
-    
-    // Method to print the number of turns
-    private func printTheNumberOfTurns(counter: Int) {
-        print("\n🏁 Number of turns : \(counter)")
+        
+        return nil
     }
     
     // Method to find and return each warriors - ℹ️ Method overload
@@ -216,6 +145,68 @@ class GameManager {
         
     }
     
+    // Method to bring up a chest
+    private func bringUpAChest(for warrior: Warrior) {
+        
+        let randomNumber = generateRandomNumber(range: GameManager.intervalForTheChest)
+        if randomNumber == GameManager.numberToUnlockTheChest {
+            
+            guard let randomWeapon = selectTheWeapon() else {
+                return
+            }
+            
+            warrior.weapon = randomWeapon
+            print("\n🚨 A chest appears\n👤 \(warrior.name.uppercased()) gets a new weapon 😱")
+        }
+    }
+    
+    // Method to generate a random number
+    private func generateRandomNumber(range: ClosedRange<Int>) -> Int {
+        let randomNumber = Int.random(in: range)
+        return randomNumber
+    }
+    
+    // Method to select the weapon
+    private func selectTheWeapon() -> Weapon? {
+        let weaponType = selectTheWeaponType()
+        
+        switch weaponType {
+        case .axe:
+            return Axe()
+        case .tragicFate:
+            return TragicFate()
+        default:
+            return nil
+        }
+    }
+    
+    // Method to select the weapon type
+    private func selectTheWeaponType() -> WeaponType? {
+        let randomNumber = generateRandomNumber(range: GameManager.intervalForTheWeapons)
+        switch randomNumber {
+        case 1:
+            return WeaponType.axe
+        case 2:
+            return WeaponType.tragicFate
+        default:
+            return nil
+        }
+    }
+    
+    // Method to handle the two types actions possible
+    private func actionFrom(player: Player, factionTargeted: WarriorFaction, warriorSelected: Warrior) {
+        switch factionTargeted {
+        case .ally:
+            let allyTargeted = player.targetAnAlly()
+            player.heal(from: warriorSelected, to: allyTargeted)
+        case .enemy:
+            guard let opponentPlayer = getOpponentPlayer(from: player) else { return }
+            let enemytargeted = player.targetAnEnemy(enemyPlayer: opponentPlayer)
+            player.attack(from: warriorSelected, to: enemytargeted)
+        }
+        
+    }
+    
     // Method to handle the end game
     private func handleEndGame() {
         
@@ -235,18 +226,19 @@ class GameManager {
         printTheNumberOfTurns(counter: counter)
     }
     
-    // Method to handle the two types actions possible
-    private func actionFrom(player: Player, factionTargeted: WarriorFaction, warriorSelected: Warrior) {
-        switch factionTargeted {
-        case .ally:
-            let allyTargeted = player.targetAnAlly()
-            player.heal(from: warriorSelected, to: allyTargeted)
-        case .enemy:
-            guard let opponentPlayer = getOpponentPlayer(from: player) else { return }
-            let enemytargeted = player.targetAnEnemy(enemyPlayer: opponentPlayer)
-            player.attack(from: warriorSelected, to: enemytargeted)
-        }
+    // Method to show the list of remaining warriors at the end of game
+    private func endGameList() {
+        print("Remaining warriors :")
         
+        for player in players {
+            player.printPlayerName()
+            player.printListOfWarriors()
+        }
+    }
+    
+    // Method to print the number of turns
+    private func printTheNumberOfTurns(counter: Int) {
+        print("\n🏁 Number of turns : \(counter)")
     }
     
 }

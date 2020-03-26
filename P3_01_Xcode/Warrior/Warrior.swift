@@ -13,11 +13,12 @@ class Warrior {
     var lifePoints: Int = 100
     var attackPoints: Int = 60
     var weapon: Weapon = Bow()
-    var maxHP = 100
     
     var isAlive: Bool {
         lifePoints > 0
     }
+    
+    var maxHP = 100
     
     var hasMaxHP: Bool {
         lifePoints >= maxHP
