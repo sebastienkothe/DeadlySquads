@@ -9,8 +9,8 @@
 import Foundation
 
 class TragicFate : Weapon {
-
+    
     init() {
-        super.init(damage: 90)
+        super.init(damage: 20)
     }
 }

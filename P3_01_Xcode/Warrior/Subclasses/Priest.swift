@@ -9,5 +9,18 @@
 import Foundation
 
 class Priest : Warrior {
+    let numberToUnlockTheGreatHeal = 1
+    let chanceToMakeAGreatHeal = Int.random(in: 1...1)
     
+    let amountOfGreatHeal = 60
+    
+    func makeAGreatHeal(at warrior: Warrior) {
+        
+        guard chanceToMakeAGreatHeal == numberToUnlockTheGreatHeal else {
+            return
+        }
+        
+        print("\n🧑‍⚕️ \(self.name) cast a great heal (+ \(amountOfGreatHeal) HP) 🙌")
+        warrior.lifePoints += amountOfGreatHeal
+    }
 }
