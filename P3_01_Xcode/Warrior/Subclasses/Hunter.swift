@@ -9,10 +9,8 @@
 import Foundation
 
 class Hunter : Warrior {
-    private let numberToUnlockTheCall = 1
-    private let chanceToCallABeast = Int.random(in: 1...1)
     
-    let beastDamage = 40
+    // MARK: Internals methods
     
     func callAWildBeast(to enemyWarrior: Warrior) {
         
@@ -24,4 +22,12 @@ class Hunter : Warrior {
         print("\n\(self.name) dropped a wild beast on \(enemyWarrior.name) (- \(beastDamage) HP) 🐊")
         
     }
+    
+    // MARK: - Private properties
+    
+    private let numberToUnlockTheCall = 1
+    private let chanceToCallABeast = Int.random(in: 1...1)
+    
+    private let beastDamage = 40
+    
 }

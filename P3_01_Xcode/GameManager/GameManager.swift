@@ -63,7 +63,7 @@ class GameManager {
     
     /// Method to print the game instruction
     private func printGameInstruction() {
-        print("🅼🅾🆁🆃🅰🅻 🆂🆀🆄🅰🅳®")
+        print("🅳🅴🅰🅳🅻🆈 🆂🆀🆄🅰🅳🆂®")
     }
     
     /// Method to create players
@@ -125,6 +125,7 @@ class GameManager {
             }
         }
     }
+    
     /// Method to bring up a chest
     private func bringUpAChest(for warrior: Warrior) {
         

@@ -9,9 +9,8 @@
 import Foundation
 
 class Rogue : Warrior {
-    let numberToUnlockTheCriticalStrike = 1
-    let chanceToMakeACriticalStrike = Int.random(in: 1...1)
     
+    // MARK: Internals methods
     
     /// Method to handle the critical strikes
     func makeACriticalStrike(to enemy: Warrior) {
@@ -24,5 +23,10 @@ class Rogue : Warrior {
         print("\n🙀 \(self.name) made a critical strike (- \(criticalStrikeDamage) HP) 🤯")
         enemy.lifePoints -= criticalStrikeDamage
     }
+    
+    // MARK: - Private properties
+    
+    private let numberToUnlockTheCriticalStrike = 1
+    private let chanceToMakeACriticalStrike = Int.random(in: 1...1)
     
 }
