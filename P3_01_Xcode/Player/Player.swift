@@ -98,7 +98,7 @@ class Player {
             }
             
             guard !warriorSelected.isFreeze else {
-                print("\n 🙅‍♂️ You can't choose a frozen ally 🥶")
+                print("\n🙅‍♂️ You can't choose a frozen ally 🥶")
                 continue
             }
 

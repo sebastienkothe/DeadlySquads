@@ -10,11 +10,7 @@ import Foundation
 
 class Mage : Warrior {
     
-    private let numberToUnlockTheFreeze = 1
-    private let chanceToFreezeTheEnemy = Int.random(in: 1...1)
-    
-    /// Damage output for the special ability
-    let frostDamage = 30
+    // MARK: Internals methods
     
     /// Method to freeze an enemy
     func freeze(enemyWarrior: Warrior) -> Bool {
@@ -27,5 +23,14 @@ class Mage : Warrior {
         print("\n\(self.name) freeze \(enemyWarrior.name) (- \(frostDamage) HP) 🥶")
         return true
     }
+    
+    // MARK: - Private properties
+    
+    private let numberToUnlockTheFreeze = 1
+    private let chanceToFreezeTheEnemy = Int.random(in: 1...1)
+    
+    /// Damage output for the special ability
+    private let frostDamage = 30
+    
 }
 

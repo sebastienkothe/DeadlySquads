@@ -9,10 +9,8 @@
 import Foundation
 
 class Priest : Warrior {
-    let numberToUnlockTheGreatHeal = 1
-    let chanceToMakeAGreatHeal = Int.random(in: 1...1)
     
-    let amountOfGreatHeal = 60
+     // MARK: Internals methods
     
     func makeAGreatHeal(at warrior: Warrior) {
         
@@ -23,4 +21,12 @@ class Priest : Warrior {
         print("\n🧑‍⚕️ \(self.name) cast a great heal (+ \(amountOfGreatHeal) HP) 🙌")
         warrior.lifePoints += amountOfGreatHeal
     }
+    
+    // MARK: - Private properties
+    
+    private let numberToUnlockTheGreatHeal = 1
+    private let chanceToMakeAGreatHeal = Int.random(in: 1...1)
+    
+    private let amountOfGreatHeal = 60
+    
 }
