@@ -17,6 +17,8 @@ class Warrior {
         lifePoints = maxHP
     }
     
+    // MARK: - Internal properties
+    
     var isFreeze = false
     
     let name: String
@@ -28,11 +30,16 @@ class Warrior {
         lifePoints > 0
     }
     
-    var maxHP = 100
-    
     var hasMaxHP: Bool {
         lifePoints >= maxHP
     }
+    
+    // MARK: - Private properties
+    
+    private var maxHP = 100
+    private var minHP = 0
+    
+    // MARK: Internals methods
     
     /// Method to attack an enemy
     func attack(_ warrior2: Warrior) {
@@ -58,11 +65,11 @@ class Warrior {
         guard warrior2.isAlive else {
             print("\n⚰️ \(warrior2.name.uppercased()) is dead❗️")
             
-            if warrior2.lifePoints < 0 {
-                print("\n‼️ OVERKILL ‼️ Excessive damage (+ \(abs(warrior2.lifePoints)))")
+            if warrior2.lifePoints < minHP {
+                print("\n‼️ OVERKILL ‼️\n📊 Excessive damage (+ \(abs(warrior2.lifePoints)))")
+                warrior2.lifePoints = minHP
             }
             
-            warrior2.lifePoints = 0
             return
         }
         
@@ -81,8 +88,13 @@ class Warrior {
             priest.makeAGreatHeal(at: warrior2)
         }
         
-        guard !warrior2.hasMaxHP else {
-            warrior2.lifePoints = warrior2.maxHP
+        guard warrior2.lifePoints < maxHP else {
+            
+            if warrior2.lifePoints > maxHP {
+                print("\n📈 Excessive heal (+ \(warrior2.lifePoints - maxHP))")
+                warrior2.lifePoints = warrior2.maxHP
+            }
+            
             return
         }
     }

@@ -63,7 +63,7 @@ class GameManager {
     
     /// Method to print the game instruction
     private func printGameInstruction() {
-        print("Welcome 🥳")
+        print("🅼🅾🆁🆃🅰🅻 🆂🆀🆄🅰🅳®")
     }
     
     /// Method to create players
