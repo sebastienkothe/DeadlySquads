@@ -31,17 +31,12 @@ class Player {
     }
     
     var canPlay: Bool {
-        var aliveOrFrozenWarrior = 0
-        for warrior in warriors where !warrior.isAlive || warrior.isFrozen {
-            aliveOrFrozenWarrior += 1
-        }
         
-        if aliveOrFrozenWarrior == 3 {
-            print("\n🚫 \(self.name.uppercased()) you can't play❗️")
-            return false
-        } else {
+        for warrior in warriors where warrior.isAlive && !warrior.isFrozen {
             return true
         }
+        print("\n🚫 \(self.name.uppercased()) you can't play❗️")
+        return false
     }
     
     // MARK: Internals methods
@@ -101,7 +96,7 @@ class Player {
                 print("\n🙅‍♂️ You can't choose a frozen ally 🥶")
                 continue
             }
-
+            
             return warriorSelected
             
         }
@@ -194,7 +189,7 @@ class Player {
             return warriorSelected
         }
     }
-
+    
     /// Method to target an enemy
     func targetAnEnemy(enemyPlayer: Player) -> Warrior {
         let selectionIsCorrect: Bool = false
