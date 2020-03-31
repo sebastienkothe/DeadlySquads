@@ -34,12 +34,13 @@ class GameManager {
     /// Number required to unlock the chest
     private static let numberToUnlockTheChest = 0
     
-    /// Interval used to choose the bonus weapon. We can change this value if we add more weapons
+    /// Interval used to choose the bonus weapon
     private static let intervalForTheWeapons = 1...2
     
     // MARK: - Private properties
     
     private var players: [Player] = []
+    
     private let numberOfPlayersRequired = 2
     private let numberOfWarriorsRequired = 3
     
@@ -61,7 +62,7 @@ class GameManager {
     
     // MARK: - Private methods
     
-    /// Method to print the game instruction
+    /// Method to print the game title
     private func printGameInstruction() {
         print("🅳🅴🅰🅳🅻🆈 🆂🆀🆄🅰🅳🆂®")
     }
@@ -79,7 +80,7 @@ class GameManager {
         players.append(player)
     }
     
-    /// Method to create warriors and initialize their characteristics
+    /// Method to create warriors
     private func startTeamCreationPhase() {
         for player in players {
             
@@ -104,8 +105,11 @@ class GameManager {
     
     /// Method to handle the fight phase
     private func handleFightPhase() {
+        
         while !isGameOver {
+            
             counter += 1
+            
             for player in players where !isGameOver && player.canPlay {
                 let warriorSelected = player.chooseAWarrior()
                 bringUpAChest(for: warriorSelected)
@@ -113,6 +117,7 @@ class GameManager {
                 thawWarriors()
                 actionFrom(player: player, factionTargeted: factionTargeted, warriorSelected: warriorSelected)
             }
+            
         }
         
     }
@@ -120,8 +125,8 @@ class GameManager {
     /// Method to thaw the warriors
     private func thawWarriors() {
         for player in players {
-            for warrior in player.warriors {
-                warrior.isFreeze = false
+            for warrior in player.warriors where warrior.isFrozen {
+                warrior.isFrozen = !warrior.isFrozen
             }
         }
     }
@@ -175,7 +180,7 @@ class GameManager {
         }
     }
     
-    /// Method to handle the two types actions possible
+    /// Method to handle the actions
     private func actionFrom(player: Player, factionTargeted: WarriorFaction, warriorSelected: Warrior) {
         switch factionTargeted {
         case .ally:
@@ -183,8 +188,8 @@ class GameManager {
             warriorSelected.heal(allyTargeted)
         case .enemy:
             guard let opponentPlayer = getOpponentPlayer(from: player) else { return }
-            let enemytargeted = player.targetAnEnemy(enemyPlayer: opponentPlayer)
-            warriorSelected.attack(enemytargeted)
+            let enemyTargeted = player.targetAnEnemy(enemyPlayer: opponentPlayer)
+            warriorSelected.attack(enemyTargeted)
         }
         
     }

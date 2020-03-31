@@ -13,15 +13,15 @@ class Rogue : Warrior {
     // MARK: Internals methods
     
     /// Method to handle the critical strikes
-    func makeACriticalStrike(to enemy: Warrior) {
+    func makeACriticalStrike(to enemyWarrior: Warrior) {
         let criticalStrikeDamage = self.weapon.damage * 3
         
         guard chanceToMakeACriticalStrike == numberToUnlockTheCriticalStrike else {
             return
         }
         
-        print("\n🙀 \(self.name) made a critical strike (- \(criticalStrikeDamage) HP) 🤯")
-        enemy.lifePoints -= criticalStrikeDamage
+        print("\n🙀 \(self.name.uppercased()) makes a critical strike to \(enemyWarrior.name.uppercased()) (- \(criticalStrikeDamage) HP) 🤯")
+        enemyWarrior.lifePoints -= criticalStrikeDamage
     }
     
     // MARK: - Private properties
