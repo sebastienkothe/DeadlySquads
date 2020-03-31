@@ -12,14 +12,14 @@ class Priest : Warrior {
     
      // MARK: Internals methods
     
-    func makeAGreatHeal(at warrior: Warrior) {
+    func makeAGreatHeal(to allyWarrior: Warrior) {
         
         guard chanceToMakeAGreatHeal == numberToUnlockTheGreatHeal else {
             return
         }
         
-        print("\n🧑‍⚕️ \(self.name) cast a great heal (+ \(amountOfGreatHeal) HP) 🙌")
-        warrior.lifePoints += amountOfGreatHeal
+        print("\n🧑‍⚕️ \(self.name.uppercased()) cast a great heal to \(allyWarrior.name.uppercased()) (+ \(amountOfGreatHeal) HP) 🙌")
+        allyWarrior.lifePoints += amountOfGreatHeal
     }
     
     // MARK: - Private properties

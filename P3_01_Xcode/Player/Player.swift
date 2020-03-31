@@ -31,17 +31,12 @@ class Player {
     }
     
     var canPlay: Bool {
-        var aliveOrFrozenWarrior = 0
-        for warrior in warriors where !warrior.isAlive || warrior.isFreeze {
-            aliveOrFrozenWarrior += 1
-        }
         
-        if aliveOrFrozenWarrior == 3 {
-            print("\n🚫 \(self.name.uppercased()) You can't play❗️")
-            return false
-        } else {
+        for warrior in warriors where warrior.isAlive && !warrior.isFrozen {
             return true
         }
+        print("\n🚫 \(self.name.uppercased()) you can't play❗️")
+        return false
     }
     
     // MARK: Internals methods
@@ -92,16 +87,16 @@ class Player {
                 continue
             }
             
-            if !warriorSelected.isAlive {
+            guard warriorSelected.isAlive else {
                 print("\n🖐 You can't choose a dead warrior ☠️")
                 continue
             }
             
-            guard !warriorSelected.isFreeze else {
+            guard !warriorSelected.isFrozen else {
                 print("\n🙅‍♂️ You can't choose a frozen ally 🥶")
                 continue
             }
-
+            
             return warriorSelected
             
         }
@@ -111,20 +106,19 @@ class Player {
     /// Method to print the warriors list
     func printListOfWarriors() {
         for (index, warrior) in warriors.enumerated() {
-            print("\(index + 1). 👤 \(warrior.name.uppercased()) ⎜ 🤡 \(type(of: warrior)) ⎜ \(showTheHealth(warrior: warrior)) (\(warrior.lifePoints) HP) ⎜ 💪 \(warrior.attackPoints) ⎜ 🗡 \(type(of: warrior.weapon)) ⎜ 🧊 \(warrior.isFreeze)")
+            print("\(index + 1). 👤 \(warrior.name.uppercased()) ⎜ 🤡 \(type(of: warrior)) ⎜ \(convertLifePointsToHeart(for: warrior)) (\(warrior.lifePoints) HP) ⎜ 💪 \(warrior.attackPoints) ⎜ 🗡 \(type(of: warrior.weapon)) ⎜ 🧊 \(warrior.isFrozen)")
         }
     }
     
     /// Method to choose the faction
     func chooseFaction() -> WarriorFaction {
         
-        if !self.canHealHisWarriors {
+        guard self.canHealHisWarriors else {
             print("\nYou can't heal your allies❗️\nYou must attack an opponent 😈")
             return .enemy
         }
         
         let selectionIsCorrect: Bool = false
-        
         
         while !selectionIsCorrect {
             print("\nTarget :\n1. Ally\n2. Enemy")
@@ -183,7 +177,7 @@ class Player {
             }
             
             guard !warriorSelected.hasMaxHP else {
-                print("\nYou cannot Heal this ally because his health points is over the limit authorized❗️\n")
+                print("\n🙅🏼‍♀️ This ally has max HP❗️\n")
                 continue
             }
             
@@ -195,7 +189,7 @@ class Player {
             return warriorSelected
         }
     }
-
+    
     /// Method to target an enemy
     func targetAnEnemy(enemyPlayer: Player) -> Warrior {
         let selectionIsCorrect: Bool = false
@@ -358,7 +352,7 @@ class Player {
         for warriorName in allWarriorsNames {
             
             guard inputName.lowercased() != warriorName.lowercased() else {
-                print("⛔️ Name already taken")
+                print("\n⛔️ Name already taken 🙁")
                 return true
             }
             
@@ -368,7 +362,7 @@ class Player {
     }
     
     /// Method to show the health points
-    private func showTheHealth(warrior: Warrior) -> String {
+    private func convertLifePointsToHeart(for warrior: Warrior) -> String {
         
         if warrior.lifePoints > 0 && warrior.lifePoints <= 33 {
             return "❤️"

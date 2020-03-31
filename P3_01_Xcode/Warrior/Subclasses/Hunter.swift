@@ -12,14 +12,14 @@ class Hunter : Warrior {
     
     // MARK: Internals methods
     
-    func callAWildBeast(to enemyWarrior: Warrior) {
+    func callAWildBeast(on enemyWarrior: Warrior) {
         
         guard chanceToCallABeast == numberToUnlockTheCall else {
             return
         }
         
         enemyWarrior.lifePoints -= beastDamage
-        print("\n\(self.name) dropped a wild beast on \(enemyWarrior.name) (- \(beastDamage) HP) 🐊")
+        print("\n\(self.name.uppercased()) cast［callAWildBeast］on \(enemyWarrior.name.uppercased()) (- \(beastDamage) HP) 🐊")
         
     }
     

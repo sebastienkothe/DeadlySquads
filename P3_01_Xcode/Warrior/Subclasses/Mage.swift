@@ -13,14 +13,14 @@ class Mage : Warrior {
     // MARK: Internals methods
     
     /// Method to freeze an enemy
-    func freeze(enemyWarrior: Warrior) -> Bool {
+    func freeze(_ enemyWarrior: Warrior) -> Bool {
         
         guard chanceToFreezeTheEnemy == numberToUnlockTheFreeze else {
             return false
         }
         
         enemyWarrior.lifePoints -= frostDamage
-        print("\n\(self.name) freeze \(enemyWarrior.name) (- \(frostDamage) HP) 🥶")
+        print("\n\(self.name.uppercased()) freeze \(enemyWarrior.name.uppercased()) (- \(frostDamage) HP) 🥶")
         return true
     }
     
