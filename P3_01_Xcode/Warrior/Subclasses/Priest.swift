@@ -10,7 +10,7 @@ import Foundation
 
 class Priest : Warrior {
     
-     // MARK: Internals methods
+    // MARK: Internals methods
     
     func makeAGreatHeal(to allyWarrior: Warrior) {
         

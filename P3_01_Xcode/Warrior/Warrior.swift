@@ -40,6 +40,14 @@ class Warrior {
     private var maxHP = 100
     private var minHP = 0
     
+    private var isOverheal: Bool {
+        lifePoints > maxHP
+    }
+    
+    private var isOverkill: Bool {
+        lifePoints < minHP
+    }
+    
     // MARK: Internals methods
     
     /// Method to attack an enemy
@@ -66,7 +74,7 @@ class Warrior {
         guard enemyTargeted.isAlive else {
             print("\n⚰️ \(enemyTargeted.name.uppercased()) is dead❗️")
             
-            if enemyTargeted.lifePoints < minHP {
+            if enemyTargeted.isOverkill {
                 print("\n‼️ OVERKILL ‼️\n📊 Excessive damage (+ \(abs(enemyTargeted.lifePoints)))")
                 enemyTargeted.lifePoints = minHP
             }
@@ -89,14 +97,12 @@ class Warrior {
             priest.makeAGreatHeal(to: allyTargeted)
         }
         
-        guard allyTargeted.lifePoints < maxHP else {
-            
-            if allyTargeted.lifePoints > maxHP {
-                print("\n📈 Excessive heal (+ \(allyTargeted.lifePoints - maxHP))")
-                allyTargeted.lifePoints = allyTargeted.maxHP
-            }
+        guard !allyTargeted.isOverheal else {
+            print("\n📈 Excessive heal (+ \(allyTargeted.lifePoints - maxHP))")
+            allyTargeted.lifePoints = allyTargeted.maxHP
             
             return
         }
+        
     }
 }
