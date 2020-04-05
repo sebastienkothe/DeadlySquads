@@ -8,18 +8,16 @@
 
 import Foundation
 
-class Hunter : Warrior {
+class Hunter: Warrior {
     
     // MARK: Internals methods
     
-    func callAWildBeast(on enemyWarrior: Warrior) {
+    override func attack(_ enemyTargeted: Warrior) {
+        super.attack(enemyTargeted)
         
-        guard chanceToCallABeast == numberToUnlockTheCall else {
-            return
+        if enemyTargeted.isAlive {
+            callAWildBeast(on: enemyTargeted)
         }
-        
-        enemyWarrior.lifePoints -= beastDamage
-        print("\n\(self.name.uppercased()) cast［callAWildBeast］on \(enemyWarrior.name.uppercased()) (- \(beastDamage) HP) 🐊")
         
     }
     
@@ -28,6 +26,19 @@ class Hunter : Warrior {
     private let numberToUnlockTheCall = 1
     private let chanceToCallABeast = Int.random(in: 1...1)
     
-    private let beastDamage = 40
+    private let beastDamage = 100
+    
+    // MARK: - Private methods
+    
+    private func callAWildBeast(on enemyWarrior: Warrior) {
+        
+        guard chanceToCallABeast == numberToUnlockTheCall else {
+            return
+        }
+        
+        print("\n🐊 \(name.uppercased()) cast［callAWildBeast］on \(enemyWarrior.name.uppercased()) (- \(beastDamage) HP)❗️")
+        enemyWarrior.lifePoints -= beastDamage
+        
+    }
     
 }

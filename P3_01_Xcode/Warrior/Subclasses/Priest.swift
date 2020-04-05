@@ -8,18 +8,13 @@
 
 import Foundation
 
-class Priest : Warrior {
+class Priest: Warrior {
     
-    // MARK: Internals methods
+    // MARK: - Internals methods
     
-    func makeAGreatHeal(to allyWarrior: Warrior) {
-        
-        guard chanceToMakeAGreatHeal == numberToUnlockTheGreatHeal else {
-            return
-        }
-        
-        print("\n🧑‍⚕️ \(self.name.uppercased()) cast a great heal to \(allyWarrior.name.uppercased()) (+ \(amountOfGreatHeal) HP) 🙌")
-        allyWarrior.lifePoints += amountOfGreatHeal
+    override func heal(_ allyTargeted: Warrior) {
+        super.heal(allyTargeted)
+        makeAGreatHeal(to: allyTargeted)
     }
     
     // MARK: - Private properties
@@ -28,5 +23,17 @@ class Priest : Warrior {
     private let chanceToMakeAGreatHeal = Int.random(in: 1...1)
     
     private let amountOfGreatHeal = 60
+    
+    // MARK: - Private methods
+    
+    private func makeAGreatHeal(to allyWarrior: Warrior) {
+        
+        guard chanceToMakeAGreatHeal == numberToUnlockTheGreatHeal else {
+            return
+        }
+        
+        print("\n🧑‍⚕️ \(name.uppercased()) cast a great heal to \(allyWarrior.name.uppercased()) (+ \(amountOfGreatHeal) HP) 🙌")
+        allyWarrior.lifePoints += amountOfGreatHeal
+    }
     
 }

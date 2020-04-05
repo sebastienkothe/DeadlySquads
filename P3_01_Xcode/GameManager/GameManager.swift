@@ -40,7 +40,6 @@ class GameManager {
     // MARK: - Private properties
     
     private var players: [Player] = []
-    
     private let numberOfPlayersRequired = 2
     private let numberOfWarriorsRequired = 3
     
