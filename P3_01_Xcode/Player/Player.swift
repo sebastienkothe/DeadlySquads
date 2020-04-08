@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Player {
+final class Player {
     
     init(id: Int) {
         self.id = id

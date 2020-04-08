@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Priest: Warrior {
+final class Priest: Warrior {
     
     // MARK: - Internals methods
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Hunter: Warrior {
+final class Hunter: Warrior {
     
     // MARK: Internals methods
     

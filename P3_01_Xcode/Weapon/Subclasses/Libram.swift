@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Libram: Weapon {
+final class Libram: Weapon {
     
     init() {
         super.init(damage: 6)

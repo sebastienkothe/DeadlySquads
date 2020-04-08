@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Mage: Warrior {
+final class Mage: Warrior {
     
     // MARK: - Internals methods
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GameManager {
+final class GameManager {
     
     // MARK: - Internal methods
     
@@ -25,19 +25,15 @@ class GameManager {
         
         handleEndGame()
     }
-    
-    // MARK: - Private static properties
+
+    // MARK: - Private properties
     
     /// Interval used to unlock the chest
-    private static let intervalForTheChest = 0...3
-    
+    private let intervalForTheChest = 0...3
     /// Number required to unlock the chest
-    private static let numberToUnlockTheChest = 0
-    
+    private let numberToUnlockTheChest = 0
     /// Interval used to choose the bonus weapon
-    private static let intervalForTheWeapons = 1...2
-    
-    // MARK: - Private properties
+    private let intervalForTheWeapons = 1...2
     
     private var players: [Player] = []
     private let numberOfPlayersRequired = 2
@@ -133,9 +129,9 @@ class GameManager {
     /// Method to bring up a chest
     private func bringUpAChest(for warrior: Warrior) {
         
-        let randomNumber = generateRandomNumber(range: GameManager.intervalForTheChest)
+        let randomNumber = generateRandomNumber(range: intervalForTheChest)
         
-        if randomNumber == GameManager.numberToUnlockTheChest {
+        if randomNumber == numberToUnlockTheChest {
             
             guard let randomWeapon = selectTheWeapon() else {
                 return
@@ -168,7 +164,7 @@ class GameManager {
     
     /// Method to select the weapon type
     private func selectTheWeaponType() -> WeaponType? {
-        let randomNumber = generateRandomNumber(range: GameManager.intervalForTheWeapons)
+        let randomNumber = generateRandomNumber(range: intervalForTheWeapons)
         switch randomNumber {
         case 1:
             return WeaponType.axe

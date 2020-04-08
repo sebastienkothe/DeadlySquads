@@ -3,4 +3,178 @@
    uuid = "337DE101-8E27-44A1-BA67-EFED1BE44815"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D82D77FB-4823-47E0-80AD-2D249851AD85"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "P3_01_Xcode/Player/Player.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "chooseAWarrior()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F58201BA-3CAC-4F49-8E37-86CEB5E21B74"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "P3_01_Xcode/Warrior/Subclasses/Rogue.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "Rogue"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "F58201BA-3CAC-4F49-8E37-86CEB5E21B74 - e43ac31ab9eaebed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "P3_01_Xcode.Rogue.deinit"
+                  moduleName = "P3_01_Xcode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastienkothe/Documents/Programmes_Xcode/P3_01_Xcode/P3_01_Xcode/Warrior/Subclasses/Rogue.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "F58201BA-3CAC-4F49-8E37-86CEB5E21B74 - b8885d8fac6f057e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "P3_01_Xcode.Rogue.__deallocating_deinit"
+                  moduleName = "P3_01_Xcode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastienkothe/Documents/Programmes_Xcode/P3_01_Xcode/P3_01_Xcode/Warrior/Subclasses/Rogue.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "F58201BA-3CAC-4F49-8E37-86CEB5E21B74 - 4bc25dbb854f2a0a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "P3_01_Xcode.Rogue.__allocating_init(name: Swift.String, attackPoints: Swift.Int, weapon: P3_01_Xcode.Weapon) -&gt; P3_01_Xcode.Rogue"
+                  moduleName = "P3_01_Xcode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastienkothe/Documents/Programmes_Xcode/P3_01_Xcode/P3_01_Xcode/Warrior/Subclasses/Rogue.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "25">
+               </Location>
+               <Location
+                  uuid = "F58201BA-3CAC-4F49-8E37-86CEB5E21B74 - e6309e8d7198cde0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "P3_01_Xcode.Rogue.init(name: Swift.String, attackPoints: Swift.Int, weapon: P3_01_Xcode.Weapon) -&gt; P3_01_Xcode.Rogue"
+                  moduleName = "P3_01_Xcode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastienkothe/Documents/Programmes_Xcode/P3_01_Xcode/P3_01_Xcode/Warrior/Subclasses/Rogue.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "211">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4B6112C1-BAB9-4035-90AB-199D20F81EC8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "P3_01_Xcode/Warrior/Subclasses/Rogue.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "10"
+            endingLineNumber = "10"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "4B6112C1-BAB9-4035-90AB-199D20F81EC8 - e43ac31ab9eaebed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "P3_01_Xcode.Rogue.deinit"
+                  moduleName = "P3_01_Xcode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastienkothe/Documents/Programmes_Xcode/P3_01_Xcode/P3_01_Xcode/Warrior/Subclasses/Rogue.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "4B6112C1-BAB9-4035-90AB-199D20F81EC8 - b8885d8fac6f057e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "P3_01_Xcode.Rogue.__deallocating_deinit"
+                  moduleName = "P3_01_Xcode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastienkothe/Documents/Programmes_Xcode/P3_01_Xcode/P3_01_Xcode/Warrior/Subclasses/Rogue.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "4B6112C1-BAB9-4035-90AB-199D20F81EC8 - 4bc25dbb854f2a0a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "P3_01_Xcode.Rogue.__allocating_init(name: Swift.String, attackPoints: Swift.Int, weapon: P3_01_Xcode.Weapon) -&gt; P3_01_Xcode.Rogue"
+                  moduleName = "P3_01_Xcode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastienkothe/Documents/Programmes_Xcode/P3_01_Xcode/P3_01_Xcode/Warrior/Subclasses/Rogue.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "25">
+               </Location>
+               <Location
+                  uuid = "4B6112C1-BAB9-4035-90AB-199D20F81EC8 - e6309e8d7198cde0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "P3_01_Xcode.Rogue.init(name: Swift.String, attackPoints: Swift.Int, weapon: P3_01_Xcode.Weapon) -&gt; P3_01_Xcode.Rogue"
+                  moduleName = "P3_01_Xcode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sebastienkothe/Documents/Programmes_Xcode/P3_01_Xcode/P3_01_Xcode/Warrior/Subclasses/Rogue.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "211">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
