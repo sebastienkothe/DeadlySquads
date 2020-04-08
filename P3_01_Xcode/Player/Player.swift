@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Player {
+final class Player {
     
     init(id: Int) {
         self.id = id
@@ -35,11 +35,11 @@ class Player {
         for warrior in warriors where warrior.isAlive && !warrior.isFrozen {
             return true
         }
-        print("\n🚫 \(self.name.uppercased()) you can't play❗️")
+        print("\n🚫 \(name.uppercased()) you can't play❗️")
         return false
     }
     
-    // MARK: Internals methods
+    // MARK: - Internals methods
     
     /// Method to create Warriors
     func createWarriors(numberOfWarriors: Int, opponentPlayer: Player) {
@@ -51,7 +51,7 @@ class Player {
     
     /// Method to print the players' names
     func printPlayerName() {
-        print("\n➡️ \(self.name.uppercased())")
+        print("\n➡️ \(name.uppercased())")
     }
     
     /// Method to select a warrior
@@ -70,7 +70,7 @@ class Player {
             }
             
             guard 1...warriors.count ~= choice else {
-                print("⛔️ Enter a number between 1 and \(warriors.count)")
+                print("\n⛔️ Enter a number between 1 and \(warriors.count)")
                 continue
             }
             
@@ -78,11 +78,11 @@ class Player {
             
             switch choice {
             case 1:
-                warriorSelected = self.warriors[0]
+                warriorSelected = warriors[0]
             case 2:
-                warriorSelected = self.warriors[1]
+                warriorSelected = warriors[1]
             case 3:
-                warriorSelected = self.warriors[2]
+                warriorSelected = warriors[2]
             default:
                 continue
             }
@@ -113,7 +113,7 @@ class Player {
     /// Method to choose the faction
     func chooseFaction() -> WarriorFaction {
         
-        guard self.canHealHisWarriors else {
+        guard canHealHisWarriors else {
             print("\nYou can't heal your allies❗️\nYou must attack an opponent 😈")
             return .enemy
         }
@@ -129,7 +129,7 @@ class Player {
             }
             
             guard 1...2 ~= response else {
-                print("⛔️ Enter a number between 1 and 2")
+                print("\n⛔️ Enter a number between 1 and 2")
                 continue
             }
             
@@ -151,7 +151,7 @@ class Player {
         
         while !selectionIsCorrect {
             print("\nWho to heal ?")
-            self.printListOfWarriors()
+            printListOfWarriors()
             
             guard let allySelected = getUserInputAsInt() else {
                 printErrorsMessages(message: .enterANumber)
@@ -159,7 +159,7 @@ class Player {
             }
             
             guard 1...warriors.count ~= allySelected else {
-                print("⛔️ Enter a number between 1 and \(warriors.count)")
+                print("\n⛔️ Enter a number between 1 and \(warriors.count)")
                 continue
             }
             
@@ -167,17 +167,17 @@ class Player {
             
             switch allySelected {
             case 1:
-                warriorSelected = self.warriors[0]
+                warriorSelected = warriors[0]
             case 2:
-                warriorSelected = self.warriors[1]
+                warriorSelected = warriors[1]
             case 3:
-                warriorSelected = self.warriors[2]
+                warriorSelected = warriors[2]
             default:
                 continue
             }
             
             guard !warriorSelected.hasMaxHP else {
-                print("\n🙅🏼‍♀️ This ally has max HP❗️\n")
+                print("\n🙅🏼‍♀️ This ally has max HP❗️")
                 continue
             }
             
@@ -204,7 +204,7 @@ class Player {
             }
             
             guard 1...enemyPlayer.warriors.count ~= enemySelected else {
-                print("⛔️ Enter a number between 1 and \(enemyPlayer.warriors.count)\n")
+                print("\n⛔️ Enter a number between 1 and \(enemyPlayer.warriors.count)")
                 continue
             }
             
@@ -249,7 +249,7 @@ class Player {
         return false
     }
     
-    // MARK: Private methods
+    // MARK: - Private methods
     
     /// Method to create a single warrior with his name
     private func createSingleWarrior(opponentPlayer: Player, warriorsNames: [String]) -> Warrior {

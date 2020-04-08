@@ -8,25 +8,35 @@
 
 import Foundation
 
-class Rogue : Warrior {
+final class Rogue: Warrior {
     
-    // MARK: Internals methods
+    // MARK: - Internals methods
     
-    /// Method to handle the critical strikes
-    func makeACriticalStrike(to enemyWarrior: Warrior) {
-        let criticalStrikeDamage = self.weapon.damage * 3
+    override func attack(_ enemyTargeted: Warrior) {
+        super.attack(enemyTargeted)
         
-        guard chanceToMakeACriticalStrike == numberToUnlockTheCriticalStrike else {
-            return
+        if enemyTargeted.isAlive {
+            makeACriticalStrike(to: enemyTargeted)
         }
-        
-        print("\n🙀 \(self.name.uppercased()) makes a critical strike to \(enemyWarrior.name.uppercased()) (- \(criticalStrikeDamage) HP) 🤯")
-        enemyWarrior.lifePoints -= criticalStrikeDamage
     }
     
     // MARK: - Private properties
     
     private let numberToUnlockTheCriticalStrike = 1
     private let chanceToMakeACriticalStrike = Int.random(in: 1...1)
+    
+    // MARK: - Private methods
+    
+    private func makeACriticalStrike(to enemyWarrior: Warrior) {
+        
+        let criticalStrikeDamage = weapon.damage * 10
+        
+        guard chanceToMakeACriticalStrike == numberToUnlockTheCriticalStrike else {
+            return
+        }
+        
+        print("\n🙀 \(name.uppercased()) makes a critical strike to \(enemyWarrior.name.uppercased()) (- \(criticalStrikeDamage) HP) 🤯")
+        enemyWarrior.lifePoints -= criticalStrikeDamage
+    }
     
 }

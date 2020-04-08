@@ -8,20 +8,17 @@
 
 import Foundation
 
-class Mage : Warrior {
+final class Mage: Warrior {
     
-    // MARK: Internals methods
+    // MARK: - Internals methods
     
-    /// Method to freeze an enemy
-    func freeze(_ enemyWarrior: Warrior) -> Bool {
+    override func attack(_ enemyTargeted: Warrior) {
+        super.attack(enemyTargeted)
         
-        guard chanceToFreezeTheEnemy == numberToUnlockTheFreeze else {
-            return false
+        if enemyTargeted.isAlive {
+            enemyTargeted.isFrozen = freeze(enemyTargeted)
         }
         
-        enemyWarrior.lifePoints -= frostDamage
-        print("\n\(self.name.uppercased()) freeze \(enemyWarrior.name.uppercased()) (- \(frostDamage) HP) 🥶")
-        return true
     }
     
     // MARK: - Private properties
@@ -30,7 +27,22 @@ class Mage : Warrior {
     private let chanceToFreezeTheEnemy = Int.random(in: 1...1)
     
     /// Damage output for the special ability
-    private let frostDamage = 30
+    private let frostDamage = 100
+    
+    // MARK: - Private methods
+    
+    /// Method to freeze an enemy
+    private func freeze(_ enemyWarrior: Warrior) -> Bool {
+        
+        guard chanceToFreezeTheEnemy == numberToUnlockTheFreeze else {
+            return false
+        }
+        
+        print("\n🥶 \(name.uppercased()) freeze \(enemyWarrior.name.uppercased()) (- \(frostDamage) HP)❗️")
+        enemyWarrior.lifePoints -= frostDamage
+        
+        return true
+    }
     
 }
 

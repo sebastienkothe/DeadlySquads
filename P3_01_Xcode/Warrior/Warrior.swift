@@ -21,9 +21,30 @@ class Warrior {
     
     /// Property to check if the warrior is
     var isFrozen = false
-    
     let name: String
-    var lifePoints: Int
+    
+    var lifePoints: Int {
+        
+        didSet {
+            
+            if !isAlive {
+                print("\n⚰️ \(name.uppercased()) is dead❗️")
+            }
+            
+            if isOverkill {
+                print("\n📊 Excessive damage (+ \(abs(lifePoints)))")
+                lifePoints = minHP
+            }
+            
+            if isOverheal {
+                print("\n📈 Excessive heal (+ \(lifePoints - maxHP))")
+                lifePoints = maxHP
+            }
+            
+        }
+        
+    }
+    
     var attackPoints: Int
     var weapon: Weapon
     
@@ -48,61 +69,25 @@ class Warrior {
         lifePoints < minHP
     }
     
-    // MARK: Internals methods
+    // MARK: - Internals methods
     
     /// Method to attack an enemy
     func attack(_ enemyTargeted: Warrior) {
         
-        let regularDamage = self.attackPoints + self.weapon.damage
+        let regularDamage = attackPoints + weapon.damage
+        
+        print("\n💥 \(name.uppercased()) attacks \(enemyTargeted.name.uppercased()) (- \(regularDamage) HP)❗️")
         enemyTargeted.lifePoints -= regularDamage
-        print("\n💥 \(self.name.uppercased()) attacks \(enemyTargeted.name.uppercased()) (- \(regularDamage) HP)❗️")
-        
-        switch self {
-        case is Rogue:
-            let rogue = self as! Rogue
-            rogue.makeACriticalStrike(to: enemyTargeted)
-        case is Mage:
-            let mage = self as! Mage
-            enemyTargeted.isFrozen = mage.freeze(enemyTargeted)
-        case is Hunter:
-            let hunter = self as! Hunter
-            hunter.callAWildBeast(on: enemyTargeted)
-        default:
-            break
-        }
-        
-        guard enemyTargeted.isAlive else {
-            print("\n⚰️ \(enemyTargeted.name.uppercased()) is dead❗️")
-            
-            if enemyTargeted.isOverkill {
-                print("\n‼️ OVERKILL ‼️\n📊 Excessive damage (+ \(abs(enemyTargeted.lifePoints)))")
-                enemyTargeted.lifePoints = minHP
-            }
-            
-            return
-        }
-        
     }
     
     /// Method to heal an ally
     func heal(_ allyTargeted: Warrior) {
         
-        let regularHeal = self.attackPoints + self.weapon.damage
+        let regularHeal = attackPoints + weapon.damage
         
-        print("\n⛑ \(self.name.uppercased()) heals \(allyTargeted.name.uppercased()) (+ \(regularHeal) HP)❗️")
+        print("\n⛑ \(name.uppercased()) heals \(allyTargeted.name.uppercased()) (+ \(regularHeal) HP)❗️")
         allyTargeted.lifePoints += regularHeal
         
-        if self is Priest {
-            let priest = self as! Priest
-            priest.makeAGreatHeal(to: allyTargeted)
-        }
-        
-        guard !allyTargeted.isOverheal else {
-            print("\n📈 Excessive heal (+ \(allyTargeted.lifePoints - maxHP))")
-            allyTargeted.lifePoints = allyTargeted.maxHP
-            
-            return
-        }
-        
     }
+    
 }
